@@ -1,9 +1,9 @@
-#Leetcode by Tag - easy and medium
-##Thanks to the reference in https://github.com/resumejob/Leetcode-retag
+# Leetcode by Tag - easy and medium
+## Thanks to the reference in https://github.com/resumejob/Leetcode-retag
 
-###1. Link List
+### 1. Link List
 
-Easy: 
+*Easy:* 
 206. Reverse Linked List
 141. Linked List Cycle
 83. Remove Duplicates from Sorted List
@@ -16,7 +16,7 @@ Easy:
 1290. Convert Binary Number in a Linked List to Integer
 1474. Delete N Nodes After M Nodes of a Linked List
 
-Medium:
+*Medium:*
 92. Reverse Linked List II
 143. Reorder List
 82. Remove Duplicates from Sorted List II
@@ -44,9 +44,9 @@ Medium:
 1721. Swapping Nodes in a Linked List
 
 
-###2. Tree
+### 2. Tree
 
-Easy: 
+*Easy:* 
 145. Binary Tree Postorder Traversal
 94. Binary Tree Inorder Traversal
 144. Binary Tree Preorder Traversal
@@ -76,7 +76,7 @@ Easy:
 700. Search in a Binary Search Tree
 637. Average of Levels in Binary Tree
 
-Medium:
+*Medium:*
 102. Binary Tree Level Order Traversal
 103. Binary Tree Zigzag Level Order Traversal
 107. Binary Tree Level Order Traversal II
@@ -130,9 +130,9 @@ Medium:
 156. Binary Tree Upside Down
 
 
-###3. Stack 
+### 3. Stack 
 
-Easy: 
+*Easy:* 
 20. Valid Parentheses
 1047. Remove All Adjacent Duplicates In String
 1021. Remove Outermost Parentheses
@@ -146,7 +146,7 @@ Easy:
 1475. Final Prices With a Special Discount in a Shop
 1614. Maximum Nesting Depth of the Parentheses
 
-Medium:
+*Medium:*
 1190. Reverse Substrings Between Each Pair of Parentheses
 394. Decode String
 456. 132 Pattern
@@ -174,17 +174,17 @@ Medium:
 1472. Design Browser History
 
 
-###4. Heap 
+### 4. Heap 
 
-Easy: 
+*Easy:* 
 703. Kth Largest Element in a Stream
 1046. Last Stone Weight
 1464. Maximum Product of Two Elements in an Array
 506. Relative Ranks
 
-Medium:
+*Medium:*
 215. Kth Largest Element in an Array
- 973. K Closest Points to Origin
+973. K Closest Points to Origin
 347. Top K Frequent Elements
 692. Top K Frequent Words
 451. Sort Characters By Frequency
@@ -200,9 +200,9 @@ Medium:
 1642. Furthest Building You Can Reach
 
 
-###5. Binary Search 
+### 5. Binary Search 
 
-Easy: 
+*Easy:* 
 69. Sqrt(x)
 704. Binary Search
 35. Search Insert Position
@@ -225,7 +225,7 @@ Easy:
 1064. Fixed Point
 1608. Special Array With X Elements Greater Than or Equal X
 
-Medium:
+*Medium:*
 300. Longest Increasing Subsequence
 34. Find First and Last Position of Element in Sorted Array
 74. Search a 2D Matrix
