@@ -3,24 +3,24 @@
 
 ### 1. Link List
 
-*Easy:* 
-206. Reverse Linked List
-141. Linked List Cycle
-83. Remove Duplicates from Sorted List
-234. Palindrome Linked List
-203. Remove Linked List Elements
-237. Delete Node in a Linked List
-876. Middle of the Linked List
-160. Intersection of Two Linked Lists
-21. Merge Two Sorted Lists
-1290. Convert Binary Number in a Linked List to Integer
-1474. Delete N Nodes After M Nodes of a Linked List
+*Easy:*<br />
+206. Reverse Linked List<br />
+141. Linked List Cycle<br />
+83. Remove Duplicates from Sorted List<br />
+234. Palindrome Linked List<br />
+203. Remove Linked List Elements<br />
+237. Delete Node in a Linked List<br />
+876. Middle of the Linked List<br />
+160. Intersection of Two Linked Lists<br />
+21. Merge Two Sorted Lists<br />
+1290. Convert Binary Number in a Linked List to Integer<br />
+1474. Delete N Nodes After M Nodes of a Linked List<br />
 
-*Medium:*
-92. Reverse Linked List II
-143. Reorder List
-82. Remove Duplicates from Sorted List II
-19. Remove Nth Node From End of List
+*Medium:*<br />
+92. Reverse Linked List II<br />
+143. Reorder List<br />
+82. Remove Duplicates from Sorted List II<br />
+19. Remove Nth Node From End of List<br />
 148. Sort List
 147. Insertion Sort List
 86. Partition List
