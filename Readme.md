@@ -1,7 +1,7 @@
 # Leetcode by Tag - easy and medium
 ## Thanks to the reference in https://github.com/resumejob/Leetcode-retag
 
-### 1. Link List
+### 1. Linked List
 
 *Easy:*<br />
 206. Reverse Linked List<br />
