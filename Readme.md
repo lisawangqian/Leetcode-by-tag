@@ -76,7 +76,7 @@
 700. Search in a Binary Search Tree<br />
 637. Average of Levels in Binary Tree<br />
 
-*Medium:*
+*Medium:*<br />
 102. Binary Tree Level Order Traversal<br />
 103. Binary Tree Zigzag Level Order Traversal<br />
 107. Binary Tree Level Order Traversal II<br />
