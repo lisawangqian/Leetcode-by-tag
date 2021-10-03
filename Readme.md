@@ -44,7 +44,7 @@
 1721. Swapping Nodes in a Linked List<br />
 
 
-### 2. Tree
+### 2. Binary(N-ary) Tree
 
 *Easy:*<br /> 
 145. Binary Tree Postorder Traversal<br />
