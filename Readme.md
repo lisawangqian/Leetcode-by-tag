@@ -94,17 +94,9 @@
 199. Binary Tree Right Side View<br />
 116. Populating Next Right Pointers in Each Node<br />
 515. Find Largest Value in Each Tree Row<br />
-98. Validate Binary Search Tree<br />
-173. Binary Search Tree Iterator<br />
-96. Unique Binary Search Trees<br />
-95. Unique Binary Search Trees II<br />
-230. Kth Smallest Element in a BST<br />
-99. Recover Binary Search Tree<br />
 1448. Count Good Nodes in Binary Tree<br />
 1650. Lowest Common Ancestor of a Binary Tree III<br />
-426. Convert Binary Search Tree to Sorted Doubly Linked List<br />
 314. Binary Tree Vertical Order Traversal<br />
-1382. Balance a Binary Search Tree<br />
 545. Boundary of Binary Tree<br />
 1110. Delete Nodes And Return Forest<br />
 366. Find Leaves of Binary Tree<br />
@@ -112,22 +104,31 @@
 337. House Robber III<br />
 894. All Possible Full Binary Trees<br />
 1120. Maximum Average Subtree<br />
-449. Serialize and Deserialize BST(see 1008)<br />
 958. Check Completeness of a Binary Tree<br />
 536. Construct Binary Tree from String<br />
 1522. Diameter of N-Ary Tree<br />
-333. Largest BST Subtree<br />
 971. Flip Binary Tree To Match Preorder Traversal<br />
 652. Find Duplicate Subtrees<br />
 979. Distribute Coins in Binary Tree<br />
-538. Convert BST to Greater Tree<br />
 1302. Deepest Leaves Sum<br />
-285. Inorder Successor in BST<br />
-510. Inorder Successor in BST II<br />
 1026. Maximum Difference Between Node and Ancestor<br />
 513. Find Bottom Left Tree Value<br />
 250. Count Univalue Subtrees<br />
 156. Binary Tree Upside Down<br />
+98. Validate Binary Search Tree<br />
+173. Binary Search Tree Iterator<br />
+96. Unique Binary Search Trees<br />
+95. Unique Binary Search Trees II<br />
+230. Kth Smallest Element in a BST<br />
+99. Recover Binary Search Tree<br />
+426. Convert Binary Search Tree to Sorted Doubly Linked List<br />
+1382. Balance a Binary Search Tree<br />
+449. Serialize and Deserialize BST(see 1008)<br />
+333. Largest BST Subtree<br />
+538. Convert BST to Greater Tree<br />
+285. Inorder Successor in BST<br />
+510. Inorder Successor in BST II<br />
+
 
 
 ### 3. Stack 

@@ -820,7 +820,6 @@ class Solution:
             cur = cur.right
         return ans.right
 
-#2)STACK
 #2)Operate in place
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1024,5 +1023,726 @@ class Solution:
                 return node
         
 
+### 102. Binary Tree Level Order Traversal ### similar as 637
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        result = []
+        def dfs(root, depth):
+            if not root:
+                return
+            if len(result) <= depth:
+                result.append([])
+            result[depth].append(root.val)
+            dfs(root.left, depth+1)
+            dfs(root.right, depth+1)
+            
+        dfs(root,0)
+        return result
+
+### 103. Binary Tree Zigzag Level Order Traversal ### similar as 102
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        result = []
+        def dfs(root, depth):
+            if not root:
+                return
+            if len(result) <= depth:
+                result.append([])
+            if depth%2 == 1:
+                result[depth].insert(0, root.val)
+            else:
+                result[depth].append(root.val)
+            dfs(root.left, depth+1)
+            dfs(root.right, depth+1)
+            
+        dfs(root,0)
+        return result
 
 
+### 107. Binary Tree Level Order Traversal II ### similar as 102
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
+        result = []
+        def dfs(root, depth):
+            if not root:
+                return
+            if len(result) <= depth:
+                result.append([])
+            result[depth].append(root.val)
+            dfs(root.left, depth+1)
+            dfs(root.right, depth+1)
+            
+        dfs(root,0)
+        return result[::-1]
+
+
+### 105. Construct Binary Tree from Preorder and Inorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        
+        def array_to_tree(left, right):
+            nonlocal preorder_index
+            if left > right:
+                return None
+            
+            root_value = preorder[preorder_index]
+            root = TreeNode(root_value)
+            preorder_index+=1
+            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
+            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+            return root
+        
+        preorder_index = 0
+        inorder_index_map = {}
+        for index, value in enumerate(inorder):
+            inorder_index_map[value] = index
+            
+            
+        return array_to_tree(0, len(preorder)-1)
+
+
+### 1008. Construct Binary Search Tree from Preorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+        def array_to_tree(left, right):
+            nonlocal preorder_index
+            if left > right:
+                return None
+            
+            root_value = preorder[preorder_index]
+            root = TreeNode(root_value)
+            preorder_index+=1
+            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
+            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+            return root
+        
+        preorder_index = 0
+        inorder = sorted(preorder)  #binary search tree property, inorder is ordered
+        inorder_index_map = {}
+        for index, value in enumerate(inorder):
+            inorder_index_map[value] = index
+            
+            
+        return array_to_tree(0, len(preorder)-1)
+
+
+### 106. Construct Binary Tree from Inorder and Postorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        def array_to_tree(left, right):
+            if left > right:
+                return None
+            
+            root_value = postorder.pop()
+            root = TreeNode(root_value)
+            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
+            
+            return root
+        
+        
+        inorder_index_map = {}
+        for index, value in enumerate(inorder):
+            inorder_index_map[value] = index
+            
+            
+        return array_to_tree(0, len(postorder)-1)
+
+
+### 889. Construct Binary Tree from Preorder and Postorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> TreeNode:
+        def array_to_tree(left, right):
+            
+        	if left > right: return None
+             
+        	if left == right: return TreeNode(preorder[left])
+
+        	root_value = preorder[left]
+        	root = TreeNode(root_value)
+            
+            # always pick the previous one in postorder;
+            #this value will be root_value'right child's root
+        	midVal = postorder[postorder_index_map[root_value]-1] 
+            #find this value in preorder list position/index as right child's root
+        	midIdx = preorder_index_map[midVal] 
+            
+            # preorder[left + 1] to be the left subtree root
+        	root.left  = array_to_tree(left+1, midIdx-1) 
+            # preorder[midIdx] to be the right subtree root
+        	root.right = array_to_tree(midIdx, right)
+
+        	return root
+        
+        # construct num:index mapper
+        preorder_index_map  = {value:index for index, value in enumerate(preorder)}
+        postorder_index_map = {value:index for index, value in enumerate(postorder)}
+        return array_to_tree(0, len(preorder)-1)
+        
+
+### 114. Flatten Binary Tree to Linked List ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        
+        def flatten(root):  #root, left, right for preorder
+            if not root:
+                return None
+            if not root.left and not root.right: #leaf
+                return root
+            
+            leftTail = flatten(root.left)  #tail of flattened
+            rightTail = flatten(root.right) #tail of flattened
+            
+            if leftTail:
+                leftTail.right = root.right
+                root.right = root.left
+                root.left = None
+                
+            return rightTail if rightTail else leftTail
+        
+        flatten(root)
+            
+
+ ### 236. Lowest Common Ancestor of a Binary Tree ###
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        ans = None
+        def dfs(root):  #logic true or false
+            nonlocal ans
+            if not root:
+                return False
+            mid = (root == p) or (root == q)
+            left = dfs(root.left)
+            right = dfs(root.right)
+            
+            if int(left + right + mid) >=2:
+                ans = root  #find the ancestor
+              
+            return mid or left or right
+        
+        dfs(root)
+        return ans
+
+
+### 222. Count Complete Tree Nodes ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        ans, last_depth = 0, 0
+        def dfs(root, depth):
+            nonlocal ans, last_depth
+            if not root:
+                return
+            if not root.left and not root.right:
+                last_depth = max(depth, last_depth)
+                if depth == last_depth:
+                    ans+=1
+                
+            if root.left:
+                dfs(root.left, depth+1)
+            if root.right:
+                dfs(root.right, depth+1)
+        
+        dfs(root, 0)        
+        
+        for i in range(last_depth):
+            ans+=2**i
+            
+        return ans           
+
+#2)binary search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def compute_depth(self, root):
+        d = 0
+        while root.left:
+            root = root.left
+            d+=1
+        return d
+    
+    def exists(self, idx, d, root):
+        left, right = 0, 2**d-1
+        for _ in range(d):  #depth
+            mid =  left + (right -left)//2
+            if idx <= mid:
+                root = root.left #final node is at the last level
+                right = mid
+            else:
+                root = root.right
+                left = mid+1
+        return root is not None
+                
+    def countNodes(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        d = self.compute_depth(root) #get tree depth
+        
+        if d == 0:
+            return 1
+        
+        left, right = 0, 2**d-1  #the last level potential nodes index from 0
+        while left <= right:
+            mid = left + (right -left)//2
+            if self.exists(mid, d, root):
+                left = mid + 1
+            else:
+                right = mid -1
+                
+        return (2**d - 1) + left
+                
+
+### 129. Sum Root to Leaf Numbers ###
+#1) dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        def dfs(root, curr_num):
+            nonlocal root_to_leaf_sum
+            
+            if not root:
+                return
+            
+            curr_num = 10 * curr_num + root.val
+            
+            if not root.left and not root.right: #reach leaf
+                root_to_leaf_sum += curr_num
+                
+            dfs(root.left, curr_num)
+            dfs(root.right, curr_num)
+            
+        root_to_leaf_sum = 0
+        dfs(root, 0)
+        return root_to_leaf_sum
+
+#2) stack
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        root_to_leaf_sum = 0
+        stack = [(root, 0)]
+        while stack:
+            root, curr_num = stack.pop()
+            curr_num = 10 * curr_num + root.val
+            if not root.left and not root.right:
+                root_to_leaf_sum += curr_num
+            if root.left:
+                stack.append((root.left, curr_num))
+            if root.right:
+                stack.append((root.right, curr_num))
+       
+        return root_to_leaf_sum
+        
+
+### 113. Path Sum II ###
+#1)DFS backtracking
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+
+     def pathSum(self, root: TreeNode, targetSum: int) -> List[List[int]]:
+        def dfs(root, curr_sum, path):
+            if not root:
+                return
+            curr_sum += root.val
+            path.append(root.val)
+            
+            if not root.left and not root.right and curr_sum == targetSum:
+                result.append(list(path))  #important use list to make it unmutable
+            
+            dfs(root.left, curr_sum, path)
+            dfs(root.right, curr_sum, path)
+            
+            path.pop()  #import to pop element for backtracking
+        
+        result = []
+        dfs(root, 0, [])
+        return result
+#2)DFS:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, targetSum: int) -> List[List[int]]:
+        def dfs(root, curr_sum, path):
+            if not root:
+                return
+            curr_sum += root.val
+            #path.append(root.val)
+            
+            if not root.left and not root.right and curr_sum == targetSum:
+                result.append(list(path))
+            if root.left:
+                dfs(root.left, curr_sum, path + [root.left.val])
+            if root.right:
+                dfs(root.right, curr_sum, path + [root.right.val])
+            
+        if not root:
+            return None
+        result = []
+        dfs(root, 0, [root.val])
+        return result
+#3)stack
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, targetSum: int) -> List[List[int]]:
+        if not root:
+            return None
+        
+        result = []
+        stack = [(root, 0, [root.val])]
+        while stack:
+            root, curr_sum, path = stack.pop()
+            curr_sum += root.val
+            if not root.left and not root.right and curr_sum == targetSum:
+                result.append(list(path))
+            if root.left:
+                stack.append((root.left, curr_sum, path + [root.left.val]))
+            if root.right:
+                stack.append((root.right, curr_sum, path+ [root.right.val]))
+            
+        return result
+
+
+### 437. Path Sum III ###
+#dfs backtracking:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+       
+    def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        count, h = 0, defaultdict(int)  #dictionary root-node sum: count
+        
+        def dfs(root, curr_sum):
+            nonlocal count
+            if not root:
+                return
+            curr_sum += root.val
+            if curr_sum == targetSum: #1) path start from root
+                count+=1
+            
+            #number of times seeing prefix sum: curr_sum - targetSum: root to somepoint
+            #somepoint.next(left or right) to current node:curr_sum - (curr_sum-targetSum)
+            count += h[curr_sum - targetSum]  #2) path start somewhere middle
+            
+            h[curr_sum] += 1  #count this prefix sum as a path
+            
+            dfs(root.left, curr_sum)
+            dfs(root.right, curr_sum)
+            
+            h[curr_sum] -= 1 #backtracking
+            
+        dfs(root, 0)
+        return count
+
+ #2)recursion
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def find_paths(self, root, target):
+        if root:
+            return int(root.val == target) + self.find_paths(root.left, target-root.val) + self.find_paths(root.right, target-root.val)
+        return 0
+
+    def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        if root:
+            return self.find_paths(root, targetSum) + self.pathSum(root.left, targetSum) + self.pathSum(root.right, targetSum)
+        return 0  
+
+
+### 662. Maximum Width of Binary Tree ###
+#1)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def widthOfBinaryTree(self, root: TreeNode) -> int:
+        first_col_index_table = {}
+        max_width = 0
+        
+        def dfs(root, depth, col_index):
+            nonlocal max_width
+            if not root:
+                return
+            if depth not in first_col_index_table:
+                first_col_index_table[depth] = col_index
+              
+            max_width = max(max_width, col_index - first_col_index_table[depth] + 1)
+
+            dfs(root.left, depth + 1, 2 * col_index)
+            dfs(root.right, depth + 1, 2 * col_index + 1)
+            
+        dfs(root, 0, 0)
+        
+        return max_width
+            
+#      0               1
+#  0,      1       2,      3
+#0,  1,  2,  3,  4,  5,  6,  7        
+
+#2)stack: BFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def widthOfBinaryTree(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        first_col_index_table = {}
+        max_width = 0
+        stack = [(root, 0, 0)]
+        while stack:
+            root, depth, col_index = stack.pop(0)  #important order
+            
+            if depth not in first_col_index_table:
+                first_col_index_table[depth] = col_index
+            max_width = max(max_width, col_index - first_col_index_table[depth] + 1)
+            if root.left:
+                stack.append((root.left, depth+1, 2*col_index))
+            if root.right:
+                stack.append((root.right, depth+1, 2*col_index+1))
+        
+        return max_width
+
+
+### 199. Binary Tree Right Side View ###
+#1)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        depth_vist_table = set()
+        result = []
+        def dfs(root, depth): #preorder dfs
+            if not root:
+                return
+            if depth not in depth_vist_table:
+                result.append(root.val) 
+                ldepth_vist_table.add(depth)
+            dfs(root.right, depth + 1) #from right to left
+            dfs(root.left, depth + 1)
+            
+        dfs(root, 0)
+        
+        return result
+
+#2)stack right-left bfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        depth_vist_table = set()
+        result = []
+        stack = [(root,0)]
+        while stack:
+            root, depth = stack.pop(0)
+            if depth not in depth_vist_table:
+                result.append(root.val) 
+                depth_vist_table.add(depth)
+            if root.right:#from right to left
+                stack.append((root.right, depth+1))
+            if root.left:
+                stack.append((root.left, depth+1))
+        
+        return result
+
+
+### 116. Populating Next Right Pointers in Each Node ###
+#1)dfs
+# Definition for a Node.
+#class Node:
+#    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+#        self.val = val
+#        self.left = left
+#        self.right = right
+#        self.next = next
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        previousNode = {}
+    
+    def dfs(root, depth):
+            
+            if root is None:
+                return
+            if depth not in previousNode:
+                previousNode[depth] = root
+            else:
+                previousNode[depth].next = root
+                previousNode[depth] = root
+            
+            dfs(root.left, depth + 1)
+            dfs(root.right, depth + 1)
+        
+        curr = root
+        dfs(curr, 0)
+        
+        return root
+
+#1)stack bfs
+# Definition for a Node.
+#class Node:
+#    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+#        self.val = val
+#        self.left = left
+#        self.right = right
+#        self.next = next
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+        previousNode = {}
+        curr = root
+        stack = [(root, 0)]
+        
+        while stack:
+            root, depth = stack.pop(0)
+            if depth not in previousNode:
+                previousNode[depth] = root
+            else:
+                previousNode[depth].next = root
+                previousNode[depth] = root
+            if root.left:
+                stack.append((root.left, depth+1))
+                stack.append((root.right, depth+1))
+                
+        return curr
+
+
+### 515. Find Largest Value in Each Tree Row ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        result = {}
+        def dfs(root, depth):
+            if not root:
+                return
+            if depth not in result:
+                result[depth] = root.val
+            else:
+                result[depth] = max(root.val, result[depth])
+            
+            dfs(root.left, depth+1)
+            dfs(root.right, depth+1)
+        
+        dfs(root, 0)    
+        return list(result.values())
