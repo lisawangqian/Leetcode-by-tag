@@ -1220,7 +1220,54 @@ class Solution:
         preorder_index_map  = {value:index for index, value in enumerate(preorder)}
         postorder_index_map = {value:index for index, value in enumerate(postorder)}
         return array_to_tree(0, len(preorder)-1)
+
+### 449. Serialize and Deserialize BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root: TreeNode) -> str:  #binary search tree
+        """Encodes a tree to a single string.
+        """
+        def dfs(root): #postorder
+            return dfs(root.left) + dfs(root.right) +  [str(root.val)] if root else []
+        return ' '.join(dfs(root))
         
+
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        #Construct Binary Tree from Inorder and Postorder Traversal
+        def array_to_tree(left, right):  #inorder array positions
+            if not postorder or postorder[-1] < left or postorder[-1] > right:
+                return None
+            
+            root_value = postorder.pop()
+            root = TreeNode(root_value)  #every node value from this array
+            root.right = array_to_tree(root_value, right) #BST construction
+            root.left = array_to_tree(left, root_value)  
+            return root
+        
+        postorder = [int(x) for x in data.split(' ') if x]
+       
+        return array_to_tree(float('-inf'), float('inf'))
+        
+# Your Codec object will be instantiated and called as such:
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# tree = ser.serialize(root)
+# ans = deser.deserialize(tree)
+# return ans
+
+
+
+
 
 ### 114. Flatten Binary Tree to Linked List ###
 # Definition for a binary tree node.
@@ -2377,3 +2424,550 @@ class Solution:
         root.left = root.right = None        
         
         return newRoot #new root so return it
+
+
+### 98. Validate Binary Search Tree
+#1)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def dfs(root, low, high):
+            if not root:
+                return True
+
+            if root.val <= low or root.val >= high:
+                return False
+            
+            return dfs(root.left, low, root.val) and dfs(root.right, root.val, high)
+        
+        return dfs(root, -math.inf, math.inf)
+
+#2)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def dfs(root): #inorder 
+            if not root:
+                return True
+            if not dfs(root.left):
+                return False
+            if root.val <= self.prev:
+                return False
+            self.prev = root.val
+            if not dfs(root.right):
+                return False
+            
+            return True
+        
+        self.prev = -math.inf
+        
+        return dfs(root)
+
+#3)stack
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        stack = [(root, -math.inf, math.inf)]
+        while stack:
+            node, lower, upper = stack.pop()
+            curr_val = node.val
+            if curr_val <= lower or curr_val >= upper:
+                return False
+            if node.left:
+                stack.append((node.left, lower, curr_val))
+            if node.right:
+                stack.append((node.right, curr_val, upper))
+        return True  
+
+
+ ###173. Binary Search Tree Iterator
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class BSTIterator:
+
+    def __init__(self, root: TreeNode):
+        self.nodes_in_order = []
+        self.index = -1
+        self._dfs(root)
+        
+    def _dfs(self, root):
+        if not root:
+            return
+        self._dfs(root.left)
+        self.nodes_in_order.append(root.val)
+        self._dfs(root.right)
+        
+    def next(self) -> int:
+        self.index +=1
+        return self.nodes_in_order[self.index]
+            
+
+    def hasNext(self) -> bool:
+        return self.index + 1 < len(self.nodes_in_order)
+
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
+
+
+### 96. Unique Binary Search Trees
+class Solution:
+    def numTrees(self, n: int) -> int:
+        
+        G = [0] * (n+1)
+        G[0], G[1] = 1, 1
+
+        for i in range(2, n+1):
+            for j in range(1, i+1):
+                G[i] += G[j-1] * G[i-j]  #i-j + j-1 = i-1; 1 is root
+
+        return G[n]
+
+
+### 95. Unique Binary Search Trees II
+#1)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def generateTrees(self, n: int) -> List[TreeNode]:
+         
+        def dfs(start, end):
+            if start > end:
+                return [None]
+            all_trees = []
+            for i in range(start, end+1): #i is root
+                left_trees = dfs(start, i-1) #all left subtree 
+                right_trees = dfs(i+1, end) #all right subtree
+                
+                for l in left_trees:
+                    for r in right_trees:
+                        current_tree = TreeNode(i) #root
+                        current_tree.left = l
+                        current_tree.right = r
+                        all_trees.append(current_tree)
+                        
+            return all_trees
+                        
+        return dfs(1, n) if n > 0 else []
+
+
+### 230. Kth Smallest Element in a BST
+#1)recursion
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        
+        def dfs(root): #inorder
+            nonlocal result
+            if not root:
+                return 
+            dfs(root.left)
+            self.count+=1
+            if self.count == k:
+                result = root.val
+            dfs(root.right)
+            
+        self.count = 0
+        result = None
+        dfs(root)
+        
+        return result
+#2)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        def dfs(root):
+            if not root:
+                return []
+            return dfs(root.left) + [root.val] + dfs(root.right)
+        return dfs(root)[k-1]
+#3)stack
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        stack = []
+        while True:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            k-=1
+            if k == 0:
+                return root.val
+            root = root.right       
+       
+
+### 99. Recover Binary Search Tree
+#1)recursion
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recoverTree(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        def dfs(root):
+            if not root:
+                return []
+            return dfs(root.left) + [root.val] + dfs(root.right)
+        
+        def find_two_swapped(nums):  #eg [3, 2, 1]; [1, 3, 2, 4]
+            n = len(nums)
+            x = y = None
+            for i in range(n-1):
+                if nums[i+1] < nums[i]:
+                    y = nums[i+1]
+                    if x is None:
+                        x = nums[i]
+                    else:
+                        break
+            return x, y
+        
+        def dfs_preorder(root, count):
+            if root:
+                if root.val == x or root.val == y:
+                    if root.val == x:
+                        root.val = y
+                    else:
+                        root.val = x
+                    count-=1
+                    if count == 0:
+                        return 
+                dfs_preorder(root.left, count)
+                dfs_preorder(root.right, count)
+                
+        nums = dfs(root)
+        x, y = find_two_swapped(nums)
+        dfs_preorder(root, 2)
+
+#2)dfs
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recoverTree(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        
+        
+        def find_two_swapped(root):  #eg [3, 2, 1]; [1, 3, 2, 4]
+            nonlocal x, y, prev
+            if not root:
+                return
+            find_two_swapped(root.left)
+            if prev and root.val < prev.val:
+                y = root
+                if x is None:
+                    x = prev
+                else:
+                    return
+            prev = root
+            find_two_swapped(root.right)
+        
+        x = y = prev = None
+                
+        find_two_swapped(root)
+        
+        x.val, y.val = y.val, x.val
+        
+
+##1382. Balance a Binary Search Tree  
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def balanceBST(self, root: TreeNode) -> TreeNode:
+        nodes = []
+        
+        def dfs(root): #inorder to maintain order
+            if not root:
+                return
+            dfs(root.left)
+            nodes.append(root)
+            dfs(root.right)
+        
+        def build_balanced_tree(left, right):
+            if left>right:
+                return None
+            mid = left + (right-left)//2
+            root = nodes[mid]
+            root.left = build_balanced_tree(left, mid-1)
+            root.right = build_balanced_tree(mid+1, right)
+            return root
+        
+        dfs(root) #get nodes in order
+        return build_balanced_tree(0, len(nodes)-1)
+
+
+### 333. Largest BST Subtree
+#1)recursion
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    
+    def largestBSTSubtree(self, root: TreeNode) -> int:
+        
+        def is_valid_bst(root):
+            if not root:
+                return True
+            
+            left_max = find_max(root.left)
+            if left_max >= root.val:
+                return False
+            
+            right_min = find_min(root.right)
+            if right_min <= root.val:
+                return False
+            
+            return is_valid_bst(root.left) and is_valid_bst(root.right)
+        
+        def find_max(root):
+            if not root:
+                return float('-inf')
+            return max(root.val, find_max(root.left), find_max(root.right))
+        
+        def find_min(root):
+            if not root:
+                return float('inf')
+            return min(root.val, find_min(root.left), find_min(root.right))
+        
+        def count_nodes(root):
+            if not root:
+                return 0
+            return 1 + count_nodes(root.left) + count_nodes(root.right)
+        
+        if not root:
+            return 0
+        
+        if is_valid_bst(root):
+            return count_nodes(root)
+        
+        return max(self.largestBSTSubtree(root.left), self.largestBSTSubtree(root.right))
+
+#2)recursion2
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    
+    def largestBSTSubtree(self, root: TreeNode) -> int:
+        
+        if root is None:
+            return 0
+    # lres and rres tells when left and right subtree are valid bst or not
+    # lcount, rcount tell total nodes in left and right subtree if left/right is valid
+    # if it is not a valid bst just return 0 so parent knows that it can't depend on its children
+        def dfs(root):
+            nonlocal result
+            if not root:
+                return True, 0, float('inf'), float('-inf')  # so that I can do this: lmax < root.val < rmin
+            l_valid, l_count, lmin, lmax = dfs(root.left)
+            r_valid, r_count, rmin, rmax = dfs(root.right)
+            if l_valid and r_valid and lmax < root.val < rmin:#still valid bst with root
+                valid_count = l_count + r_count + 1
+                result = max(result, valid_count)
+                return True, valid_count, min(lmin, root.val), max(rmax, root.val) #due to root None case init
+            else:
+                return False, 0, min(lmin, rmin, root.val), max(lmax, rmax, root.val)
+        
+        result = 0
+        dfs(root)
+        return result
+
+
+### 538. Convert BST to Greater Tree
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def dfs(root): #reverse in-order  reserve ordered
+            nonlocal total
+            if root:
+                dfs(root.right)
+                total+=root.val
+                root.val = total
+                dfs(root.left)
+                
+        total = 0
+        dfs(root)
+        return root
+
+#2)stack
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        total = 0
+        stack = []
+        node = root
+        
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.right
+            node = stack.pop()
+            total += node.val
+            node.val = total
+            node = node.left
+            
+        return root
+
+
+### 285. Inorder Successor in BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        
+        successor = None
+        
+        while root: 
+            if p.val >= root.val:
+                root = root.right
+            else:
+                successor = root
+                root = root.left
+                
+        return successor
+
+
+### 510. Inorder Successor in BST II
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+        self.parent = None
+"""
+
+class Solution:
+    def inorderSuccessor(self, node: 'Node') -> 'Node':
+        #left, root, right  #bst inorder
+        #1) node has a right child, then its successor is its leftmost leaf node in the using this right child as root subtree
+        #2) node has no right child, then its successor must be the nearest ancestor whose left is the subtree.
+        #3) no successor if none of the above two cases hold
+        if node.right:
+            node = node.right #tree to this right child and now find the leftmost
+            while node.left: 
+                node = node.left
+            return node
+
+        while node.parent: 
+            if node.parent.left == node: #if node is its parent left child, then the parent is the result
+                return node.parent
+            node = node.parent
+        return None
+
+
+### 426. Convert Binary Search Tree to Sorted Doubly Linked List
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+"""
+
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        
+        def dfs(root): #inorder
+            nonlocal last, first
+            if not root:
+                return
+            dfs(root.left)
+            if last:  #move along (record previous node on the path)
+                last.right = root
+                root.left = last
+            else:
+                first = root  #record as the first node
+            last  = root
+            dfs(root.right)
+        
+        if not root:
+            return None
+        first, last = None, None
+        dfs(root)
+        last.right = first
+        first.left = last
+        return first
+        
+
+
