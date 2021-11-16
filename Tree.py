@@ -1222,6 +1222,55 @@ class Solution:
         return array_to_tree(0, len(preorder)-1)
 
 ### 449. Serialize and Deserialize BST
+#1) 106 method 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root: TreeNode) -> str:  #binary search tree
+        """Encodes a tree to a single string.
+        """
+        def dfs(root): #postorder
+            return dfs(root.left) + dfs(root.right) +  [str(root.val)] if root else []
+        return ' '.join(dfs(root))
+        
+
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        #Construct Binary Tree from Inorder and Postorder Traversal
+        def array_to_tree(left, right):  #inorder array positions
+            if left > right:
+                return None
+            
+            root_value = postorder.pop()
+            root = TreeNode(root_value)
+            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)  
+            return root
+        
+        postorder = [int(x) for x in data.split(' ') if x]
+       
+        inorder_index_map = {}
+        for index, value in enumerate(sorted(postorder)):  #bst property
+            inorder_index_map[value] = index
+            
+        return array_to_tree(0, len(postorder)-1)
+        
+# Your Codec object will be instantiated and called as such:
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# tree = ser.serialize(root)
+# ans = deser.deserialize(tree)
+# return ans
+
+#2)
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
