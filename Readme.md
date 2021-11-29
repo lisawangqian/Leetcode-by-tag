@@ -1,5 +1,8 @@
 # Leetcode by Tag - easy and medium
-## Thanks to the reference in https://github.com/resumejob/Leetcode-retag
+## Good Resources: 
+https://github.com/resumejob/Leetcode-retag<br />
+https://zxi.mytechroad.com/blog/leetcode-problem-categories/<br />
+
 
 ### 1. Linked List
 
@@ -130,8 +133,38 @@
 510. Inorder Successor in BST II<br />
 
 
+### 3. Backtracking
 
-### 3. Stack 
+*Medium:*<br /> 
+39. Combination Sum<br />
+40. Combination Sum II<br />
+216. Combination Sum III<br />
+377. Combination Sum IV - NOT backtracking but DP<br />
+78. Subsets<br />
+90. Subsets II<br />
+77. Combinations<br />
+46. Permutations<br />
+47. Permutations II (Combination Sum II)<br />
+79. Word Search<br />
+22. Generate Parentheses<br />
+93. Restore IP Addresses<br />
+17. Letter Combinations of a Phone Number<br />
+842. Split Array into Fibonacci Sequence<br />
+89. Gray Code<br />
+526. Beautiful Arrangement<br />
+698. Partition to K Equal Sum Subsets<br />
+1239. Maximum Length of a Concatenated String with Unique Characters<br />
+131. Palindrome Partitioning<br />
+797. All Paths From Source to Target<br />
+967. Numbers With Same Consecutive Differences<br />
+291. Word Pattern II<br />
+57. Count Numbers with Unique Digits<br />
+1593. Split a String Into the Max Number of Unique Substrings<br />
+254. Factor Combinations<br />
+
+
+
+### 4. Stack 
 
 *Easy:*<br /> 
 20. Valid Parentheses<br />
@@ -175,7 +208,7 @@
 1472. Design Browser History<br />
 
 
-### 4. Heap 
+### 5. Heap 
 
 *Easy:*<br /> 
 703. Kth Largest Element in a Stream<br />
@@ -201,7 +234,7 @@
 1642. Furthest Building You Can Reach<br />
 
 
-### 5. Binary Search 
+### 6. Binary Search 
 
 *Easy:*<br />
 69. Sqrt(x)<br />
@@ -262,33 +295,6 @@
 911. Online Election<br />
 
 
-### 6. Backtracking
 
-*Medium:*<br /> 
-39. Combination Sum<br />
-40. Combination Sum II<br />
-216. Combination Sum III<br />
-377. Combination Sum IV - NOT backtracking but DP<br />
-78. Subsets<br />
-90. Subsets II<br />
-77. Combinations<br />
-46. Permutations<br />
-47. Permutations II (Combination Sum II)<br />
-79. Word Search<br />
-22. Generate Parentheses<br />
-93. Restore IP Addresses<br />
-17. Letter Combinations of a Phone Number<br />
-842. Split Array into Fibonacci Sequence<br />
-89. Gray Code<br />
-526. Beautiful Arrangement<br />
-698. Partition to K Equal Sum Subsets<br />
-1239. Maximum Length of a Concatenated String with Unique Characters<br />
-131. Palindrome Partitioning<br />
-797. All Paths From Source to Target<br />
-967. Numbers With Same Consecutive Differences<br />
-291. Word Pattern II<br />
-57. Count Numbers with Unique Digits<br />
-1593. Split a String Into the Max Number of Unique Substrings<br />
-254. Factor Combinations<br />
 
     

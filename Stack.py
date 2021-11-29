@@ -325,3 +325,85 @@ class MyStack:
 # param_2 = obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.empty()
+
+
+
+### 1190. Reverse Substrings Between Each Pair of Parentheses
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+        stack = ['']
+        for c in s:
+            if c == '(':
+                stack.append('')
+            elif c == ')':  #reverse
+                add = stack.pop()[::-1]
+                stack[-1] += add
+            else:
+                stack[-1] += c
+        
+        return stack.pop()
+
+
+
+### 394. Decode String
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = [''] 
+        stackcnt = []
+        k = 0
+        for c in s:
+            if c.isdigit():
+                k = k * 10 + int(c)
+            elif c == '[': #re-init 
+                stackcnt.append(k)
+                k = 0 
+                stack.append('')  
+            elif c == ']': #begin calculate 
+                add = stack.pop()
+                cnt = stackcnt.pop()
+                stack[-1] += add * cnt
+            else:  
+                stack[-1] += c
+        
+        return stack.pop()
+
+
+
+### 456. 132 Pattern
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+       
+        min_array = [-1] * len(nums)
+        min_array[0] = nums[0]
+        for i in range(1, len(nums)):
+            min_array[i] = min(min_array[i-1], nums[i])
+        
+        stack = []
+        for j in range(len(nums)-1, -1, -1): #backward to find p3
+            if nums[j] == min_array[j]: #if itself is minimum, p1
+                continue
+            while stack and stack[-1] <= min_array[j]: #stack top to main current p2, min_array[j]: current p1
+                stack.pop()
+            if stack and stack[-1] < nums[j]: #find p3
+                return True
+            stack.append(nums[j])
+
+        return False
+
+
+### 503. Next Greater Element II
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        
+        stack, res = [], [-1] * len(nums)
+        for _ in range(2): #because it is circle so repeat twice
+            for i in range(len(nums)-1, -1, -1):
+                while stack and (nums[stack[-1]] <= nums[i]):
+                    stack.pop()
+                if stack and (res[i] == -1):
+                    res[i] = nums[stack[-1]]
+                stack.append(i) 
+                
+        return res
