@@ -407,3 +407,30 @@ class Solution:
                 stack.append(i) 
                 
         return res
+
+
+
+### 227. Basic Calculator II
+class Solution:
+    def calculate(self, s: str) -> int:
+        currentNumber = 0
+        operation = '+' #init
+        stack = []
+        
+        for i, c in enumerate(s):
+            if c.isdigit():
+                currentNumber = 10 * currentNumber + int(c)
+            if (c in "+-*/") or (i == len(s) - 1):  #remember last digit and whitespace
+                if operation == '-':
+                    stack.append(-currentNumber)
+                elif operation == '+':
+                    stack.append(currentNumber)
+                elif operation == '*':
+                    stack.append(stack.pop() * currentNumber)
+                elif operation == '/':
+                    stack.append(int(stack.pop()/currentNumber)) #need int rather than //
+                operation = c #store for next char
+                currentNumber = 0 #reinit
+         
+        return sum(stack)
+                
