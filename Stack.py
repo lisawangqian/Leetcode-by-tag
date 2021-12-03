@@ -113,42 +113,6 @@ class Solution:
                 
 
 
-### 496. Next Greater Element I     
-class Solution:
-    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        dic_map = {}
-        stack = []
-        for i in range(len(nums2)):
-            while stack and nums2[i] > stack[-1]:
-                dic_map[stack.pop()] = nums2[i] #element map with next bigger
-            stack.append(nums2[i])  #stack matain element with no next bigger
-            
-        while stack:
-            dic_map[stack.pop()] = -1
-            
-        res = []
-        for num in nums1:
-            res.append(dic_map[num])
-        return res  
-
-
-
-### 1475. Final Prices With a Special Discount in a Shop
-class Solution:
-    def finalPrices(self, prices: List[int]) -> List[int]:
-        
-        stack = []
-        for i, p in enumerate(prices):
-            #find previous not discounted (in stack) but will be discouted by current price
-            while stack and prices[stack[-1]] >= p: 
-                last = stack.pop()
-                prices[last] = prices[last] - p
-            stack.append(i)
-                 
-        return prices
-        
-
-
 ###155. Min Stack
 class MinStack:
 
@@ -345,6 +309,22 @@ class Solution:
 
 
 
+### 856. Score of Parentheses
+class Solution:
+    def scoreOfParentheses(self, s: str) -> int:
+        stack = [0] #init
+        
+        for each in s:
+            if each == "(":
+                stack.append(0)
+            else:
+                v = stack.pop()
+                stack[-1] += max(v*2, 1)  #if ()->1 else 2*v
+            
+        return stack.pop()
+
+
+
 ### 394. Decode String
 class Solution:
     def decodeString(self, s: str) -> str:
@@ -367,6 +347,360 @@ class Solution:
         
         return stack.pop()
 
+
+
+### 150. Evaluate Reverse Polish Notation
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for c in tokens:
+            if c.isdigit():
+                stack.append(int(c))
+            if c.startswith('-') and c[1:].isdigit():
+                stack.append(-int(c[1:]))
+            if (c in "+-*/"): 
+                p1 = stack.pop()
+                p2 = stack.pop()
+                if c == '-':
+                    stack.append(p2 - p1)
+                elif c == '+':
+                    stack.append(p1 + p2)
+                elif c == '*':
+                    stack.append(p1 * p2)
+                elif c == '/':
+                    stack.append(int(p2/p1)) 
+            
+        return stack.pop()
+
+
+
+### 227. Basic Calculator II
+class Solution:
+    def calculate(self, s: str) -> int:
+        currentNumber = 0
+        operation = '+' #init
+        stack = []
+        
+        for i, c in enumerate(s):
+            if c.isdigit():
+                currentNumber = 10 * currentNumber + int(c)
+            if (c in "+-*/") or (i == len(s) - 1):  #remember last digit and whitespace
+                if operation == '-':
+                    stack.append(-currentNumber)
+                elif operation == '+':
+                    stack.append(currentNumber)
+                elif operation == '*':
+                    stack.append(stack.pop() * currentNumber)
+                elif operation == '/':
+                    stack.append(int(stack.pop()/currentNumber)) #need int rather than //
+                operation = c #store for next char
+                currentNumber = 0 #reinit
+         
+        return sum(stack)
+                
+
+
+
+### 71. Simplify Path
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        
+        stack = []
+        for each in path.split('/'):
+            if each == '..':
+                if stack:
+                    stack.pop()
+            elif each == '.' or len(each) == 0:
+                continue
+            else:
+                stack.append(each)
+                
+        return "/" + "/".join(stack)
+
+
+
+### 1249. Minimum Remove to Make Valid Parentheses
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        stack = []
+        remove = []
+        
+        for i in range(len(s)):
+            if s[i] not in "()":
+                continue
+            if s[i] == '(':
+                stack.append(i)
+            elif (not stack):
+                remove.append(i)
+            else:
+                stack.pop()
+                
+        remove = set(remove + stack)
+        res = ""
+        for i, c in enumerate(s):
+            if i not in remove:
+                res+=c
+        return res
+
+
+
+### 1209. Remove All Adjacent Duplicates in String II
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = ['']
+        count = [0]
+        for c in s:
+            if c!= stack[-1]:
+                count.append(1)
+            else:
+                count[-1] +=1
+            stack.append(c)
+            if count[-1] == k:
+                count.pop()
+                for i in range(k): #remove
+                    stack.pop()
+           
+        return "".join(stack)
+
+
+
+### 735. Asteroid Collision
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+        
+        for new in asteroids:
+            add_new = True
+            while stack and new < 0 < stack[-1]:
+                if stack[-1] < -new: #new will be maintained
+                    stack.pop()
+                    continue #continue while
+                elif stack[-1] == (-new):
+                    stack.pop()
+                    add_new = False
+                    break #break while
+                else: #new collision 
+                    add_new = False
+                    break #break while
+            if add_new: 
+                stack.append(new)
+        
+        return stack
+
+
+
+### 946. Validate Stack Sequences
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        j = 0
+        stack = []
+        for each in pushed:
+            stack.append(each)
+            while stack and j < len(popped) and stack[-1] == popped[j]: #get the popped
+                stack.pop()
+                j+=1
+                
+        return j == len(popped) #if popped value all be reached
+
+
+
+### 1541. Minimum Insertions to Balance a Parentheses String
+class Solution:
+    def minInsertions(self, s: str) -> int:
+        stack = [] #maintain how many ")" is required
+        ans = 0
+        for c in s:
+            if c == '(':
+                if (not stack) or (stack[-1] == 2): #need 2 ')' to form a balance pair
+                    stack.append(2)
+                else: #stack[-1] == 1; need 1 ')' for previous pair and 2 ')' to form a new balanced pair
+                    stack.pop()
+                    ans+=1  
+                    stack.append(2)
+            else: #')'
+                if not stack: #need 1 "(" before
+                    ans+=1  
+                    stack.append(1)
+                elif stack[-1] == 1: #match a balanced pair
+                    stack.pop()
+                else: #stack[-1] == 2 #find 1 out of 2 ')' required
+                    stack[-1] -= 1
+                    
+        return ans + sum(stack) if stack else ans
+                    
+        
+
+### 636. Exclusive Time of Functions
+class Solution:
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        res = [0]*n #ids init
+        stack = []
+        for log in logs:
+            ID, op, time = log.split(':')
+            ID = int(ID)
+            time = int(time)
+            if op == 'start':
+                if stack: #(id, time)
+                    res[stack[-1][0]] += time-stack[-1][1] #next id start time (previous id span units)
+                stack.append([ID, time]) #start time
+            else: #end
+                prev = stack.pop() #start time 
+                res[ID] += time-prev[1]+1  #end time (the id span unit)
+                if stack:
+                    stack[-1][1] = time+1 #update previous id start time
+        return res
+
+
+
+### 1381. Design a Stack With Increment Operation
+class CustomStack:
+
+    def __init__(self, maxSize: int):
+        self.n = maxSize
+        self.stack = []
+        self.inc = []
+    
+    def push(self, x: int) -> None:
+        if len(self.inc) < self.n:
+            self.stack.append(x)
+            self.inc.append(0)
+        
+    def pop(self) -> int:
+        if not self.inc: return -1
+        if len(self.inc) > 1:
+            self.inc[-2] += self.inc[-1]
+        return self.stack.pop() + self.inc.pop()
+        
+
+    def increment(self, k: int, val: int) -> None:
+        if self.inc:
+            self.inc[min(k, len(self.inc)) - 1] += val
+
+
+
+### 1472. Design Browser History
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.history = []
+        self.future = []
+        self.history.append(homepage)
+        
+
+    def visit(self, url: str) -> None:
+        self.history.append(url)
+        self.future = [] #clear up
+
+    def back(self, steps: int) -> str:
+        while steps > 0 and len(self.history) > 1:
+            self.future.append(self.history.pop())
+            steps -= 1
+        return self.history[-1]
+
+    def forward(self, steps: int) -> str:
+        while steps > 0 and self.future:
+            self.history.append(self.future.pop())
+            steps -= 1
+        return self.history[-1]
+
+
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
+
+
+
+### 341. Flatten Nested List Iterator
+# """
+# This is the interface that allows for creating nested lists.
+# You should not implement it, or speculate about its implementation
+# """
+#class NestedInteger:
+#    def isInteger(self) -> bool:
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        """
+#
+#    def getInteger(self) -> int:
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        """
+#
+#    def getList(self) -> [NestedInteger]:
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        """
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.stack = list(reversed(nestedList))
+        
+    def next(self) -> int:
+        self.make_stack_top_an_integer()
+        return self.stack.pop().getInteger()
+        
+    def hasNext(self) -> bool:
+        self.make_stack_top_an_integer()
+        return len(self.stack) > 0
+        
+    def make_stack_top_an_integer(self) -> list:
+        while self.stack and (not self.stack[-1].isInteger()):
+            self.stack.extend(reversed(self.stack.pop().getList()))
+            
+# Your NestedIterator object will be instantiated and called as such:
+# i, v = NestedIterator(nestedList), []
+# while i.hasNext(): v.append(i.next())
+
+
+
+### 
+
+
+
+
+
+
+
+
+
+### 496. Next Greater Element I     
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dic_map = {}
+        stack = []
+        for i in range(len(nums2)):
+            while stack and nums2[i] > stack[-1]:
+                dic_map[stack.pop()] = nums2[i] #element map with next bigger
+            stack.append(nums2[i])  #stack matain element with no next bigger
+            
+        while stack:
+            dic_map[stack.pop()] = -1
+            
+        res = []
+        for num in nums1:
+            res.append(dic_map[num])
+        return res  
+
+
+
+### 1475. Final Prices With a Special Discount in a Shop
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        
+        stack = []
+        for i, p in enumerate(prices):
+            #find previous not discounted (in stack) but will be discouted by current price
+            while stack and prices[stack[-1]] >= p: 
+                last = stack.pop()
+                prices[last] = prices[last] - p
+            stack.append(i)
+                 
+        return prices
+        
 
 
 ### 456. 132 Pattern
@@ -407,30 +741,3 @@ class Solution:
                 stack.append(i) 
                 
         return res
-
-
-
-### 227. Basic Calculator II
-class Solution:
-    def calculate(self, s: str) -> int:
-        currentNumber = 0
-        operation = '+' #init
-        stack = []
-        
-        for i, c in enumerate(s):
-            if c.isdigit():
-                currentNumber = 10 * currentNumber + int(c)
-            if (c in "+-*/") or (i == len(s) - 1):  #remember last digit and whitespace
-                if operation == '-':
-                    stack.append(-currentNumber)
-                elif operation == '+':
-                    stack.append(currentNumber)
-                elif operation == '*':
-                    stack.append(stack.pop() * currentNumber)
-                elif operation == '/':
-                    stack.append(int(stack.pop()/currentNumber)) #need int rather than //
-                operation = c #store for next char
-                currentNumber = 0 #reinit
-         
-        return sum(stack)
-                

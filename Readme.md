@@ -180,38 +180,38 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 225. Implement Stack using Queues<br />
 682. Baseball Game<br />
 844. Backspace String Compare<br />
-496. Next Greater Element I<br />
 155. Min Stack<br />
 716. Max Stack<br />
-1475. Final Prices With a Special Discount in a Shop<br />
 1614. Maximum Nesting Depth of the Parentheses<br />
+496. Next Greater Element I<br />
+1475. Final Prices With a Special Discount in a Shop<br />
 
 *Medium:*<br />
 1190. Reverse Substrings Between Each Pair of Parentheses<br />
 394. Decode String<br />
-456. 132 Pattern<br />
-503. Next Greater Element II<br />
 227. Basic Calculator II<br />
 150. Evaluate Reverse Polish Notation<br />
 636. Exclusive Time of Functions<br />
 71. Simplify Path<br />
 856. Score of Parentheses<br />
 1249. Minimum Remove to Make Valid Parentheses<br />
+1209. Remove All Adjacent Duplicates in String II<br />
+735. Asteroid Collision<br />
+946. Validate Stack Sequences<br />
+1541. Minimum Insertions to Balance a Parentheses String<br />
+1381. Design a Stack With Increment Operation<br />
+1472. Design Browser History<br />
+341. Flatten Nested List Iterator<br />
+385. Mini Parser<br />
+456. 132 Pattern<br />
+503. Next Greater Element II<br />
 739. Daily Temperatures<br />
+1762. Buildings With an Ocean View<br />
+962. Maximum Width Ramp<br />
+901. Online Stock Span<br />
 907. Sum of Subarray Minimums<br />
 402. Remove K Digits<br />
 316. Remove Duplicate Letters<br />
-341. Flatten Nested List Iterator<br />
-385. Mini Parser<br />
-1209. Remove All Adjacent Duplicates in String II<br />
-735. Asteroid Collision<br />
-1762. Buildings With an Ocean View<br />
-946. Validate Stack Sequences<br />
-1541. Minimum Insertions to Balance a Parentheses String<br />
-962. Maximum Width Ramp<br />
-901. Online Stock Span<br />
-1381. Design a Stack With Increment Operation<br />
-1472. Design Browser History<br />
 
 
 ### 5. Heap 
