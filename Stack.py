@@ -657,9 +657,71 @@ class NestedIterator:
 
 
 
-### 
+### 385. Mini Parser
+# """
+# This is the interface that allows for creating nested lists.
+# You should not implement it, or speculate about its implementation
+# """
+#class NestedInteger:
+#    def __init__(self, value=None):
+#        """
+#        If value is not specified, initializes an empty list.
+#        Otherwise initializes a single integer equal to value.
+#        """
+#
+#    def isInteger(self):
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        :rtype bool
+#        """
+#
+#    def add(self, elem):
+#        """
+#        Set this NestedInteger to hold a nested list and adds a nested integer elem to it.
+#        :rtype void
+#        """
+#
+#    def setInteger(self, value):
+#        """
+#        Set this NestedInteger to hold a single integer equal to value.
+#        :rtype void
+#        """
+#
+#    def getInteger(self):
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        :rtype int
+#        """
+#
+#    def getList(self):
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        :rtype List[NestedInteger]
+#        """
 
-
+class Solution:
+    def deserialize(self, s: str) -> NestedInteger:
+        stack, num, last = [], "", None
+        for c in s:
+            if c.isdigit() or c == "-": num += c #maintain string representation of num
+            elif c == "," and num:
+                stack[-1].add(NestedInteger(int(num))) #self function
+                num = "" #re-init num container
+            elif c == "[":
+                elem = NestedInteger()
+                if stack: 
+                    stack[-1].add(elem) 
+                stack.append(elem)
+            elif c == "]":
+                if num:
+                    stack[-1].add(NestedInteger(int(num)))
+                    num = "" #re-init num container
+                last = stack.pop()  #finish one nestedlist
+           
+        return last if last else NestedInteger(int(num))
+        
 
 
 
@@ -741,3 +803,126 @@ class Solution:
                 stack.append(i) 
                 
         return res
+
+
+
+### 739. Daily Temperatures
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        
+        res = [0] * len(temperatures)
+        stack = [] #index
+        
+        for i, v in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < v:
+                cur = stack.pop()
+                res[cur] = i - cur
+            stack.append(i)
+
+        return res
+
+
+
+### 901. Online Stock Span
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = []
+        
+    def next(self, price: int) -> int:
+        ans = 1
+        while self.stack and self.stack[-1][0] <= price:
+            v, i = self.stack.pop()
+            ans += i
+        
+        self.stack.append((price, ans))
+        
+        return ans
+        
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)
+
+
+
+### 1762. Buildings With an Ocean View
+class Solution:
+    def findBuildings(self, heights: List[int]) -> List[int]:
+        stack = []
+        for i, h in enumerate(heights):
+            while stack and heights[stack[-1]] <= h:
+                stack.pop()
+            stack.append(i)
+            
+        return stack
+        
+
+
+### 962. Maximum Width Ramp
+class Solution:
+    def maxWidthRamp(self, nums: List[int]) -> int:
+        stack = []
+        ans = 0
+        #keep a monotonic decreasing array, so if find an element bigger than left, 
+        #it must be bigger than everything past the left in this array
+        for i, num in enumerate(nums): 
+            if not stack or nums[stack[-1]] > num: #monotonic decreasing
+                stack.append(i)
+                
+        for j in range(len(nums)-1, -1, -1): #scan nums from tail to head
+            while stack and nums[stack[-1]] <= nums[j]: #find in the stack the farthest(small)
+                ans = max(ans, j - stack.pop())
+        return ans
+
+
+
+###316. Remove Duplicate Letters
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        stack = []
+        seen = set()
+        #the letter last index
+        last_occur = {c: i for i, c in enumerate(s)}  
+        for i, c in enumerate(s):
+            if c not in seen:  #important to remove duplicate  
+                #current char smaller than last element in stack but last element in stack also occur later
+                #so we will chose the element when it last occurs so pop from
+                while stack and c < stack[-1] and i < last_occur[stack[-1]]:  
+                    seen.discard(stack.pop())
+                seen.add(c)
+                stack.append(c)
+        return ''.join(stack)
+            
+
+
+###402. Remove K Digits
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        stack = []
+        for c in num:
+            while k > 0 and stack and stack[-1] > c:
+                stack.pop()
+                k-=1
+            stack.append(c)
+        #delete all post k if remain k is more than zero    
+        finalstack = stack[:(-k)] if k>0 else stack
+        result = "".join(finalstack).lstrip('0')
+        return result if result else "0" 
+
+
+
+### 907. Sum of Subarray Minimums
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        
+        arr = [0] + arr
+        result = [0] * len(arr) #dynamic programming
+        stack = [0]  #non-decreasing stack store index of array
+        for i in range(len(arr)):
+            while arr[stack[-1]] > arr[i]: #keep stack non-decreasing stack store index of array
+                stack.pop()
+            j = stack[-1]  #first previous index that arr[index] <= current arr element arr[i]
+            result[i]= result[j] + arr[i] * (i-j)  #result of arr[j] be the mininum to arr[i] be the minimum
+            stack.append(i)
+            
+        return sum(result) % (10**9 + 7)
