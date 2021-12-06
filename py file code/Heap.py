@@ -172,7 +172,49 @@ class Solution:
             
 
 
+### 378. Kth Smallest Element in a Sorted Matrix
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        N = len(matrix)
+        minHeap = []  #each row start from first one
+        for r in range(min(k, N)):
+            minHeap.append((matrix[r][0], r, 0))
+        heapq.heapify(minHeap)
+        
+        while k>0:  
+            element, r, c = heapq.heappop(minHeap) #find current smallest
+            if c < N-1: #scan the row and add the column index
+                heapq.heappush(minHeap, (matrix[r][c+1], r, c+1))
+            k-=1
+            
+        return element
+                
+        
 
+### 767. Reorganize String
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        if not s:
+            return ""
+        
+        count = collections.Counter(s)
+        count = [(-value,key) for key,value in count.items()]
+        heapq.heapify(count)
+        
+        prev_a, prev_b = heapq.heappop(count)  #biggest count
+        res = prev_b
+        prev_a += 1 #value is negated for sorting
+        while count:
+            a, b = heapq.heappop(count)
+            res += b
+            a += 1 #value is negated for sorting
+            if prev_a < 0:  #value is negated for sorting
+                heapq.heappush(count, (prev_a, prev_b))
+            prev_a, prev_b = a, b
+            
+        if len(res) != len(s): return ""
+        return res        
+        
 
 
             

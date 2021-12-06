@@ -169,8 +169,122 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 254. Factor Combinations<br />
 
 
+### 4. Union Find
 
-### 4. Stack 
+*Medium:*<br /> 
+128. Longest Consecutive Sequence<br />
+200. Number of Islands<br />
+721. Accounts Merge<br />
+547. Number of Provinces<br />
+130. Surrounded Regions<br />
+1631. Path With Minimum Effort<br />
+399. Evaluate Division<br />
+1319. Number of Operations to Make Network Connected<br />
+684. Redundant Connection<br />
+695. Max Area of Island<br />
+694. Number of Distinct Islands<br />
+323. Number of Connected Components in an Undirected Graph<br />
+947. Most Stones Removed with Same Row or Column<br />
+886. Possible Bipartition<br />
+785. Is Graph Bipartite?<br />
+1102. Path With Maximum Minimum Value<br />
+1254. Number of Closed Islands<br />
+1905. Count Sub Islands<br />
+1559. Detect Cycles in 2D Grid<br />
+1202. Smallest String With Swaps<br />
+
+
+### 5. Graph (DFS + BFS + ShortestPath)
+
+*Easy:*<br /> 
+463. Island Perimeter<br />
+733. Flood Fill<br />
+
+*Medium:*<br /> 
+721. Accounts Merge<br />
+547. Number of Provinces<br />
+130. Surrounded Regions<br />
+1631. Path With Minimum Effort<br />
+399. Evaluate Division<br />
+1319. Number of Operations to Make Network Connected<br />
+684. Redundant Connection<br />
+695. Max Area of Island<br />
+694. Number of Distinct Islands<br />
+323. Number of Connected Components in an Undirected Graph<br />
+947. Most Stones Removed with Same Row or Column<br />
+886. Possible Bipartition<br />
+785. Is Graph Bipartite?<br />
+1102. Path With Maximum Minimum Value<br />
+1254. Number of Closed Islands<br />
+1905. Count Sub Islands<br />
+1559. Detect Cycles in 2D Grid<br />
+1202. Smallest String With Swaps<br />
+207. Course Schedule<br />
+210. Course Schedule II<br />
+494. Target Sum<br />
+417. Pacific Atlantic Water Flow<br />
+133. Clone Graph<br />
+388. Longest Absolute File Path<br />
+419. Battleships in a Board<br />
+490. The Maze<br />
+505. The Maze II<br />
+582. Kill Process<br />
+364. Nested List Weight Sum II<br />
+339. Nested List Weight Sum<br />
+1466. Reorder Routes to Make All Paths Lead to the City Zero<br />
+1306. Jump Game III<br />
+1242. Web Crawler Multithreaded<br />
+743. Network Delay Time<br />
+841. Keys and Rooms<br />
+1376. Time Needed to Inform All Employees<br />
+529. Minesweeper<br />
+934. Shortest Bridge<br />
+690. Employee Importance<br />
+994. Rotting Oranges<br />
+279. Perfect Squares<br />
+752. Open the Lock<br />
+1162. As Far from Land as Possible<br />
+322. Coin Change<br />
+433. Minimum Genetic Mutation<br />
+286. Walls and Gates<br />
+542. 01 Matrix<br />
+1926. Nearest Exit from Entrance in Maze<br />
+1129. Shortest Path with Alternating Colors<br />
+787. Cheapest Flights Within K Stops<br />
+1135. Connecting Cities With Minimum Cost<br />
+1584. Min Cost to Connect All Points<br />
+
+
+### 6. Trie and Segment Tree
+
+*Easy:*<br /> 
+1065. Index Pairs of a String<br />
+
+*Medium:*<br />
+720. Longest Word in Dictionary<br />
+208. Implement Trie (Prefix Tree)<br />
+692. Top K Frequent Words<br />
+421. Maximum XOR of Two Numbers in an Array<br />
+139. Word Break<br />
+1268. Search Suggestions System<br />
+792. Number of Matching Subsequences<br />
+616. Add Bold Tag in String<br />
+1166. Design File System<br />
+211. Design Add and Search Words Data Structure<br />
+1698. Number of Distinct Substrings in a String<br />
+386. Lexicographical Numbers<br />
+720. Longest Word in Dictionary<br />
+676. Implement Magic Dictionary<br />
+758. Bold Words in String<br />
+1804. Implement Trie II (Prefix Tree)<br />
+1233. Remove Sub-Folders from the Filesystem<br />
+307. Range Sum Query - Mutable<br />
+729. My Calendar I<br />
+731. My Calendar II<br />
+673. Number of Longest Increasing Subsequence<br />
+
+
+### 7. Stack 
 
 *Easy:*<br /> 
 20. Valid Parentheses<br />
@@ -214,7 +328,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 316. Remove Duplicate Letters<br />
 
 
-### 5. Heap 
+### 8. Heap 
 
 *Easy:*<br /> 
 703. Kth Largest Element in a Stream<br />
@@ -240,7 +354,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1642. Furthest Building You Can Reach<br />
 
 
-### 6. Binary Search 
+### 9. Binary Search 
 
 *Easy:*<br />
 69. Sqrt(x)<br />
@@ -299,6 +413,60 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1300. Sum of Mutated Array Closest to Target<br />
 658. Find K Closest Elements<br />
 911. Online Election<br />
+
+
+### 10. Two Pointer
+
+
+
+
+
+
+### 11. Sliding Window
+
+
+
+
+
+
+### 12. Dynamic Programming
+
+
+
+
+
+### 13. Greedy
+
+
+
+
+
+### 14. Bit
+
+
+
+
+
+### 15. Math
+
+
+
+
+
+### 16. Matrix
+
+
+
+
+
+
+### 17. Game Theory
+
+
+
+
+
+### 18. Other
 
 
 
