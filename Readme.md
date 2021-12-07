@@ -415,58 +415,122 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 911. Online Election<br />
 
 
-### 10. Two Pointer
+### 10. Two Pointer/Sliding Window
+
+*Easy:*<br />
+349. Intersection of Two Arrays<br />
+88. Merge Sorted Array<br />
+283. Move Zeroes<br />
+125. Valid Palindrome<br />
+344. Reverse String<br />
+27. Remove Element<br />
+977. Squares of a Sorted Array<br />
+680. Valid Palindrome II<br />
+696. Count Binary Substrings<br />
+167. Two Sum II - Input Array Is Sorted<br />
+408. Valid Word Abbreviation<br />
+844. Backspace String Compare<br />
+392. Is Subsequence<br />
+345. Reverse Vowels of a String<br />
+1099. Two Sum Less Than K<br />
+246. Strobogrammatic Number<br />
+28. Implement strStr()<br />
+202. Happy Number<br />
+387. First Unique Character in a String<br />
+219. Contains Duplicate II<br />
+643. Maximum Average Subarray I<br />
+
+*Medium:*<br />
+15. 3Sum<br />
+16. 3Sum Closest<br />
+259. 3Sum Smaller<br />
+18. 4Sum<br />
+454. 4Sum II<br />
+560. Subarray Sum Equals K<br />
+11. Container With Most Water<br />
+31. Next Permutation<br />
+75. Sort Colors<br />
+809. Expressive Words<br />
+443. String Compression<br />
+1570. Dot Product of Two Sparse Vectors<br />
+151. Reverse Words in a String<br />
+532. K-diff Pairs in an Array<br />
+556. Next Greater Element III<br />
+1861. Rotating the Box<br />
+723. Candy Crush<br />
+277. Find the Celebrity<br />
+611. Valid Triangle Number<br />
+165. Compare Version Numbers<br />
+1963. Minimum Number of Swaps to Make the String Balanced<br />
+986. Interval List Intersections<br />
+763. Partition Labels<br />
+1229. Meeting Scheduler<br />
+777. Swap Adjacent in LR String<br />
+1877. Minimize Maximum Pair Sum in Array<br />
+161. One Edit Distance<br />
+1658. Minimum Operations to Reduce X to Zero<br />
+849. Maximize Distance to Closest Person<br />
+713. Subarray Product Less Than K<br />
+567. Permutation in String<br />
+1423. Maximum Points You Can Obtain from Cards<br />
+209. Minimum Size Subarray Sum<br />
+3. Longest Substring Without Repeating Characters<br />
+424. Longest Repeating Character Replacement<br />
+340. Longest Substring with At Most K Distinct Characters<br />
+159. Longest Substring with At Most Two Distinct Characters<br />
+438. Find All Anagrams in a String<br />
+220. Contains Duplicate III<br />
+487. Max Consecutive Ones II<br />
+1004. Max Consecutive Ones III<br />
+1838. Frequency of the Most Frequent Element<br />
+1248. Count Number of Nice Subarrays<br />
+395. Longest Substring with At Least K Repeating Characters<br />
+904. Fruit Into Baskets<br />
+1151. Minimum Swaps to Group All 1's Together<br />
+1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit<br />
+1477. Find Two Non-overlapping Sub-arrays Each With Target Sum<br />
+658. Find K Closest Elements <br />
+1712. Ways to Split Array Into Three Subarrays<br />
+
+
+### 11. Dynamic Programming
+
+
+
+
+
+### 12. Greedy
+
+
+
+
+
+### 13. Bit
+
+
+
+
+
+### 14. Math
+
+
+
+
+
+### 15. Matrix
 
 
 
 
 
 
-### 11. Sliding Window
+### 16. Game Theory
 
 
 
 
 
-
-### 12. Dynamic Programming
-
-
-
-
-
-### 13. Greedy
-
-
-
-
-
-### 14. Bit
-
-
-
-
-
-### 15. Math
-
-
-
-
-
-### 16. Matrix
-
-
-
-
-
-
-### 17. Game Theory
-
-
-
-
-
-### 18. Other
+### 17. Other
 
 
 
