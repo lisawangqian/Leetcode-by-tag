@@ -489,25 +489,129 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1151. Minimum Swaps to Group All 1's Together<br />
 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit<br />
 1477. Find Two Non-overlapping Sub-arrays Each With Target Sum<br />
-658. Find K Closest Elements <br />
-1712. Ways to Split Array Into Three Subarrays<br />
+1888. Minimum Number of Flips to Make the Binary String Alternating<br />
 
 
 ### 11. Dynamic Programming
 
+*Easy:*<br />
+121. Best Time to Buy and Sell Stock<br />
+70. Climbing Stairs<br />
+53. Maximum Subarray<br />
+746. Min Cost Climbing Stairs<br />
+509. Fibonacci Number<br />
+118. Pascal's Triangle<br />
+119. Pascal's Triangle II<br />
+392. Is Subsequence<br />
+338. Counting Bits<br />
+1025. Divisor Game<br />
 
+*Medium:*<br />
+337. House Robber III<br />
+322. Coin Change<br />
+300. Longest Increasing Subsequence<br />
+139. Word Break<br />
+152. Maximum Product Subarray<br />
+309. Best Time to Buy and Sell Stock with Cooldown<br />
+264. Ugly Number II<br />
+279. Perfect Squares<br />
+5. Longest Palindromic Substring<br />
+1143. Longest Common Subsequence<br />
+131. Palindrome Partitioning<br />
+62. Unique Paths<br />
+64. Minimum Path Sum<br />
+221. Maximal Square<br />
+416. Partition Equal Subset Sum<br />
+718. Maximum Length of Repeated Subarray<br />
+494. Target Sum<br />
+91. Decode Ways<br />
+55. Jump Game<br />
+740. Delete and Earn<br />
+1048. Longest String Chain<br />
+926. Flip String to Monotone Increasing<br />
+241. Different Ways to Add Parentheses<br />
+935. Knight Dialer<br />
+518. Coin Change 2<br />
+1277. Count Square Submatrices with All Ones<br />
+198. House Robber<br />
+678. Valid Parenthesis String<br />
+122. Best Time to Buy and Sell Stock II<br />
+983. Minimum Cost For Tickets<br />
+63. Unique Paths II<br />
+647. Palindromic Substrings<br />
+1043. Partition Array for Maximum Sum<br />
+1395. Count Number of Teams<br />
+516. Longest Palindromic Subsequence<br />
+1027. Longest Arithmetic Subsequence<br />
+877. Stone Game<br />
+542. 01 Matrix<br />
+1884. Egg Drop With 2 Eggs and N Floors<br />
+486. Predict the Winner<br />
+894. All Possible Full Binary Trees<br />
 
 
 
 ### 12. Greedy
 
+*Easy:*<br />
+1710. Maximum Units on a Truck<br />
+605. Can Place Flowers<br />
+455. Assign Cookies<br />
+1013. Partition Array Into Three Parts With Equal Sum<br />
+
+*Medium:*<br />
+334. Increasing Triplet Subsequence<br />
+134. Gas Station<br />
+45. Jump Game II<br />
+55. Jump Game<br />
+1647. Minimum Deletions to Make Character Frequencies Unique<br />
+621. Task Scheduler<br />
+1465. Maximum Area of a Piece of Cake After Horizontal and Vertical Cuts<br />
+678. Valid Parenthesis String<br />
+1509. Minimum Difference Between Largest and Smallest Value in Three Moves<br />
+670. Maximum Swap<br />
+1328. Break a Palindrome<br />
+945. Minimum Increment to Make Array Unique<br />
+1881. Maximum Value after Insertion<br />
+1029. Two City Scheduling<br />
+435. Non-overlapping Intervals<br />
+2007. Find Original Array From Doubled Array<br />
+954. Array of Doubled Pairs<br />
+1968. Array With Elements Not Equal to Average of Neighbors<br />
+659. Split Array into Consecutive Subsequences<br />
+1024. Video Stitching<br />
+1877. Minimize Maximum Pair Sum in Array<br />
+714. Best Time to Buy and Sell Stock with Transaction Fee<br />
+1864. Minimum Number of Swaps to Make the Binary String Alternating<br />
+406. Queue Reconstruction by Height<br />
 
 
 
 
 ### 13. Bit
 
+*Easy:*<br />
+136. Single Number<br />
+191. Number of 1 Bits<br />
+190. Reverse Bits<br />
+231. Power of Two<br />
+389. Find the Difference<br />
+461. Hamming Distance<br />
+405. Convert a Number to Hexadecimal<br />
+268. Missing Number<br />
+67. Add Binary<br />
+338. Counting Bits<br />
 
+*Medium:*<br />
+1318. Minimum Flips to Make a OR b Equal to c<br />
+260. Single Number III<br />
+371. Sum of Two Integers<br />
+137. Single Number II<br />
+421. Maximum XOR of Two Numbers in an Array<br />
+201. Bitwise AND of Numbers Range<br />
+477. Total Hamming Distance<br />
+78. Subsets<br />
+89. Gray Code<br />
 
 
 
