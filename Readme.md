@@ -248,8 +248,10 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 433. Minimum Genetic Mutation<br />
 286. Walls and Gates<br />
 542. 01 Matrix<br />
+909. Snakes and Ladders<br />
 1926. Nearest Exit from Entrance in Maze<br />
 1129. Shortest Path with Alternating Colors<br />
+1091. Shortest Path in Binary Matrix<br />
 787. Cheapest Flights Within K Stops<br />
 1135. Connecting Cities With Minimum Cost<br />
 1584. Min Cost to Connect All Points<br />
@@ -435,7 +437,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1099. Two Sum Less Than K<br />
 246. Strobogrammatic Number<br />
 28. Implement strStr()<br />
-202. Happy Number<br />
 387. First Unique Character in a String<br />
 219. Contains Duplicate II<br />
 643. Maximum Average Subarray I<br />
@@ -615,14 +616,50 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 14. Math
+### 14. Matrix
+
+*Easy:*<br />
+867. Transpose Matrix<br />
+832. Flipping an Image<br />
+1572. Matrix Diagonal Sum<br />
+1275. Find Winner on a Tic Tac Toe Game<br />
+733. Flood Fill<br />
+1351. Count Negative Numbers in a Sorted Matrix<br />
+766. Toeplitz Matrix<br />
+661. Image Smoother<br />
+
+*Medium:*<br />
+54. Spiral Matrix<br />
+48. Rotate Image<br />
+59. Spiral Matrix II<br />
+73. Set Matrix Zeroes<br />
+289. Game of Life<br />
+36. Valid Sudoku<br />
+498. Diagonal Traverse<br />
+348. Design Tic-Tac-Toe<br />
+353. Design Snake Game<br />
+1329. Sort the Matrix Diagonally<br />
+1895. Largest Magic Square<br />
 
 
 
+### 15. Math
 
+*Easy:*<br />
+628. Maximum Product of Three Numbers<br />
+76. Largest Perimeter Triangle<br />
+202. Happy Number<br />
+1232. Check If It Is a Straight Line<br />
+1266. Minimum Time Visiting All Points<br />
 
-### 15. Matrix
-
+*Medium:*<br />
+892. Surface Area of 3D Shapes<br />
+29. Divide Two Integers<br />
+343. Integer Break<br />
+166. Fraction to Recurring Decimal<br />
+204. Count Primes<br />
+401. Circle and Rectangle Overlapping<br />
+963. Minimum Area Rectangle II<br />
 
 
 
@@ -630,7 +667,14 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 ### 16. Game Theory
 
+*Easy:*<br />
+292. Nim Game<br />
 
+*Medium:*<br />
+375. Guess Number Higher or Lower II<br />
+464. Can I Win<br />
+877. Stone Game<br />
+486. Predict the Winner<br />
 
 
 
