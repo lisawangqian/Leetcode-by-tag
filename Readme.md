@@ -588,7 +588,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-
 ### 13. Bit
 
 *Easy:*<br />
@@ -623,7 +622,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 832. Flipping an Image<br />
 1572. Matrix Diagonal Sum<br />
 1275. Find Winner on a Tic Tac Toe Game<br />
-733. Flood Fill<br />
 1351. Count Negative Numbers in a Sorted Matrix<br />
 766. Toeplitz Matrix<br />
 661. Image Smoother<br />
