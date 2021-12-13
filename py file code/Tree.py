@@ -109,6 +109,27 @@ class Solution:
 
 
 ### 104. Maximum Depth of Binary Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        def solve(root):
+            if not root:
+                return 0
+            
+            if not root.left and not root.right:
+                return 1
+            
+            l = solve(root.left)
+            r = solve(root.right)
+            
+            return 1 + max(l, r)
+        
+        return solve(root)
 #1)DFS 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -182,6 +203,34 @@ class Solution:
 #         self.left = left
 #         self.right = right
 class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def height(root):
+            if not root:
+                return 0
+            if not root.left and not root.right:
+                return 1
+            l = height(root.left)
+            r = height(root.right)
+            return 1 + max(l, r)
+        
+        def solve(root):
+            if not root:
+                return True
+            if not root.left and not root.right:
+                return True
+            l = solve(root.left)
+            r = solve(root.right)
+            return (abs(height(root.left) - height(root.right)) <= 1) and l and r
+        
+        return solve(root)
+            
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
     def dfs(self, root): #calculate height, postorder
         if not root:
             return 0
@@ -197,6 +246,28 @@ class Solution:
 
 
 ### 257. Binary Tree Paths ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        result = []
+        def solve(root, path):
+            if not root:
+                return
+            if not root.left and not root.right:
+                path.append(str(root.val))
+                result.append('->'.join(path))
+            
+            solve(root.left, path + [str(root.val)])
+            solve(root.right, path + [str(root.val)])
+            
+        solve(root, [])
+        
+        return result
 #1) DFS preorder
 # Definition for a binary tree node.
 # class TreeNode:
@@ -251,6 +322,33 @@ class Solution:
 
 
 ### 111. Minimum Depth of Binary Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        
+        def solve(root):
+            if not root:
+                return 0
+            if not root.left and not root.right:
+                return 1
+            
+            l = solve(root.left)
+            r = solve(root.right)
+            
+            if not l:
+                return r + 1
+            
+            if not r:
+                return l + 1
+            
+            return 1 + min(r, l)
+        
+        return solve(root)
 #1)recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -301,6 +399,30 @@ class Solution:
 
 
 ### 112. Path Sum ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        
+        def solve(root, target):
+            if not root:
+                return False
+            
+            if not root.left and not root.right:
+                return root.val == target
+            
+            l = solve(root.left, target-root.val)
+            
+            r = solve(root.right, target-root.val)
+
+            return l or r
+        
+        
+        return solve(root, targetSum)
 #1)Recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -389,6 +511,28 @@ class Solution:
 
 
 ### 101. Symmetric Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        def solve(root1, root2):
+            if not root1 and not root2:
+                return True
+            elif not root1:
+                return False
+            elif not root2:
+                return False
+            
+            c1 = solve(root1.left, root2.right)
+            c2 = solve(root1.right, root2.left)
+            
+            return (root1.val == root2.val) and c1 and c2
+        
+        return solve(root, root)
 #1)Recursive
 # Definition for a binary tree node.
 # class TreeNode:
@@ -437,6 +581,58 @@ class Solution:
 
 
 ### 100. Same Tree ###   #similar as 101. Symmetric Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        
+        def solve(root1, root2):
+            if not root1 and not root2:
+                return True
+            if not root1 or not root2:
+                return False
+            l = solve(root1.left, root2.left)
+            r = solve(root1.right, root2.right)
+            return (root1.val == root2.val) and l and r
+        
+        def dfs(root):
+            
+            if not root:
+                if not subRoot:
+                    return True
+                else:
+                    return False
+            return solve(root, subRoot) or dfs(root.left) or dfs(root.right)
+        
+        
+        return dfs(root)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        
+        def solve(root1, root2):
+            if not root1 and not root2:
+                return True
+            elif not root1:
+                return False
+            elif not root2:
+                return False
+            
+            c1 = solve(root1.left, root2.left)
+            c2 = solve(root1.right, root2.right)
+            
+            return (root1.val == root2.val) and c1 and c2
+        
+        return solve(p, q)
 #1)Recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1222,6 +1418,54 @@ class Solution:
         return array_to_tree(0, len(preorder)-1)
 
 ### 449. Serialize and Deserialize BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#297 method
+class Codec:
+
+    def serialize(self, root: Optional[TreeNode]) -> str:
+        """Encodes a tree to a single string.
+        """
+        container = []
+        def rserialize(root):
+            if not root:
+                return 
+            else:
+                container.append(str(root.val))
+                rserialize(root.left)
+                rserialize(root.right)
+        rserialize(root)
+        return ' '.join(container)
+
+    def deserialize(self, data: str) -> Optional[TreeNode]:
+        """Decodes your encoded data to tree.
+        """
+        value_list = [int(i) for i in data.split(' ') if data]
+        def rdeseiralize(value_list, lower, upper):
+            
+            if not value_list or value_list[0] < lower or value_list[0] > upper:
+                return 
+            
+            val =  value_list.pop(0)
+            root = TreeNode(val)
+            root.left = rdeseiralize(value_list, lower, val)
+            root.right = rdeseiralize(value_list, val, upper)
+            return root
+        
+        return rdeseiralize(value_list,  float('-inf'), float('inf'))
+        
+
+# Your Codec object will be instantiated and called as such:
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# tree = ser.serialize(root)
+# ans = deser.deserialize(tree)
+# return ans
 #1) 106 method 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1360,6 +1604,33 @@ class Solution:
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        
+        if not root or root == p or root == q:
+            return root
+        
+        l = self.lowestCommonAncestor(root.left, p, q)
+        
+        r = self.lowestCommonAncestor(root.right, p, q)
+        
+        if not l or not r: #if only one valid node returns, which means p, q are in the same subtree, 
+                           #return that valid node as their LCA
+            if l:
+                return l
+            else:
+                return r
+            
+        return root #if both returns a valid node which means p, q are in different subtrees, 
+                    #then root will be their LCA.
+        
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         ans = None
         def dfs(root):  #logic true or false
             nonlocal ans
@@ -1379,7 +1650,27 @@ class Solution:
 
 
 ### 1650. Lowest Common Ancestor of a Binary Tree III ###
+# Definition for a Node.
+#class Node:
+#    def __init__(self, val):
+#        self.val = val
+#        self.left = None
+#       self.right = None
+#       self.parent = None
 
+class Solution:
+    def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
+        pval_set = set()
+        while p:
+            pval_set.add(p)
+            p = p.parent
+        
+        while q and q not in pval_set:
+            q = q.parent
+        
+        
+        return q if q else p
+        
 # Definition for a Node.
 #class Node:
 #    def __init__(self, val):
@@ -1484,6 +1775,29 @@ class Solution:
                 
 
 ### 129. Sum Root to Leaf Numbers ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        result = []
+        def solve(root, path):
+            if not root:
+                return
+            if not root.left and not root.right:
+                path += str(root.val)
+                result.append(int(path))
+            
+            solve(root.left, path + str(root.val))
+            solve(root.right, path + str(root.val))
+            
+        solve(root, '')
+        
+        return sum(result)
+            
 #1) dfs
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1536,6 +1850,34 @@ class Solution:
         
 
 ### 113. Path Sum II ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        result = []
+        
+        def solve(root, target, path):
+            if not root:
+                return
+            
+            if not root.left and not root.right:
+                if root.val == target:
+                    path.append(root.val)
+                    result.append(list(path))
+                else:
+                    return
+            
+            solve(root.left, target-root.val, path + [root.val])
+            solve(root.right, target-root.val, path + [root.val])
+            
+        solve(root, targetSum, [])
+        
+        return result
+            
 #1)DFS backtracking
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1618,6 +1960,30 @@ class Solution:
 
 
 ### 437. Path Sum III ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        
+        def solve(root, target):
+            if not root:
+                return 0
+            
+            l = solve(root.left, target-root.val)
+            r = solve(root.right, target-root.val)
+            
+            return int(root.val == target) + l + r
+        
+        if not root:
+            return 0
+        
+        return solve(root, targetSum) + self.pathSum(root.left, targetSum) + self.pathSum(root.right, targetSum)
+            
+          
 #dfs backtracking:
 # Definition for a binary tree node.
 # class TreeNode:
@@ -2297,6 +2663,34 @@ class Solution:
 
 
 ### 1302. Deepest Leaves Sum ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+        result = []
+        max_level = -1
+        def preorder(root, level):
+            nonlocal max_level, result
+            if not root:
+                return
+            
+            if level > max_level:
+                result = [root.val]
+                max_level = level
+            elif level == max_level:
+                result.append(root.val)
+                
+            preorder(root.left, level+1)
+            preorder(root.right, level+1)
+            
+        preorder(root, 0)
+        
+        return sum(result)
+
 #1)dfs
 # Definition for a binary tree node.
 # class TreeNode:
@@ -3020,3 +3414,406 @@ class Solution:
         
 
 
+### 429. N-ary Tree Level Order Traversal
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+class Solution:
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        result = []
+        
+        def preorder(root, level):
+            if not root:
+                return
+            if len(result)-1 < level:
+                result.append([root.val])
+            else:
+                result[level].append(root.val)
+            
+            for each in root.children:
+                preorder(each, level + 1)
+            
+        preorder(root, 0)
+        
+        return result
+
+
+
+### 987. Vertical Order Traversal of a Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        
+        column_table = defaultdict(list)
+        min_col = max_col = 0
+        
+        def dfs(root, row, col):
+            if not root:
+                return
+            nonlocal min_col, max_col
+            column_table[col].append((row, root.val))
+            min_col = min(min_col, col)
+            max_col = max(max_col, col)
+            dfs(root.left, row + 1, col - 1)
+            dfs(root.right, row + 1, col + 1)
+            
+        dfs(root, 0, 0)
+        result = []
+        for col in range(min_col, max_col+1):
+            column_table[col].sort(key = lambda x:(x[0], x[1]))
+            result.append([val for row, val in column_table[col]])
+            
+        return result
+
+
+
+### 951. Flip Equivalent Binary Trees
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flipEquiv(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        
+        def solve(root1, root2):
+            if not root1 and not root2:
+                return True
+            if not root1 or not root2:
+                return False
+            
+            l1 = solve(root1.left, root2.left)
+            l2 = solve(root1.left, root2.right)
+            r1 = solve(root1.right, root2.right)
+            r2 = solve(root1.right, root2.left)
+
+            return (root1.val == root2.val) and ((l1 and r1) or (l2 and r2))
+        
+        return solve(root1, root2)
+
+
+
+### 965. Univalued Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
+        
+        vals = []
+        def solve(root):
+            
+            if not root:
+                return 
+            vals.append(root.val)
+            solve(root.left)
+            solve(root.right)
+            
+        solve(root) 
+        
+        return len(set(vals)) == 1
+
+
+
+### 814. Binary Tree Pruning
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pruneTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        
+        def checktree(root):
+            if not root:
+                return False
+            
+            l = checktree(root.left)
+            r = checktree(root.right)
+            
+            if not l:
+                root.left = None
+            if not r:
+                root.right = None
+                
+            return (root.val == 1) or l or r
+        
+        return root if checktree(root) else None
+
+
+
+
+
+
+### 1325. Delete Leaves With a Given Value
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
+        
+        def remove(root):
+            if not root:
+                return None
+            
+            root.left = remove(root.left)
+            root.right = remove(root.right)
+            
+            return None if root.val == target and not root.left and not root.right else root
+                
+            
+        return root if remove(root) else None
+        
+
+### 669. Trim a Binary Search Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+        
+        def trimtree(root):
+            if not root:
+                return None
+            elif root.val > high:
+                root = trimtree(root.left)
+            elif root.val < low:
+                root = trimtree(root.right)
+            else:
+                root.left = trimtree(root.left)
+                root.right = trimtree(root.right)
+            return root
+            
+        return trimtree(root)
+                
+
+### 297. Serialize and Deserialize Binary Tree
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        container = []
+        def rserialize(root):
+            if not root:
+                container.append('#')
+                return
+            else:
+                container.append(str(root.val))
+                rserialize(root.left)
+                rserialize(root.right)
+        rserialize(root)
+        return ' '.join(container)
+                
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        value_list = data.split(' ')
+        
+        def rdeseiralize(value_list):
+            if value_list[0] == '#':
+                value_list.pop(0)
+                return None
+            
+            root = TreeNode(value_list[0])
+            value_list.pop(0)
+            root.left = rdeseiralize(value_list)
+            root.right = rdeseiralize(value_list)
+            return root
+        
+        return rdeseiralize(value_list)
+        
+        
+### 536. Construct Binary Tree from String
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def str2tree(self, s: str) -> Optional[TreeNode]:
+        def get_number(s, index):
+            is_negative = False
+            
+            if s[index] == '-':
+                is_negative = True
+                index = index + 1
+                
+            number = 0
+            while index < len(s) and s[index].isdigit():
+                number = number * 10 + int(s[index])
+                index+=1
+                
+            return number if not is_negative else -number, index
+        
+        def construct_tree(s, index):
+            if index == len(s):
+                return None, index
+            
+            value, index = get_number(s, index)  #number and next scan index
+            root = TreeNode(value)
+            
+            if index < len(s) and s[index] == '(':
+                root.left, index = construct_tree(s, index+1)
+            
+            if root.left and index < len(s) and s[index] == '(':
+                root.right, index = construct_tree(s, index+1)
+                
+            return root, index + 1 if index < len(s) and s[index] == ')' else index
+        
+        return construct_tree(s, 0)[0]
+                
+
+
+### 124. Binary Tree Maximum Path Sum
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        def solve(root):
+            nonlocal ans
+            if not root: 
+                return 0
+            l = max(0, solve(root.left))
+            r = max(0, solve(root.right))
+            ans = max(ans, l + r + root.val)  
+            return max(l, r) + root.val 
+        
+        if not root:
+            return 0
+        ans = float('-inf')
+        solve(root)
+        return ans
+
+
+### 687. Longest Univalue Path
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def longestUnivaluePath(self, root: Optional[TreeNode]) -> int:
+        
+        def solve(root):
+            nonlocal ans
+            if not root:
+                return 0 
+            l = solve(root.left)
+            r = solve(root.right)
+            
+            pl = 0 #edge
+            pr = 0 #edge
+            if root.left and root.val == root.left.val:
+                pl = l+1 #add one edge
+                
+            if root.right and root.val == root.right.val:
+                pr = r + 1  #add one edge
+                
+            ans = max(ans, pr + pl)
+            return max(pr, pl)
+        
+        if not root:
+            return 0
+        ans = 0
+        solve(root)
+        return ans
+        
+
+
+### 508. Most Frequent Subtree Sum
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findFrequentTreeSum(self, root: Optional[TreeNode]) -> List[int]:
+        s = defaultdict(int)
+        def solve(root):
+            if not root:
+                return 0
+            l = solve(root.left)
+            r = solve(root.right)
+            total = l + r + root.val
+            s[total] += 1
+            return total
+        
+        if not root:
+            return []
+        
+        solve(root)
+        f = max(s.values())
+        
+        return [i for i, v in s.items() if v == f]
+            
+        
+
+### 968. Binary Tree Cameras
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minCameraCover(self, root: Optional[TreeNode]) -> int:
+        # state 0: Strict ST: all nodes below this node are covered but not this node
+        # state 1: Normal ST: all nodes below this node are covered including this node, but no camera here
+        # state 2: Camera placed: all nodes below this node are covered including this node, camera here
+        def solve(root): #state 0, state 1, state 2
+            if not root:
+                return 0, 0, 1 
+            
+            l = solve(root.left)
+            r = solve(root.right)
+            
+            dp_s0 = l[1] + r[1]  #left and right child need to be in state 1
+            dp_s1 = min(l[2] + min(r[1:]), r[2] + min(l[1:]))  #1) left child state2; right child state1/2
+                                                               #2) right child state2; left child state1/2
+            dp_s2 = 1 + min(l) + min(r) #camera here
+            
+            return dp_s0, dp_s1, dp_s2
+        
+        return min(solve(root)[1:])
