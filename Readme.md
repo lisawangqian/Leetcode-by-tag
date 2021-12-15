@@ -1,9 +1,10 @@
-# Leetcode by Tag - easy and medium
+# Leetcode by Tag - mostly easy and medium
 ## Good Resources: 
 
 https://zxi.mytechroad.com/blog/leetcode-problem-categories<br />
 https://www.youtube.com/c/HuaHuaLeetCode<br />
 https://www.youtube.com/c/BackToBackSWE<br />
+https://www.youtube.com/channel/UCE35PnPX7EZi8nHSegjMn6Q<br />
 https://github.com/resumejob/Leetcode-retag<br />
 https://www.1point3acres.com/bbs/thread-678970-1-1.html<br />
 https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />

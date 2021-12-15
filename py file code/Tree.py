@@ -467,6 +467,29 @@ class Solution:
 
 
 ### 226. Invert Binary Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    
+    def invertTree(self, root: TreeNode) -> TreeNode:  #reversed preorder
+        
+        def solve(root):
+            if not root:
+                return
+            
+            l = solve(root.left)
+            r = solve(root.right)
+            
+            root.left = r
+            root.right = l
+            
+            return root
+        
+        return solve(root)
 #1)DFS 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -716,6 +739,29 @@ class Solution:
 
 
 ### 617. Merge Two Binary Trees ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        
+        def solve(root1, root2):
+            if not root1:
+                return root2
+            if not root2:
+                return root1
+            
+            root1.val = root1.val + root2.val
+            
+            root1.left = solve(root1.left, root2.left)
+            root1.right = solve(root1.right, root2.right)
+            
+            return root1
+            
+        return solve(root1, root2)
 #1)Recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -804,6 +850,28 @@ class Solution:
 
 
 ### 993. Cousins in Binary Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        parents = []
+        def solve(root, parent, depth):
+            if not root:
+                return
+            if root.val in (x, y):
+                parents.append((parent, depth))
+            solve(root.left, root, depth + 1)
+            solve(root.right, root, depth + 1)
+            
+        solve(root, None, 0)
+        
+        if len(parents) == 2 and parents[0][0] != parents[1][0] and parents[0][1] == parents[1][1]:
+            return True
+        return False
 #1)DFS
 # Definition for a binary tree node.
 # class TreeNode:
@@ -861,6 +929,29 @@ class Solution:
 
 
 ### 637. Average of Levels in Binary Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        depths = []
+        
+        def solve(root, level):
+            if not root:
+                return
+            if len(depths) <= level:
+                depths.append([])
+            
+            depths[level].append(root.val)
+            solve(root.left, level+1)
+            solve(root.right, level+1)
+            
+        solve(root, 0)
+        
+        return [sum(v) / len(v) for v in depths]
 #1)dfs
 # Definition for a binary tree node.
 # class TreeNode:
@@ -989,6 +1080,30 @@ class Solution:
 
 
 ### 897. Increasing Order Search Tree ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        ans = prev_node = TreeNode(None)
+        
+        def inorder(root):
+            nonlocal prev_node
+            if not root:
+                return 
+            inorder(root.left)
+            root.left = None
+            prev_node.right = root
+            #bst inorder assign like others in the category
+            prev_node = root
+            inorder(root.right)
+            
+        inorder(root)
+        return ans.right
+            
 #1)Recontruct
 # Definition for a binary tree node.
 # class TreeNode:
@@ -1298,6 +1413,30 @@ class Solution:
 #         self.left = left
 #         self.right = right
 class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        in_index = {v:i for i, v in enumerate(inorder)}
+        
+        def solve(pre_st, in_st, in_end):
+            if pre_st > len(preorder)-1 or in_st > in_end:
+                return None
+            root = TreeNode(preorder[pre_st])
+            
+            idx = in_index[preorder[pre_st]]
+            
+            root.left = solve(pre_st+1, in_st, idx-1)
+            root.right = solve(pre_st + (idx-in_st) + 1, idx+1, in_end)
+            
+            return root
+        
+        return solve(0, 0, len(inorder)-1)
+        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         
         def array_to_tree(left, right):
@@ -1322,6 +1461,34 @@ class Solution:
 
 
 ### 1008. Construct Binary Search Tree from Preorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+        inorder = sorted(preorder)
+        in_index = {v:i for i, v in enumerate(inorder)}
+        
+        def solve(pre_st, in_st, in_end):
+            if pre_st > len(preorder)-1 or in_st > in_end:
+                return None
+            root = TreeNode(preorder[pre_st])
+            
+            idx = in_index[preorder[pre_st]]
+            
+            root.left = solve(pre_st+1, in_st, idx-1)
+            root.right = solve(pre_st + (idx-in_st) + 1, idx+1, in_end)
+            
+            return root
+        
+        return solve(0, 0, len(inorder)-1)
+            
+
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -1361,6 +1528,30 @@ class Solution:
 #         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        in_index = {v:i for i, v in enumerate(inorder)}
+        
+        def solve(in_st, post_st, size):
+            if size == 0:
+                return None
+            val = postorder[post_st + size - 1]
+            root = TreeNode(val)
+            idx = in_index[val]
+            leftsize = idx - in_st
+            rightsize = size - leftsize - 1
+            root.left = solve(in_st, post_st, leftsize)
+            root.right = solve(idx+1, post_st + leftsize, rightsize)
+            
+            return root
+        
+        return solve(0, 0, len(inorder))
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         def array_to_tree(left, right):
             if left > right:
                 return None
@@ -1382,6 +1573,32 @@ class Solution:
 
 
 ### 889. Construct Binary Tree from Preorder and Postorder Traversal ###
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        post_index = {v: i for i, v in enumerate(postorder)}
+        
+        def solve(pre_st, post_st, size):
+            if size == 0:
+                return None
+            root = TreeNode(preorder[pre_st])
+            if size == 1: #important for pre_st+1 not out of bound!
+                return root
+            
+            idx = post_index[preorder[pre_st+1]]
+            leftsize = idx - post_st + 1
+            rightsize = size - leftsize - 1
+            root.left = solve(pre_st + 1, post_st, leftsize)
+            root.right = solve(pre_st + 1 + leftsize, idx+1, rightsize)
+            
+            return root
+        
+        return solve(0, 0, len(postorder))
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -2396,6 +2613,7 @@ class Solution:
 
 
 ### 337. House Robber III ###
+
 #1) recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -3083,6 +3301,36 @@ class Solution:
        
 
 ### 99. Recover Binary Search Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        first, second, prev = None, None, None
+        
+        def inorder(root):
+            nonlocal first, second, prev
+            if not root:
+                return
+            inorder(root.left)
+            if prev and prev.val > root.val:
+                if not first:
+                    first = prev
+                second = root
+            prev = root
+            inorder(root.right)
+            
+        inorder(root)
+        
+        first.val, second.val = second.val, first.val
+        
+        
 #1)recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -3196,6 +3444,42 @@ class Solution:
 
 
 ### 333. Largest BST Subtree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def largestBSTSubtree(self, root: Optional[TreeNode]) -> int:
+        
+        prev_val = float('-inf')
+        
+        def inorder(root):
+            nonlocal prev_val
+            if not root:
+                return True
+            if not inorder(root.left):
+                return False
+            if root.val <= prev_val:
+                return False
+            prev_val = root.val
+            if not inorder(root.right):
+                return False
+            return True
+        
+        def count_nodes(root):
+            if not root:
+                return 0
+            return 1 + count_nodes(root.left) + count_nodes(root.right)
+        
+        if not root:
+            return 0
+        
+        if inorder(root):
+            return count_nodes(root)
+        
+        return max(self.largestBSTSubtree(root.left), self.largestBSTSubtree(root.right))
 #1)recursion
 # Definition for a binary tree node.
 # class TreeNode:
@@ -3326,6 +3610,32 @@ class Solution:
 
 
 ### 285. Inorder Successor in BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'Optional[TreeNode]':
+        
+        prev, result = None, None
+        def inorder(root):
+            nonlocal prev, result
+            if not root: return
+            inorder(root.left)
+            if prev:
+                if prev.val == p.val:
+                    result = root
+                
+            prev = root
+            
+            inorder(root.right)
+            
+        inorder(root)
+        
+        return result	1								
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -3817,3 +4127,91 @@ class Solution:
             return dp_s0, dp_s1, dp_s2
         
         return min(solve(root)[1:])
+
+
+### 701. Insert into a Binary Search Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        
+        def solve(root):
+            if not root:
+                return TreeNode(val)
+
+            if val < root.val:
+                root.left = solve(root.left)
+            else:
+                root.right = solve(root.right)
+                
+            return root
+        
+        return solve(root)
+
+### 450. Delete Node in a BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        def leftmost(root):
+            while root.left:
+                  root = root.left
+            return root.val
+        def solve(root, key):
+            if not root: return None
+            
+            if root.val < key:
+                root.right = solve(root.right, key)
+            elif root.val > key:
+                root.left = solve(root.left, key)
+            else:
+                if not root.left and not root.right: #leaft
+                    root = None
+                elif not root.left:  #only right child
+                    root = root.right
+                elif not root.right: #only left child
+                    root= root.left
+                else:
+                    root.val = leftmost(root.right)
+                    root.right = solve(root.right, root.val)
+                    
+            return root
+        
+        return solve(root, key)
+        
+
+### 501. Find Mode in Binary Search Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        prev_val = float('-inf')
+        mode = defaultdict(int)
+        def inorder(root):
+            nonlocal prev_val
+            if not root:
+                return
+            inorder(root.left)
+            if root.val == prev_val:
+                mode[root.val] += 1
+            else:
+                mode[root.val] = 1
+            prev_val = root.val
+            inorder(root.right)
+            
+        inorder(root)
+        m = max(mode.values())
+        return [i for i, v in mode.items() if v == m]
+           
