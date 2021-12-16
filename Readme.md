@@ -128,7 +128,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 235. Lowest Common Ancestor of a Binary Search Tree<br />
 1650. Lowest Common Ancestor of a Binary Tree III<br />
 
-*Construct Binary Tree*<br />
+*Construct Binary Tree:*<br />
 297. Serialize and Deserialize Binary Tree<br />
 536. Construct Binary Tree from String<br />
 449. Serialize and Deserialize BST<br />
@@ -142,7 +142,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 108. Convert Sorted Array to Binary Search Tree<br />
 1382. Balance a Binary Search Tree<br />
 
-*Binary Search Tree Binary Search*<br />
+*Binary Search Tree Binary Search:*<br />
 700. Search in a Binary Search Tree<br />
 701. Insert into a Binary Search Tree<br />
 450. Delete Node in a BST<br />
@@ -150,7 +150,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 270. Closest Binary Search Tree Value<br />
 98. Validate Binary Search Tree<br />
 
-*Binary Search Tree Inorder Traversal*<br />
+*Binary Search Tree Inorder Traversal:*<br />
 333. Largest BST Subtree<br />
 783. Minimum Distance Between BST Nodes<br />
 530. Minimum Absolute Difference in BST<br />
@@ -164,7 +164,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 285. Inorder Successor in BST<br />
 510. Inorder Successor in BST II<br />
 
-*Tree DP/Greedy*<br />
+*Tree DP/Greedy:*<br />
 96. Unique Binary Search Trees<br />
 95. Unique Binary Search Trees II<br />
 894. All Possible Full Binary Trees<br />
