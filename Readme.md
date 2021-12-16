@@ -57,88 +57,120 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 ### 2. Binary(N-ary) Tree
 
-*Easy:*<br /> 
+*Binary Tree Traversal Basic:*<br /> 
 145. Binary Tree Postorder Traversal<br />
-94. Binary Tree Inorder Traversal<br />
+94. Binary Tree Inorder Traversal<br />
 144. Binary Tree Preorder Traversal<br />
-589. N-ary Tree Preorder Traversal<br />
-590. N-ary Tree Postorder Traversal<br />
-104. Maximum Depth of Binary Tree<br />
-543. Diameter of Binary Tree<br />
-110. Balanced Binary Tree<br />
-257. Binary Tree Paths<br />
-101. Symmetric Tree<br />
-226. Invert Binary Tree<br />
-617. Merge Two Binary Trees<br />
-100. Same Tree<br />
-112. Path Sum<br />
-111. Minimum Depth of Binary Tree<br />
-108. Convert Sorted Array to Binary Search Tree<br />
-938. Range Sum of BST<br />
-572. Subtree of Another Tree<br />
-270. Closest Binary Search Tree Value<br />
-897. Increasing Order Search Tree<br />
-993. Cousins in Binary Tree<br />
-671. Second Minimum Node In a Binary Tree<br />
-783. Minimum Distance Between BST Nodes<br />
-530. Minimum Absolute Difference in BST(solution same as above)<br />
-235. Lowest Common Ancestor of a Binary Search Tree<br />
-404. Sum of Left Leaves<br />
-700. Search in a Binary Search Tree<br />
-637. Average of Levels in Binary Tree<br />
+589. N-ary Tree Preorder Traversal<br />
+590. N-ary Tree Postorder Traversal<br />
+545. Boundary of Binary Tree<br />
 
-*Medium:*<br />
+*Binary Tree Traversal Preorder:*<br />
+429. N-ary Tree Level Order Traversal<br />
 102. Binary Tree Level Order Traversal<br />
-103. Binary Tree Zigzag Level Order Traversal<br />
-107. Binary Tree Level Order Traversal II<br />
-105. Construct Binary Tree from Preorder and Inorder Traversal<br />
-1008. Construct Binary Search Tree from Preorder Traversal<br />
-106. Construct Binary Tree from Inorder and Postorder Traversal<br />
-889. Construct Binary Tree from Preorder and Postorder Traversal<br />
-114. Flatten Binary Tree to Linked List<br />
-236. Lowest Common Ancestor of a Binary Tree<br />
-222. Count Complete Tree Nodes<br />
-129. Sum Root to Leaf Numbers<br />
-113. Path Sum II<br />
-437. Path Sum III<br />
-662. Maximum Width of Binary Tree<br />
-199. Binary Tree Right Side View<br />
-116. Populating Next Right Pointers in Each Node<br />
-515. Find Largest Value in Each Tree Row<br />
-1448. Count Good Nodes in Binary Tree<br />
-1650. Lowest Common Ancestor of a Binary Tree III<br />
-314. Binary Tree Vertical Order Traversal<br />
-545. Boundary of Binary Tree<br />
-1110. Delete Nodes And Return Forest<br />
-366. Find Leaves of Binary Tree<br />
-427. Construct Quad Tree<br />
-337. House Robber III<br />
-894. All Possible Full Binary Trees<br />
-1120. Maximum Average Subtree<br />
-958. Check Completeness of a Binary Tree<br />
-536. Construct Binary Tree from String<br />
-1522. Diameter of N-Ary Tree<br />
-971. Flip Binary Tree To Match Preorder Traversal<br />
-652. Find Duplicate Subtrees<br />
-979. Distribute Coins in Binary Tree<br />
-1302. Deepest Leaves Sum<br />
-1026. Maximum Difference Between Node and Ancestor<br />
-513. Find Bottom Left Tree Value<br />
-250. Count Univalue Subtrees<br />
-156. Binary Tree Upside Down<br />
-98. Validate Binary Search Tree<br />
-173. Binary Search Tree Iterator<br />
-96. Unique Binary Search Trees<br />
-95. Unique Binary Search Trees II<br />
-230. Kth Smallest Element in a BST<br />
-99. Recover Binary Search Tree<br />
-426. Convert Binary Search Tree to Sorted Doubly Linked List<br />
-1382. Balance a Binary Search Tree<br />
-449. Serialize and Deserialize BST(see 1008)<br />
-333. Largest BST Subtree<br />
-538. Convert BST to Greater Tree<br />
-285. Inorder Successor in BST<br />
-510. Inorder Successor in BST II<br />
+103. Binary Tree Zigzag Level Order Traversal<br />
+107. Binary Tree Level Order Traversal II<br />
+1302. Deepest Leaves Sum<br />
+314. Binary Tree Vertical Order Traversal<br />
+987. Vertical Order Traversal of a Binary Tree<br />
+662. Maximum Width of Binary Tree<br />
+199. Binary Tree Right Side View<br />
+513. Find Bottom Left Tree Value<br />
+637. Average of Levels in Binary Tree<br />
+515. Find Largest Value in Each Tree Row<br />
+116. Populating Next Right Pointers in Each Node<br />
+222. Count Complete Tree Nodes<br />
+993. Cousins in Binary Tree<br />
+965. Univalued Binary Tree<br />
+872. Leaf-Similar Trees<br />
+671. Second Minimum Node In a Binary Tree<br />
+1026. Maximum Difference Between Node and Ancestor<br />
+
+*Template 1Root/Path Sum:*<br />
+104. Maximum Depth of Binary Tree<br />
+111. Minimum Depth of Binary Tree<br />
+112. Path Sum<br />
+113. Path Sum II<br />
+437. Path Sum III<br />
+129. Sum Root to Leaf Numbers<br />
+257. Binary Tree Paths<br />
+543. Diameter of Binary Tree<br />
+1522. Diameter of N-Ary Tree<br />
+124. Binary Tree Maximum Path Sum<br />
+687. Longest Univalue Path<br />
+250. Count Univalue Subtrees<br />
+508. Most Frequent Subtree Sum<br />
+226. Invert Binary Tree<br />
+404. Sum of Left Leaves<br />
+1448. Count Good Nodes in Binary Tree<br />
+1120. Maximum Average Subtree<br />
+652. Find Duplicate Subtrees<br />
+958. Check Completeness of a Binary Tree<br />
+366. Find Leaves of Binary Tree<br />
+110. Balanced Binary Tree<br />
+863. All Nodes Distance K in Binary Tree<br />
+
+*Template 2Roots:*<br />
+100. Same Tree<br />
+101. Symmetric Tree<br />
+951. Flip Equivalent Binary Trees<br />
+572. Subtree of Another Tree<br />
+617. Merge Two Binary Trees<br />
+
+*Tree Pruning:*<br />
+814. Binary Tree Pruning<br />
+669. Trim a Binary Search Tree<br />
+1325. Delete Leaves With a Given Value<br />
+1110. Delete Nodes And Return Forest<br />
+
+*Lowest Common Ancestor:*<br />
+236. Lowest Common Ancestor of a Binary Tree<br />
+235. Lowest Common Ancestor of a Binary Search Tree<br />
+1650. Lowest Common Ancestor of a Binary Tree III<br />
+
+*Construct Binary Tree*<br />
+297. Serialize and Deserialize Binary Tree<br />
+536. Construct Binary Tree from String<br />
+449. Serialize and Deserialize BST<br />
+105. Construct Binary Tree from Preorder and Inorder Traversal<br />
+1008. Construct Binary Search Tree from Preorder Traversal<br />
+106. Construct Binary Tree from Inorder and Postorder Traversal<br />
+889. Construct Binary Tree from Preorder and Postorder Traversal<br />
+114. Flatten Binary Tree to Linked List<br />
+156. Binary Tree Upside Down<br />
+427. Construct Quad Tree<br />
+108. Convert Sorted Array to Binary Search Tree<br />
+1382. Balance a Binary Search Tree<br />
+
+*Binary Search Tree Binary Search*<br />
+700. Search in a Binary Search Tree<br />
+701. Insert into a Binary Search Tree<br />
+450. Delete Node in a BST<br />
+938. Range Sum of BST<br />
+270. Closest Binary Search Tree Value<br />
+98. Validate Binary Search Tree<br />
+
+*Binary Search Tree Inorder Traversal*<br />
+333. Largest BST Subtree<br />
+783. Minimum Distance Between BST Nodes<br />
+530. Minimum Absolute Difference in BST<br />
+230. Kth Smallest Element in a BST<br />
+99. Recover Binary Search Tree<br />
+501. Find Mode in Binary Search Tree<br />
+897. Increasing Order Search Tree<br />
+426. Convert Binary Search Tree to Sorted Doubly Linked List<br />
+173. Binary Search Tree Iterator<br />
+538. Convert BST to Greater Tree<br />
+285. Inorder Successor in BST<br />
+510. Inorder Successor in BST II<br />
+
+*Tree DP/Greedy*<br />
+96. Unique Binary Search Trees<br />
+95. Unique Binary Search Trees II<br />
+894. All Possible Full Binary Trees<br />
+968. Binary Tree Cameras<br />
+337. House Robber III<br />
+979. Distribute Coins in Binary Tree<br />
 
 
 ### 3. Backtracking

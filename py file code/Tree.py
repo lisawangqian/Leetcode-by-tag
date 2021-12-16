@@ -52,7 +52,6 @@ class Solution:
     def dfs(self, root, ans):
         if not root:
             return
-        
         ans.append(root.val)
         self.dfs(root.left, ans)
         self.dfs(root.right, ans)
@@ -64,7 +63,6 @@ class Solution:
 
 
 ### 589. N-ary Tree Preorder Traversal ###
-
 # Definition for a Node.
 #class Node:
 #    def __init__(self, val=None, children=None):
@@ -75,11 +73,10 @@ class Solution:
     def dfs(self, root, ans):
         if not root:
             return
-        
         ans.append(root.val)
         for child in root.children:
             self.dfs(child, ans)
-        
+    
     def preorder(self, root: 'Node') -> List[int]:
         ans = []
         self.dfs(root, ans)
@@ -604,35 +601,7 @@ class Solution:
 
 
 ### 100. Same Tree ###   #similar as 101. Symmetric Tree
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        
-        def solve(root1, root2):
-            if not root1 and not root2:
-                return True
-            if not root1 or not root2:
-                return False
-            l = solve(root1.left, root2.left)
-            r = solve(root1.right, root2.right)
-            return (root1.val == root2.val) and l and r
-        
-        def dfs(root):
-            
-            if not root:
-                if not subRoot:
-                    return True
-                else:
-                    return False
-            return solve(root, subRoot) or dfs(root.left) or dfs(root.right)
-        
-        
-        return dfs(root)
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -1811,8 +1780,8 @@ class Solution:
         flatten(root)
             
 
- ### 236. Lowest Common Ancestor of a Binary Tree ###
- # Definition for a binary tree node.
+### 236. Lowest Common Ancestor of a Binary Tree ###
+# Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
@@ -2332,7 +2301,7 @@ class Solution:
                 return
             if depth not in depth_vist_table:
                 result.append(root.val) 
-                ldepth_vist_table.add(depth)
+                depth_vist_table.add(depth)
             dfs(root.right, depth + 1) #from right to left
             dfs(root.left, depth + 1)
             
@@ -2368,6 +2337,34 @@ class Solution:
 
 
 ### 116. Populating Next Right Pointers in Each Node ###
+# Definition for a Node.
+#class Node:
+#    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+#        self.val = val
+#        self.left = left
+#        self.right = right
+#        self.next = next
+class Solution:
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        
+        visited = []
+        def solve(root, depth):
+            if not root: return
+            if len(visited) <= depth:
+                visited.append(root)
+            else:
+                visited[depth].next = root
+                visited[depth] = root
+                
+            solve(root.left, depth+1)
+            solve(root.right, depth + 1)
+            
+            
+        curr = root    
+        solve(curr, 0)
+        
+        return root
+        
 #1)dfs
 # Definition for a Node.
 #class Node:
@@ -2380,7 +2377,7 @@ class Solution:
     def connect(self, root: 'Node') -> 'Node':
         previousNode = {}
     
-    def dfs(root, depth):
+        def dfs(root, depth):
             
             if root is None:
                 return
@@ -2480,7 +2477,7 @@ class Solution:
         return good
 
 
-##3 314. Binary Tree Vertical Order Traversal ###
+## 314. Binary Tree Vertical Order Traversal ###
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -2597,18 +2594,18 @@ class Solution:
 class Solution:
     def findLeaves(self, root: Optional[TreeNode]) -> List[List[int]]:
         result = defaultdict(list)
-        def dfs(root, layer): #postorder, left, right, root, None is layer0
+        def dfs(root): #postorder, left, right, root
             if not root:
-                return layer  #0 also correct
-            left = dfs(root.left, layer)
-            right = dfs(root.right, layer)
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
             #keep the layer be the maximum level of left and right
             layer = max(left, right)
             result[layer].append(root.val)
             
             return layer + 1  #parent layer
         
-        dfs(root, 0)
+        dfs(root)
         return result.values()
 
 
@@ -2792,6 +2789,39 @@ class Solution:
 
 
 ### 1522. Diameter of N-Ary Tree ###
+# Definition for a Node.
+#class Node:
+#    def __init__(self, val=None, children=None):
+#        self.val = val
+#        self.children = children if children is not None else []
+class Solution:
+    def diameter(self, root: 'Node') -> int:
+        """
+        :type root: 'Node'
+        :rtype: int
+        """
+        
+        def solve(root):
+            nonlocal diameter
+            if not root: #length of leaf as 1
+                return 0
+            
+            max_height_1, max_height_2 = 0, 0
+            for child in root.children:
+                height = solve(child)
+                if height > max_height_1:
+                    max_height_1, max_height_2 = height, max_height_1
+                elif height > max_height_2:
+                    max_height_2 = height
+            
+            diameter = max(diameter, max_height_1 + max_height_2) 
+           
+            return max(max_height_1, max_height_2) + 1 #longest node number, only one side can be used
+        
+        diameter = 0
+        solve(root)
+        return diameter
+        
 
 # Definition for a Node.
 #class Node:
@@ -2992,6 +3022,31 @@ class Solution:
 
 
 ### 513. Find Bottom Left Tree Value
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        
+        left_depth = []
+        
+        def solve(root, depth):
+            if not root:
+                return
+            
+            if len(left_depth) <= depth:
+                left_depth.append(root.val)
+                
+            solve(root.left, depth + 1)
+            solve(root.right, depth + 1)
+            
+        solve(root, 0)
+        
+        return left_depth[-1]
+            
 #1)dfs
 # Definition for a binary tree node.
 # class TreeNode:
@@ -3158,8 +3213,8 @@ class Solution:
         return True  
 
 
- ###173. Binary Search Tree Iterator
- # Definition for a binary tree node.
+### 173. Binary Search Tree Iterator
+# Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
@@ -3635,7 +3690,7 @@ class Solution:
             
         inorder(root)
         
-        return result	1								
+        return result								
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -3659,16 +3714,14 @@ class Solution:
 
 
 ### 510. Inorder Successor in BST II
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-        self.parent = None
-"""
 
+# Definition for a Node.
+# class Node:
+#    def __init__(self, val):
+#        self.val = val
+#        self.left = None
+#        self.right = None
+#       self.parent = None
 class Solution:
     def inorderSuccessor(self, node: 'Node') -> 'Node':
         #left, root, right  #bst inorder
@@ -3689,14 +3742,14 @@ class Solution:
 
 
 ### 426. Convert Binary Search Tree to Sorted Doubly Linked List
-"""
+
 # Definition for a Node.
-class Node:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-"""
+# class Node:
+#    def __init__(self, val, left=None, right=None):
+#        self.val = val
+#        self.left = left
+#        self.right = right
+
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
@@ -4215,3 +4268,78 @@ class Solution:
         m = max(mode.values())
         return [i for i, v in mode.items() if v == m]
            
+
+
+### 863. All Nodes Distance K in Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        ans = []
+        def solve(root):
+            if not root:
+                return -1  #target not in this root tree
+            if root == target:
+                collect(root, k)  #collect nodes distance k
+                return 0
+            
+            l = solve(root.left)  #from left child as root node in k distance
+            r = solve(root.right)  #from right child
+            
+            if l>=0:
+                if l == k-1:
+                    ans.append(root.val)
+                collect(root.right, k-l-2)
+                return l + 1
+            
+            if r>=0:
+                if r == k-1:
+                    ans.append(root.val)
+                collect(root.left, k-r-2)
+                return r + 1
+            
+            return -1
+        
+        def collect(root, d):
+            if not root or d<0:
+                return
+            if d == 0:
+                ans.append(root.val)
+            collect(root.left, d-1)
+            collect(root.right, d-1)
+            
+        solve(root)
+        return ans
+                
+
+### 872. Leaf-Similar Trees
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        
+        def getleave(root, leaves):
+            if not root:
+                return
+            if not root.left and not root.right:
+                leaves.append(root.val)
+                
+            getleave(root.left, leaves)
+            getleave(root.right, leaves)
+            
+            
+        result1 = []
+        getleave(root1, result1)
+        result2 = []
+        getleave(root2, result2)
+        
+        return result1 == result2
