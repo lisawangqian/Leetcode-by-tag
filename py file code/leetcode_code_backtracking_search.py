@@ -639,12 +639,12 @@ class Solution:
                         continue
                     if p not in ptable and word not in stable:
                         ptable[p], stable[word], added = word, p, True
-                    remainder = dfs(start_p+1, i+1, ptable, stable)
+                    
+                    if dfs(start_p+1, i+1, ptable, stable):
+                        return True
                     if added:
                         del ptable[p]
                         del stable[word]
-                    if remainder:
-                        return True
             return False
         
         return dfs(0, 0, {}, {})
@@ -682,3 +682,6 @@ class Solution:
         
         return dfs(0,  0, k)
         
+
+
+### 

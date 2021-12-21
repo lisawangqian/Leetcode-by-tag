@@ -12,50 +12,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 ## My tag: 
-### 1. Linked List
 
-*Easy:*<br />
-206. Reverse Linked List<br />
-141. Linked List Cycle<br />
-83. Remove Duplicates from Sorted List<br />
-234. Palindrome Linked List<br />
-203. Remove Linked List Elements<br />
-237. Delete Node in a Linked List<br />
-876. Middle of the Linked List<br />
-160. Intersection of Two Linked Lists<br />
-21. Merge Two Sorted Lists<br />
-1290. Convert Binary Number in a Linked List to Integer<br />
-1474. Delete N Nodes After M Nodes of a Linked List<br />
-
-*Medium:*<br />
-92. Reverse Linked List II<br />
-143. Reorder List<br />
-82. Remove Duplicates from Sorted List II<br />
-19. Remove Nth Node From End of List<br />
-148. Sort List<br />
-147. Insertion Sort List<br />
-86. Partition List<br />
-61. Rotate List<br />
-142. Linked List Cycle II<br />
-138. Copy List with Random Pointer<br />
-24. Swap Nodes in Pairs<br />
-328. Odd Even Linked List<br />
-707. Design Linked List<br />
-725. Split Linked List in Parts<br />
-1669. Merge In Between Linked Lists<br />
-2. Add Two Numbers<br />
-445. Add Two Numbers II<br />
-109. Convert Sorted List to Binary Search Tree<br />
-430. Flatten a Multilevel Doubly Linked List<br />
-146. LRU Cache<br />
-708. Insert into a Sorted Circular Linked List<br />
-1171. Remove Zero Sum Consecutive Nodes from Linked List<br />
-817. Linked List Components<br />
-1836. Remove Duplicates From an Unsorted Linked List<br />
-1721. Swapping Nodes in a Linked List<br />
-
-
-### 2. Binary(N-ary) Tree
+### 1. Binary(N-ary) Tree
 
 *Binary Tree Traversal Basic:*<br /> 
 145. Binary Tree Postorder Traversal<br />
@@ -173,62 +131,73 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 979. Distribute Coins in Binary Tree<br />
 
 
-### 3. Backtracking
 
-*Medium:*<br /> 
+### 2. Backtracking/Search
+
+*Combination With Duplicates:*<br /> 
 39. Combination Sum<br />
 40. Combination Sum II<br />
-216. Combination Sum III<br />
-377. Combination Sum IV - NOT backtracking but DP<br />
-78. Subsets<br />
-90. Subsets II<br />
-77. Combinations<br />
-46. Permutations<br />
-47. Permutations II (Combination Sum II)<br />
-79. Word Search<br />
-22. Generate Parentheses<br />
-93. Restore IP Addresses<br />
-17. Letter Combinations of a Phone Number<br />
-842. Split Array into Fibonacci Sequence<br />
-89. Gray Code<br />
-526. Beautiful Arrangement<br />
-698. Partition to K Equal Sum Subsets<br />
-1239. Maximum Length of a Concatenated String with Unique Characters<br />
-131. Palindrome Partitioning<br />
-797. All Paths From Source to Target<br />
-967. Numbers With Same Consecutive Differences<br />
-291. Word Pattern II<br />
-57. Count Numbers with Unique Digits<br />
-1593. Split a String Into the Max Number of Unique Substrings<br />
+90. Subsets II<br />
 254. Factor Combinations<br />
 
+*Combination Without Duplicates:*<br />
+77. Combinations<br />
+216. Combination Sum III<br />
+78. Subsets<br />
+1239. Maximum Length of a Concatenated String with Unique Characters<br />
 
-### 4. Union Find
+*Combination:*<br /> 
+17. Letter Combinations of a Phone Number<br />
+784. Letter Case Permutation<br />
+797. All Paths From Source to Target<br />
+967. Numbers With Same Consecutive Differences<br />
+377. Combination Sum IV (DP not backtracking)<br />
 
-*Medium:*<br /> 
-128. Longest Consecutive Sequence<br />
-200. Number of Islands<br />
-721. Accounts Merge<br />
-547. Number of Provinces<br />
-130. Surrounded Regions<br />
-1631. Path With Minimum Effort<br />
-399. Evaluate Division<br />
-1319. Number of Operations to Make Network Connected<br />
-684. Redundant Connection<br />
-695. Max Area of Island<br />
-694. Number of Distinct Islands<br />
-323. Number of Connected Components in an Undirected Graph<br />
-947. Most Stones Removed with Same Row or Column<br />
-886. Possible Bipartition<br />
-785. Is Graph Bipartite?<br />
-1102. Path With Maximum Minimum Value<br />
-1254. Number of Closed Islands<br />
-1905. Count Sub Islands<br />
-1559. Detect Cycles in 2D Grid<br />
-1202. Smallest String With Swaps<br />
+*Permutation With Duplicates:*<br /> 
+46. Permutations<br />
+526. Beautiful Arrangement<br />
+357. Count Numbers with Unique Digits<br />
+
+*Permutation Without Duplicates:*<br />
+47. Permutations II<br />
+996. Number of Squareful Arrays<br />
+
+*Combination/Permutation:*<br />
+89. Gray Code<br />
+
+*Partition:*<br />
+93. Restore IP Addresses<br />
+131. Palindrome Partitioning<br />
+1593. Split a String Into the Max Number of Unique Substrings<br />
+842. Split Array into Fibonacci Sequence<br />
+291. Word Pattern II<br />
+698. Partition to K Equal Sum Subsets<br />
+
+*DFS backtracking:*<br />
+22. Generate Parentheses<br />
+301. Remove Invalid Parentheses<br />
+37. Sudoku Solver<br />
+51. N-Queens<br />
+52. N-Queens II<br />
+79. Word Search<br />
+212. Word Search II<br />
+
+*BFS backtracking:*<br />
+127. Word Ladder<br />
+126. Word Ladder II<br />
+752. Open the Lock<br />
+818. Race Car<br />
+542. 01 Matrix<br />
+675. Cut Off Trees for Golf Event<br />
+934. Shortest Bridge<br />
+
+*Recursion search:*<br />
+241. Different Ways to Add Parentheses<br />
+282. Expression Add Operators<br />
 
 
-### 5. Graph (DFS + BFS + ShortestPath)
+
+### 3. Graph (DFS + BFS + ShortestPath)
 
 *Easy:*<br /> 
 463. Island Perimeter<br />
@@ -291,7 +260,34 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1584. Min Cost to Connect All Points<br />
 
 
-### 6. Trie and Segment Tree
+
+### 4. Union Find
+
+*Medium:*<br /> 
+128. Longest Consecutive Sequence<br />
+200. Number of Islands<br />
+721. Accounts Merge<br />
+547. Number of Provinces<br />
+130. Surrounded Regions<br />
+1631. Path With Minimum Effort<br />
+399. Evaluate Division<br />
+1319. Number of Operations to Make Network Connected<br />
+684. Redundant Connection<br />
+695. Max Area of Island<br />
+694. Number of Distinct Islands<br />
+323. Number of Connected Components in an Undirected Graph<br />
+947. Most Stones Removed with Same Row or Column<br />
+886. Possible Bipartition<br />
+785. Is Graph Bipartite?<br />
+1102. Path With Maximum Minimum Value<br />
+1254. Number of Closed Islands<br />
+1905. Count Sub Islands<br />
+1559. Detect Cycles in 2D Grid<br />
+1202. Smallest String With Swaps<br />
+
+
+
+### 5. Trie and Segment Tree
 
 *Easy:*<br /> 
 1065. Index Pairs of a String<br />
@@ -318,6 +314,51 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 729. My Calendar I<br />
 731. My Calendar II<br />
 673. Number of Longest Increasing Subsequence<br />
+
+
+
+### 6. Linked List
+
+*Easy:*<br />
+206. Reverse Linked List<br />
+141. Linked List Cycle<br />
+83. Remove Duplicates from Sorted List<br />
+234. Palindrome Linked List<br />
+203. Remove Linked List Elements<br />
+237. Delete Node in a Linked List<br />
+876. Middle of the Linked List<br />
+160. Intersection of Two Linked Lists<br />
+21. Merge Two Sorted Lists<br />
+1290. Convert Binary Number in a Linked List to Integer<br />
+1474. Delete N Nodes After M Nodes of a Linked List<br />
+
+*Medium:*<br />
+92. Reverse Linked List II<br />
+143. Reorder List<br />
+82. Remove Duplicates from Sorted List II<br />
+19. Remove Nth Node From End of List<br />
+148. Sort List<br />
+147. Insertion Sort List<br />
+86. Partition List<br />
+61. Rotate List<br />
+142. Linked List Cycle II<br />
+138. Copy List with Random Pointer<br />
+24. Swap Nodes in Pairs<br />
+328. Odd Even Linked List<br />
+707. Design Linked List<br />
+725. Split Linked List in Parts<br />
+1669. Merge In Between Linked Lists<br />
+2. Add Two Numbers<br />
+445. Add Two Numbers II<br />
+109. Convert Sorted List to Binary Search Tree<br />
+430. Flatten a Multilevel Doubly Linked List<br />
+146. LRU Cache<br />
+708. Insert into a Sorted Circular Linked List<br />
+1171. Remove Zero Sum Consecutive Nodes from Linked List<br />
+817. Linked List Components<br />
+1836. Remove Duplicates From an Unsorted Linked List<br />
+1721. Swapping Nodes in a Linked List<br />
+
 
 
 ### 7. Stack 
@@ -364,6 +405,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 316. Remove Duplicate Letters<br />
 
 
+
 ### 8. Heap 
 
 *Easy:*<br /> 
@@ -388,6 +430,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 373. Find K Pairs with Smallest Sums<br />
 1834. Single-Threaded CPU<br />
 1642. Furthest Building You Can Reach<br />
+
 
 
 ### 9. Binary Search 
@@ -449,6 +492,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1300. Sum of Mutated Array Closest to Target<br />
 658. Find K Closest Elements<br />
 911. Online Election<br />
+
 
 
 ### 10. Two Pointer/Sliding Window
@@ -525,6 +569,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit<br />
 1477. Find Two Non-overlapping Sub-arrays Each With Target Sum<br />
 1888. Minimum Number of Flips to Make the Binary String Alternating<br />
+
 
 
 ### 11. Dynamic Programming
@@ -692,8 +737,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 204. Count Primes<br />
 401. Circle and Rectangle Overlapping<br />
 963. Minimum Area Rectangle II<br />
-
-
 
 
 
