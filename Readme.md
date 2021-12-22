@@ -1,4 +1,4 @@
-# Leetcode by Tag - mostly easy and medium
+# Leetcode by Tag and Category
 ## Good Resources: 
 
 https://zxi.mytechroad.com/blog/leetcode-problem-categories<br />
@@ -173,25 +173,20 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 291. Word Pattern II<br />
 698. Partition to K Equal Sum Subsets<br />
 
-*DFS backtracking:*<br />
+*DFS1 backtracking:*<br />
 22. Generate Parentheses<br />
 301. Remove Invalid Parentheses<br />
+
+*DFS2 fill matrix backtracking:*<br />
 37. Sudoku Solver<br />
 51. N-Queens<br />
 52. N-Queens II<br />
+
+*DFS3 word search backtracking:*<br />
 79. Word Search<br />
 212. Word Search II<br />
 
-*BFS backtracking:*<br />
-127. Word Ladder<br />
-126. Word Ladder II<br />
-752. Open the Lock<br />
-818. Race Car<br />
-542. 01 Matrix<br />
-675. Cut Off Trees for Golf Event<br />
-934. Shortest Bridge<br />
-
-*Recursion search:*<br />
+*DFS4 recursion search:*<br />
 241. Different Ways to Add Parentheses<br />
 282. Expression Add Operators<br />
 
@@ -241,16 +236,13 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 841. Keys and Rooms<br />
 1376. Time Needed to Inform All Employees<br />
 529. Minesweeper<br />
-934. Shortest Bridge<br />
 690. Employee Importance<br />
 994. Rotting Oranges<br />
 279. Perfect Squares<br />
-752. Open the Lock<br />
 1162. As Far from Land as Possible<br />
 322. Coin Change<br />
 433. Minimum Genetic Mutation<br />
 286. Walls and Gates<br />
-542. 01 Matrix<br />
 909. Snakes and Ladders<br />
 1926. Nearest Exit from Entrance in Maze<br />
 1129. Shortest Path with Alternating Colors<br />
@@ -258,7 +250,13 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 787. Cheapest Flights Within K Stops<br />
 1135. Connecting Cities With Minimum Cost<br />
 1584. Min Cost to Connect All Points<br />
-
+127. Word Ladder<br />
+126. Word Ladder II<br />
+752. Open the Lock<br />
+818. Race Car<br />
+542. 01 Matrix<br />
+675. Cut Off Trees for Golf Event<br />
+934. Shortest Bridge<br />
 
 
 ### 4. Union Find

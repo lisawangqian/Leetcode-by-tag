@@ -684,4 +684,337 @@ class Solution:
         
 
 
-### 
+### DFS1 backtracking
+
+## 22. Generate Parentheses
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        result = []
+        def dfs(comb, left, right):
+            if len(comb) == 2 * n:
+                result.append(''.join(comb)) 
+                return
+            if left < n:
+                comb.append("(")
+                dfs(comb, left+1, right)
+                comb.pop() #restate
+            if right < left: #make it well formed
+                comb.append(")")
+                dfs(comb, left, right+1)
+                comb.pop() #restate
+                
+        dfs([], 0, 0)
+        return result
+
+
+## 301. Remove Invalid Parentheses
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        
+        l, r = 0, 0
+        for char in s:  #total invalid r and l to remove
+            l += (char == '(')
+            if (l == 0):
+                r += (char == ')')
+            else:
+                l -= (char == ')')
+        result = []
+        
+        def isvalid(s):
+            count = 0
+            for char in s:
+                if char == '(': count += 1
+                if char == ')': count -= 1
+                if count < 0: return False
+            
+            return count == 0
+        
+        def dfs(comb, start, left, right):
+            curr_str = ''.join(comb)
+            if left == 0 and right == 0 and isvalid(curr_str):
+                result.append(curr_str)
+                return
+            
+            for i in range(start, len(s)):
+                if s[i] != '(' and  s[i] != ')':
+                    continue
+                if i != start and s[i] == s[i-1]: 
+                    continue
+                    
+                if (r > 0 and s[i] == ')'):
+                    comb[i] = ''
+                    dfs(comb, i+1, left, right - 1)
+                    comb[i] = s[i]
+                elif (l > 0 and s[i] == '('):
+                    comb[i] = ''
+                    dfs(comb, i+1, left-1, right)
+                    comb[i] = s[i]
+                    
+        dfs(list(s), 0, l, r)
+        
+        return result
+
+
+### DFS2 fill matrix backtracking
+
+## 37. Sudoku Solver
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        N = 9
+        rows_fill = [[0 for i in range(N)] for i in range(N)]
+        cols_fill = [[0 for i in range(N)] for i in range(N)]
+        boxes_fill = [[0 for i in range(N)] for i in range(N)]
+        
+        for y in range(N):
+            for x in range(N):
+                c = board[y][x]               
+                if c != '.':
+                    n = int(c)                   
+                    bx = x // 3
+                    by = y // 3
+                    rows_fill[y][n-1] = 1 #row i
+                    cols_fill[x][n-1] = 1 #column j
+                    boxes_fill[by * 3 + bx][n-1] = 1  
+                            
+        def dfs(y, x):
+            if (y == 9): return True
+        
+            nx = (x + 1) % 9  #pointer to next column
+            ny = y + 1 if nx == 0 else y #start a new if one row reach end
+        
+            if board[y][x] != '.': return dfs(ny, nx)  #if no fill need, check if solution found
+        
+            for i in range(1, 10):
+                
+                by = y // 3
+                bx = x // 3
+                box_key = by * 3 + bx
+                if rows_fill[y][i-1] or cols_fill[x][i-1] or boxes_fill[box_key][i-1]: continue
+                rows_fill[y][i-1] = 1
+                cols_fill[x][i-1] = 1
+                boxes_fill[box_key][i-1] = 1
+                board[y][x] = str(i)
+                if dfs(ny, nx): return True  #check if solution found
+                board[y][x] = '.'
+                boxes_fill[box_key][i-1] = 0
+                cols_fill[x][i-1] = 0
+                rows_fill[y][i-1] = 0
+            
+            return False
+  
+        dfs(0, 0)
+
+
+### 51. N-Queens
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        result = []
+        board = [['.' for i in range(n)] for i in range(n)]
+        cols = [0 for i in range(n)]
+        diag1 = [0 for i in range(2 * n - 1)]
+        diag2 = [0 for i in range(2 * n - 1)]
+        
+        def available(y, x):
+            return not cols[x] and not diag1[x + y] and not diag2[x - y + n - 1]
+                 
+        def updateBoard(y, x, is_put):
+            cols[x] = is_put
+            diag1[x + y] = is_put
+            diag2[x - y + n - 1] = is_put
+            board[y][x] = 'Q' if is_put else '.'
+                 
+        def dfs(y):       
+            if y == n:
+                result.append([''.join(row) for row in board])
+                return
+                 
+            for x in range(0, n):
+                if not available(y, x): continue
+                updateBoard(y, x, True)
+                dfs(y + 1)
+                updateBoard(y, x, False) #backtrack
+                 
+        dfs(0)
+                 
+        return result
+                 
+                 
+ ## 52. N-Queens II
+ # class Solution:
+    def totalNQueens(self, n: int) -> int:
+        cnt = 0
+        board = [['.' for i in range(n)] for i in range(n)]
+        cols = [0 for i in range(n)]
+        diag1 = [0 for i in range(2 * n - 1)]
+        diag2 = [0 for i in range(2 * n - 1)]
+        
+        def available(y, x):
+            return not cols[x] and not diag1[x + y] and not diag2[x - y + n - 1]
+                 
+        def updateBoard(y, x, is_put):
+            cols[x] = is_put
+            diag1[x + y] = is_put
+            diag2[x - y + n - 1] = is_put
+            board[y][x] = 'Q' if is_put else '.'
+                 
+        def dfs(y):   
+            nonlocal cnt
+            if y == n:
+                cnt+=1
+                return
+                 
+            for x in range(0, n):
+                if not available(y, x): continue
+                updateBoard(y, x, True)
+                dfs(y + 1)
+                updateBoard(y, x, False) #backtrack
+                 
+        dfs(0)
+                 
+        return cnt       
+   
+
+
+### DFS3 word search backtracking
+
+## 79. Word Search
+class Solution:
+
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        ROWS = len(board)
+        COLS = len(board[0])
+        
+        def dfs(start, y, x):
+            if start == len(word):
+                return True
+            
+            if y < 0 or y == ROWS or x < 0 or x == COLS or board[y][x] != word[start]:
+                return False
+
+            curr = board[y][x]
+            board[y][x] = '#'
+            found = dfs(start + 1, y + 1, x) or dfs(start + 1, y - 1, x) or dfs(start + 1, y, x + 1) or dfs(start + 1, y, x - 1)
+            board[y][x] = curr #backtracking
+            
+            return found
+        
+        
+        return any([dfs(0, y, x) for y in range(ROWS) for x in range(COLS)])
+
+
+## 212. Word Search II
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        
+        ROWS = len(board)
+        COLS = len(board[0])
+        
+        def exist(word):
+            return any([dfs(0, y, x, word) for y in range(ROWS) for x in range(COLS)])
+        
+        def dfs(start, y, x, word):
+            if start == len(word):
+                return True
+            
+            if y < 0 or y == ROWS or x < 0 or x == COLS or board[y][x] != word[start]:
+                return False
+
+            curr = board[y][x]
+            board[y][x] = '#'
+            found = dfs(start + 1, y + 1, x, word) or dfs(start + 1, y - 1, x, word) or dfs(start + 1, y, x + 1, word) or dfs(start + 1, y, x - 1, word)
+            board[y][x] = curr #backtracking
+            
+            return found
+        
+        
+        
+        letters = [board[i][j] for i in range(ROWS) for j in range(COLS)]
+        letters = collections.Counter(letters)
+        new_words = []           
+                   
+        for word_ori in words:
+            if len(word_ori) > ROWS * COLS: continue
+            word = collections.Counter(word_ori)
+            skip = False
+            for each, v in word.items():
+                if each not in letters.keys():
+                    skip = True
+                    break;
+                elif v > letters[each]:
+                    skip = True
+                    break; 
+            if skip: continue
+            new_words.append(word_ori)
+        
+        result = []
+        for word in new_words:    
+            if exist(word):
+                result.append(word)
+                
+        return result
+        
+
+
+### DFS4 search
+
+## 241. Different Ways to Add Parentheses
+class Solution:
+    def diffWaysToCompute(self, expression: str) -> List[int]:
+        ops = {'+': lambda x, y: x + y,
+               '-': lambda x, y: x - y,
+               '*': lambda x, y: x * y}
+        
+        def dfs(s):
+            ans = []
+            for i in range(len(s)):
+                if s[i] in "+-*": 
+                    l = dfs(s[0:i])
+                    r = dfs(s[i+1:])
+                    for l1 in l:
+                        for r1 in r:
+                            ans += [ops[s[i]](l1, r1)]
+                    #more advanced way
+                    #ans += [ops[s[i]](l, r) for l, r in itertools.product(dfs(s[0:i]), dfs(s[i+1:]))]
+            if not ans: 
+                ans.append(int(s))
+              
+            return ans
+        
+        return dfs(expression)
+
+
+## 282. Expression Add Operators
+class Solution:
+    def addOperators(self, num: str, target: int) -> List[str]:
+        INT_MAX = 2**31 - 1
+        result = []
+        def dfs(expr, start, prev, curr):
+            if start == len(num):
+                if curr == target:
+                    result.append(expr)
+                    return
+                
+            for i in range(1, len(num) - start + 1):
+                t = num[start: start+i]
+                if t[0] == '0' and i>1: break
+                n = int(t)
+                if n > INT_MAX: break
+                if start == 0:
+                    dfs(t, i, n, n)
+                    continue
+                dfs(expr + '+' + t, start + i, n, curr + n)
+                dfs(expr + '-' +  t, start + i, -n, curr - n)
+                dfs(expr + '*'+ t, start + i, prev * n, curr - prev + prev * n)
+                
+        dfs("", 0, 0, 0)
+        return result
+    
+        
