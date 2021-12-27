@@ -192,7 +192,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 3. Graph (DFS + BFS + ShortestPath)
+### 3. Graph 
 
 *Easy:*<br /> 
 463. Island Perimeter<br />
@@ -259,33 +259,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 934. Shortest Bridge<br />
 
 
-### 4. Union Find
 
-*Medium:*<br /> 
-128. Longest Consecutive Sequence<br />
-200. Number of Islands<br />
-721. Accounts Merge<br />
-547. Number of Provinces<br />
-130. Surrounded Regions<br />
-1631. Path With Minimum Effort<br />
-399. Evaluate Division<br />
-1319. Number of Operations to Make Network Connected<br />
-684. Redundant Connection<br />
-695. Max Area of Island<br />
-694. Number of Distinct Islands<br />
-323. Number of Connected Components in an Undirected Graph<br />
-947. Most Stones Removed with Same Row or Column<br />
-886. Possible Bipartition<br />
-785. Is Graph Bipartite?<br />
-1102. Path With Maximum Minimum Value<br />
-1254. Number of Closed Islands<br />
-1905. Count Sub Islands<br />
-1559. Detect Cycles in 2D Grid<br />
-1202. Smallest String With Swaps<br />
-
-
-
-### 5. Trie and Segment Tree
+### 4. Trie and Segment Tree
 
 *Easy:*<br /> 
 1065. Index Pairs of a String<br />
@@ -315,7 +290,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 6. Linked List
+### 5. Linked List
 
 *Easy:*<br />
 206. Reverse Linked List<br />
@@ -359,7 +334,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 7. Stack 
+### 6. Stack 
 
 *Easy:*<br /> 
 20. Valid Parentheses<br />
@@ -404,7 +379,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 8. Heap 
+### 7. Heap 
 
 *Easy:*<br /> 
 703. Kth Largest Element in a Stream<br />
@@ -431,7 +406,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 9. Binary Search 
+### 8. Binary Search 
 
 *Easy:*<br />
 69. Sqrt(x)<br />
@@ -493,7 +468,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 10. Two Pointer/Sliding Window
+### 9. Two Pointer/Sliding Window
 
 *Easy:*<br />
 349. Intersection of Two Arrays<br />
@@ -570,7 +545,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 11. Dynamic Programming
+### 10. Dynamic Programming
 
 *Easy:*<br />
 121. Best Time to Buy and Sell Stock<br />
@@ -629,7 +604,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 12. Greedy
+### 11. Greedy
 
 *Easy:*<br />
 1710. Maximum Units on a Truck<br />
@@ -665,7 +640,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 13. Bit
+### 12. Bit
 
 *Easy:*<br />
 136. Single Number<br />
@@ -692,7 +667,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 14. Matrix
+### 13. Matrix
 
 *Easy:*<br />
 867. Transpose Matrix<br />
@@ -718,7 +693,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 15. Math
+### 14. Math
 
 *Easy:*<br />
 628. Maximum Product of Three Numbers<br />
@@ -738,7 +713,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 16. Game Theory
+### 15. Game Theory
 
 *Easy:*<br />
 292. Nim Game<br />
@@ -751,7 +726,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 17. Other
+### 16. Other
 
 
 

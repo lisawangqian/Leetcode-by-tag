@@ -333,6 +333,21 @@ class Solution:
         return ans
 
 
+## 494. Target Sum
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        count = defaultdict(int)
+        count[0] = 1 #init
+        for x in nums:
+            step = defaultdict(int)
+            for y in count:
+                step[y + x] += count[y]  #'+'
+                step[y - x] += count[y]  #'-'
+            count = step
+
+        return count[target]
+                
+
 ## 377. Combination Sum IV
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
