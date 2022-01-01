@@ -841,5 +841,49 @@ class Solution:
             
         return [divide(x, y) if x in p and y in p else -1 for x, y in queries]
         
+
+  ## 959. Regions Cut By Slashes  
+  class Solution:
+    def regionsBySlashes(self, grid: List[str]) -> int:
+        def find(v):
+            if v not in p:
+                p[v] = v
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            p[find(u)] = find(v)
+            
+        p = {}    
+        n = len(grid)
+        
+        for r, row in enumerate(grid):
+            for c, val in enumerate(row):
+                index = 4 * (r * n + c)
+                #inner connection
+                if val == '/':
+                    union(index + 0, index + 3)
+                    union(index + 1, index + 2)
+                elif val == '\\':
+                    union(index + 0, index + 1)
+                    union(index + 2, index + 3)
+                elif val == ' ':
+                    union(index + 0, index + 1)
+                    union(index + 1, index + 2)
+                    union(index + 2, index + 3)
+                
+                #inter connection
+                if (r + 1 < n):
+                    union(index + 2, index + 4 * n + 0)
+                if (c + 1 < n):
+                    union(index + 1, index + 4 + 3)
+        
+        result = set()
+        for i in range(4 * n * n):
+            result.add(find(i))
+        return len(result) 
+
+
              
         
