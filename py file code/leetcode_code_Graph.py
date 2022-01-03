@@ -1,3 +1,49 @@
+### DFS 
+
+## 1466. Reorder Routes to Make All Paths Lead to the City Zero
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        roads = set()
+        g = [[] for i in range(n)]
+        for edge in connections:
+            roads.add((edge[0], edge[1]))
+            g[edge[0]].append(edge[1])
+            g[edge[1]].append(edge[0])
+        
+        result = 0    
+        visited = set()    
+        def dfs(v, parent):
+            nonlocal result
+            if v in visited:
+                return
+            visited.add(v)
+            result += (parent, v) in roads
+            for nxt in g[v]:
+                if nxt not in visited:
+                    dfs(nxt, v)
+                    
+        dfs(0, -1)
+        return result
+
+
+## 1376. Time Needed to Inform All Employees
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        subordinates = collections.defaultdict(list)
+        for i, v in enumerate(manager):  #manager root and its children
+            subordinates[v].append(i)
+        
+        
+        def dfs(manager):
+            if manager not in subordinates.keys():
+                return 0
+            return max([dfs(subordinate) + informTime[manager] for subordinate in subordinates[manager]])
+        
+        
+        return dfs(headID)
+
+
+
 ### DFS CC ##
 
 ## 841. Keys and Rooms
@@ -156,49 +202,6 @@ class Solution:
             result.append(m[find(i)].pop())
             
         return ''.join(result)
-
-
-## 1466. Reorder Routes to Make All Paths Lead to the City Zero
-class Solution:
-    def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        roads = set()
-        g = [[] for i in range(n)]
-        for edge in connections:
-            roads.add((edge[0], edge[1]))
-            g[edge[0]].append(edge[1])
-            g[edge[1]].append(edge[0])
-        
-        result = 0    
-        visited = set()    
-        def dfs(v, parent):
-            nonlocal result
-            if v in visited:
-                return
-            visited.add(v)
-            result += (parent, v) in roads
-            for nxt in g[v]:
-                if nxt not in visited:
-                    dfs(nxt, v)
-                    
-        dfs(0, -1)
-        return result
-
-
-## 1376. Time Needed to Inform All Employees
-class Solution:
-    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
-        subordinates = collections.defaultdict(list)
-        for i, v in enumerate(manager):  #manager root and its children
-            subordinates[v].append(i)
-        
-        
-        def dfs(manager):
-            if manager not in subordinates.keys():
-                return 0
-            return max([dfs(subordinate) + informTime[manager] for subordinate in subordinates[manager]])
-        
-        
-        return dfs(headID)
 
 
 
@@ -629,6 +632,7 @@ class Solution:
         return len(m)
 
 
+
 ### Union Find ###
    
 ## 839. Similar String Groups
@@ -768,82 +772,10 @@ class Solution:
             if find(sentence1[i]) != find(sentence2[i]):
                 return False
         return True
-
-
-## 128. Longest Consecutive Sequence
-class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        def find(v):
-            if v not in p:
-                p[v] = v
-            if p[v] != v:
-                p[v] = find(p[v])
-            return p[v]
-        
-        def union(u, v):
-            pu, pv = find(u), find(v)
-            if pu != pv:
-                if rank[pu] >= pv:
-                    p[pv] = pu
-                    rank[pu] += 1
-                else:
-                    p[pu] = pv
-                    rank[pv] += 1
-                    
-                    
-        if not nums:
-            return 0 # corner case
-        
-        # first pass is initialize parent and rank for all num in nums
-        p = {}
-        nums = set(nums)
-        rank = {i:0 for i in nums}
-        
-        for num in nums:
-            if num-1 in nums:
-                union(num-1, num)
-            if num+1 in nums:
-                union(num+1, num)
-                
-        result = collections.defaultdict(list)
-        for num in nums:
-            result[find(num)].append(num)
-        return max([len(l) for l in result.values()]) 
                 
 
-## 399. Evaluate Division
+## 959. Regions Cut By Slashes  
 class Solution:
-    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        #p is dictionary: key: u, value: (v, w) -> u/v = w
-        def find(v):
-            if v not in p:
-                p[v] = (v, 1)
-            if v != p[v][0]:
-                pv, pw = find(p[v][0])
-                p[v] = (pv, p[v][1] * pw)
-            return p[v]
-
-        def union(u, v, w):
-            ru, wu = find(u)
-            rv, wv = find(v)
-            if ru != rv:
-                p[ru] = (rv, w * wv/ wu)
-            
-        def divide(u, v):
-            ru, wu = find(u)
-            rv, wv = find(v)
-            if ru != rv: return -1.0
-            return wu / wv
-            
-        p = {}
-        for (u, v), w in zip(equations, values):       
-            union(u, v, w)
-            
-        return [divide(x, y) if x in p and y in p else -1 for x, y in queries]
-        
-
-  ## 959. Regions Cut By Slashes  
-  class Solution:
     def regionsBySlashes(self, grid: List[str]) -> int:
         def find(v):
             if v not in p:
@@ -885,5 +817,200 @@ class Solution:
         return len(result) 
 
 
-             
+## 399. Evaluate Division
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        #p is dictionary: key: u, value: (v, w) -> u/v = w
+        def find(v):
+            if v not in p:
+                p[v] = (v, 1)
+            if v != p[v][0]:
+                pv, pw = find(p[v][0])
+                p[v] = (pv, p[v][1] * pw)
+            return p[v]
+
+        def union(u, v, w):
+            ru, wu = find(u)
+            rv, wv = find(v)
+            if ru != rv:
+                p[ru] = (rv, w * wv/ wu)
+            
+        def divide(u, v):
+            ru, wu = find(u)
+            rv, wv = find(v)
+            if ru != rv: return -1.0
+            return wu / wv
+            
+        p = {}
+        for (u, v), w in zip(equations, values):       
+            union(u, v, w)
+            
+        return [divide(x, y) if x in p and y in p else -1 for x, y in queries]
         
+
+ ## 128. Longest Consecutive Sequence
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        def find(v):
+            if v not in p:
+                p[v] = v
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            pu, pv = find(u), find(v)
+            if pu != pv:
+                if rank[pu] >= pv:
+                    p[pv] = pu
+                    rank[pu] += 1
+                else:
+                    p[pu] = pv
+                    rank[pv] += 1
+                    
+                    
+        if not nums:
+            return 0 # corner case
+        
+        # first pass is initialize parent and rank for all num in nums
+        p = {}
+        nums = set(nums)
+        rank = {i:0 for i in nums}
+        
+        for num in nums:
+            if num-1 in nums:
+                union(num-1, num)
+            if num+1 in nums:
+                union(num+1, num)
+                
+        result = collections.defaultdict(list)
+        for num in nums:
+            result[find(num)].append(num)
+        return max([len(l) for l in result.values()])             
+        
+
+## 684. Redundant Connection
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        def find(v):
+            if v not in p:
+                p[v] = v
+                rank[v] = 0
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            pu, pv = find(u), find(v)
+            if rank[pu] > rank[pv]:
+                p[pv] = pu
+            elif rank[pv] > rank[pu]:
+                p[pu] = pv
+            else:
+                p[pv] = pu
+                rank[pu] += 1
+                  
+                    
+       
+        p = {}
+        rank = {}
+        
+        for u, v in edges:
+            if find(u) == find(v):
+                return[u, v]
+            else:
+                union(u, v)
+            
+        return []
+
+
+## 685. Redundant Connection II
+class Solution:
+    def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
+        def find(v):
+            if v not in p:
+                p[v] = v
+                rank[v] = 0
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            pu, pv = find(u), find(v)
+            if rank[pu] > rank[pv]:
+                p[pv] = pu
+            elif rank[pv] > rank[pu]:
+                p[pu] = pv
+            else:
+                p[pv] = pu
+                rank[pu] += 1
+                  
+        
+        p = {}
+        ans1 = None
+        ans2 = None
+        dup_p = False
+        
+        for e in edges:
+            u, v = e
+            if v in p:  #v has duplicate parents
+                ans1 = [p[v], v]
+                ans2 = [u, v]
+                dup_p = True
+                e[0] = e[1] = -1  #second one
+            else:
+                p[v] = u
+        
+        p = {}
+        rank = {}
+        for u, v in edges:
+            if u < 0: continue  #second one 
+            if find(u) == find(v):
+                return ans1 if dup_p else [u, v]  #if case 2.2 else case 1
+            else:
+                union(u, v)
+                
+        return ans2  #case 2.1
+
+
+## 1559. Detect Cycles in 2D Grid
+
+class Solution:
+    def containsCycle(self, grid: List[List[str]]) -> bool:
+        def find(v):
+            if v not in p:
+                p[v] = v
+                rank[v] = 0
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            pu, pv = find(u), find(v)
+            if rank[pu] > rank[pv]:
+                p[pv] = pu
+            elif rank[pv] > rank[pu]:
+                p[pu] = pv
+            else:
+                p[pv] = pu
+                rank[pu] += 1
+                
+                
+        m, n = len(grid), len(grid[0])
+        p = {}
+        rank = {}
+        
+        for i, row in enumerate(grid):
+            for j, letter in enumerate(row):
+                if i > 0 and j > 0 and grid[i-1][j] == grid[i][j-1] == letter:
+                    if find((i-1, j)) == find((i, j-1)):
+                        return True
+                if i > 0 and grid[i-1][j] == letter:
+                    union((i, j), (i-1, j))
+                if j > 0 and grid[i][j-1] == letter:
+                    union((i, j), (i, j -1))
+                
+        return False
+
+
+
