@@ -239,7 +239,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 802. Find Eventual Safe States<br />
 310. Minimum Height Trees<br />
 
-*TBipartition*<br />
+*Bipartition*<br />
 785. Is Graph Bipartite?<br />
 886. Possible Bipartition<br />
 1042. Flower Planting With No Adjacent<br />
