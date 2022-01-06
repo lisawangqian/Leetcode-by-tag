@@ -1014,3 +1014,163 @@ class Solution:
 
 
 
+### DFS Topological Sort
+
+## 207. Course Schedule
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        def dfs(cur):
+            if visit[cur] == 1: return True #cycle
+            if visit[cur] == 2: return False
+        
+            visit[cur] = 1
+            for each in graph[cur]:
+                if dfs(each): return True
+            visit[cur] = 2
+            return False
+        
+        
+        graph = defaultdict(list)
+        for b, a in prerequisites:
+            graph[a].append(b)
+        
+        #1 == visiting, 2 = visited
+        visit = defaultdict(int)
+        for i in range(numCourses):
+            if dfs(i): return False #there is a cycle
+        
+        return True
+
+
+## 210. Course Schedule II
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        def dfs(cur):
+            if visit[cur] == 1: return True #cycle
+            if visit[cur] == 2: return False
+        
+            visit[cur] = 1
+            for each in graph[cur]:
+                if dfs(each): return True
+            visit[cur] = 2
+            result.append(cur)
+            return False
+        
+        
+        graph = defaultdict(list)
+        for b, a in prerequisites:
+            graph[a].append(b)
+        
+        #1 == visiting, 2 = visited
+        visit = defaultdict(int)
+        result = []
+        for i in range(numCourses):
+            if dfs(i): return [] #there is a cycle
+        
+        return result[::-1]
+
+
+## 269. Alien Dictionary
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        def dfs(cur):
+            if visit[cur] == 1: return True  #cycle
+            if visit[cur] == 2: return False
+            visit[cur] = 1
+            for each in graph[cur]:
+                if dfs(each): return True #cycle
+            
+            visit[cur] = 2
+            result.append(cur)
+            return False
+        
+        result = []
+        graph = {c : [] for word in words for c in word}  #important
+        visit = defaultdict(int)
+        for first_word, second_word in zip(words, words[1:]):
+            for s, t in zip(first_word, second_word):
+                if s!=t:
+                    graph[s].append(t)
+                    break
+            else:
+                if len(first_word) > len(second_word): #not valid
+                    return ''
+        
+        for each in graph:
+            if dfs(each): return ""
+        
+        return ''.join(result[::-1])
+
+
+## 802. Find Eventual Safe States
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        #{UNKNOWN:0, VISITING:1, SAFE:2, UNSAFE:3}
+        def dfs(cur):
+            if visit[cur] == 1: #cycle
+                visit[cur] = 3
+                return 3 
+            if visit[cur] != 0: #safe or unsafe
+                return visit[cur]
+        
+            visit[cur] = 1
+            for each in g[cur]:
+                if dfs(each) == 3: 
+                    visit[cur] = 3
+                    return 3
+            visit[cur] = 2
+            return 2
+        
+        
+        g = defaultdict(list)
+        for i, nodes in enumerate(graph):
+            g[i] = nodes
+        
+        result = []
+        visit = defaultdict(int)
+        for i in range(len(graph)):
+            if dfs(i) == 2:
+                result.append(i)
+        
+        return sorted(result)
+
+
+## 310. Minimum Height Trees
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n <=2:
+            return [i for i in range(n)]
+        
+        g = defaultdict(list)
+        
+        for start, end in edges:
+            g[start].append(end)
+            g[end].append(start)
+            
+        leaves = []
+        
+        for i in range(n):
+            if len(g[i]) == 1: #leaf, only neighbor is parent
+                leaves.append(i)
+                
+        remaining_nodes = n
+        while remaining_nodes > 2:
+            remaining_nodes -= len(leaves)
+            new_leaves = []
+            while leaves:
+                leaf = leaves.pop()
+                parent = g[leaf].pop()
+                g[parent].remove(leaf)
+                del g[leaf]
+                if len(g[parent]) == 1:
+                    new_leaves.append(parent)
+            leaves = list(new_leaves)
+            
+        return list(g.keys())
+            
+            
+            
+        
+        
+        
+
