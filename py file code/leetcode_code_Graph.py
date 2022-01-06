@@ -1168,9 +1168,71 @@ class Solution:
             
         return list(g.keys())
             
+
+
+### Bipartition
+
+## 785. Is Graph Bipartite?           
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        def dfs(cur, color):
+            colors[cur] = color
+            for each in g[cur]:
+                if (colors[each] == color): return False #not bipartition      
+                if (colors[each] == 0)  and not dfs(each, -color): return False #not bipartition
             
+            return True
+        
+        g = {i: [] for i in range(len(graph))}
+        for i,  nodes in enumerate(graph):
+            g[i] = nodes
+
+        colors = defaultdict(int)  
+        for i in range(len(graph)): #0: unknown, 1: red, -1: blue
+            if colors[i] == 0 and not dfs(i, 1):
+                return False
+        return True
+
+
+## 886. Possible Bipartition 
+class Solution:
+    def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
+        def dfs(cur, color):
+            colors[cur] = color
+            for each in g[cur]:
+                if (colors[each] == color): return False #not bipartition      
+                if (colors[each] == 0)  and not dfs(each, -color): return False #not bipartition
             
+            return True
         
-        
-        
+        g = {i: [] for i in range(n)}
+        for u, v in dislikes:
+            g[u-1].append(v-1)
+            g[v-1].append(u-1)
+
+        colors = defaultdict(int)  
+        for i in range(n): #0: unknown, 1: red, -1: blue
+            if colors[i] == 0 and not dfs(i, 1):
+                return False
+        return True
+            
+
+ ## 1042. Flower Planting With No Adjacent  
+class Solution:
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        g = defaultdict(list)
+        for u, v in paths:
+            g[u-1].append(v-1)
+            g[v-1].append(u-1)
+            
+        colors = [0]* n  #not known 
+        for node in range(n): #garden
+            nei_colors = []
+            for neighbor in g[node]:
+                nei_colors.append(colors[neighbor])
+            for k in range(1, 5):
+                if k not in nei_colors:
+                    colors[node] = k
+                    break
+        return colors
 
