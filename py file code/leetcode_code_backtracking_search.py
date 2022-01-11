@@ -1031,5 +1031,125 @@ class Solution:
                 
         dfs("", 0, 0, 0)
         return result
-    
+
+
+
+### BFS Search
+
+## 127. Word Ladder
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
         
+        l = len(beginWord)
+        steps = 1
+        queue = [beginWord]
+        
+        while queue: 
+            steps +=1
+            wordList = wordList - set(queue)
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                for i in range(l):
+                    ch = word[i]
+                    for t in string.ascii_lowercase:
+                        if t == ch: continue
+                        newword = word[:i] + t + word[i+1:]
+                        if endWord == newword: 
+                            return steps
+                        if (newword not in wordList):
+                            continue
+                        wordList.remove(newword)  #increase efficiency because no need to backtrack
+                        steps[newword] = step + 1
+                        queue.append(newword)
+                   
+        return 0
+
+
+## 26. Word Ladder II
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return []
+        
+        parents = defaultdict(set)
+        l = len(beginWord)
+        queue = [beginWord]
+        
+        while queue: 
+            wordList = wordList - set(queue)
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                for i in range(l):
+                    ch = word[i]
+                    for t in string.ascii_lowercase:
+                        if t == ch: continue
+                        newword = word[:i] + t + word[i+1:]
+                        if (newword not in wordList):
+                            continue
+                        parents[word].add(newword)
+                        queue.append(newword)
+       
+        def dfs(word, curr):  #dfs backtracking
+            if word == endWord:
+                result.append(list(curr))
+                return
+            for p in parents[word]:
+                curr.append(p)
+                dfs(p, curr)
+                curr.pop()
+        
+        result = [] 
+        
+        dfs(beginWord, [beginWord])
+            
+        return result
+    
+
+## 752. Open the Lock 
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        wordList = set(deadends)
+        beginWord = '0' * len(target)
+        if beginWord == target:
+            return 0
+        if target in wordList or beginWord in wordList:
+            return -1
+        
+        
+        l = len(beginWord)
+        queue = [beginWord]
+        visited = set([beginWord])
+        steps = 0
+        
+        while queue: 
+            steps +=1
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                for i in range(l):
+                    ch = word[i]
+                    if ch == '9':
+                        moves = ['0', '8']
+                    elif ch == '0':
+                        moves = ['1', '9']
+                    else:
+                        moves = [str(int(ch) - 1), str(int(ch) + 1)]
+                    for t in moves:
+                        newword = word[:i] + t + word[i+1:]
+                        if target == newword: 
+                            return steps
+                        if (newword in wordList or newword in visited):
+                            continue
+                        queue.append(newword)
+                        visited.add(newword)
+                   
+        return -1
+
+

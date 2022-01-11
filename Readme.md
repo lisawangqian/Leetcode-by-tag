@@ -190,6 +190,11 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 241. Different Ways to Add Parentheses<br />
 282. Expression Add Operators<br />
 
+*BFS search:*<br />
+127. Word Ladder<br />
+126. Word Ladder II<br />
+752. Open the Lock<br />
+
 
 
 ### 3. Graph 
@@ -243,6 +248,11 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 785. Is Graph Bipartite?<br />
 886. Possible Bipartition<br />
 1042. Flower Planting With No Adjacent<br />
+
+*BFS Grid:*<br />
+542. 01 Matrix<br />
+675. Cut Off Trees for Golf Event<br />
+934. Shortest Bridge<br />
 
 
 

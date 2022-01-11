@@ -1236,3 +1236,81 @@ class Solution:
                     break
         return colors
 
+
+
+### BFS 
+
+## 127. Word Ladder
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
+        
+        l = len(beginWord)
+        steps = {beginWord:1}
+        queue = [beginWord]
+        
+        while queue: 
+            wordList = wordList - set(queue)
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                step = steps[word]
+                for i in range(l):
+                    ch = word[i]
+                    for t in string.ascii_lowercase:
+                        if t == ch: continue
+                        newword = word[:i] + t + word[i+1:]
+                        if endWord == newword: 
+                            return step + 1
+                        if (newword not in wordList):
+                            continue
+                        wordList.remove(newword)  #increase efficiency because no need to backtrack
+                        steps[newword] = step + 1
+                        queue.append(newword)
+                   
+        return 0
+
+
+## 26. Word Ladder II
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return []
+        
+        parents = defaultdict(set)
+        l = len(beginWord)
+        queue = [beginWord]
+        
+        while queue: 
+            wordList = wordList - set(queue)
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                for i in range(l):
+                    ch = word[i]
+                    for t in string.ascii_lowercase:
+                        if t == ch: continue
+                        newword = word[:i] + t + word[i+1:]
+                        if (newword not in wordList):
+                            continue
+                        parents[word].add(newword)
+                        queue.append(newword)
+       
+        def dfs(word, curr):  #dfs backtracking
+            if word == endWord:
+                result.append(list(curr))
+                return
+            for p in parents[word]:
+                curr.append(p)
+                dfs(p, curr)
+                curr.pop()
+        
+        result = [] 
+        
+        dfs(beginWord, [beginWord])
+            
+        return result
