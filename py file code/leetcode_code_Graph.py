@@ -1217,7 +1217,7 @@ class Solution:
         return True
             
 
- ## 1042. Flower Planting With No Adjacent  
+## 1042. Flower Planting With No Adjacent  
 class Solution:
     def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
         g = defaultdict(list)
@@ -1238,79 +1238,421 @@ class Solution:
 
 
 
-### BFS 
+### BFS Grid
 
-## 127. Word Ladder
+## 542. 01 Matrix
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        wordList = set(wordList)
-        if endWord not in wordList:
-            return 0
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         
-        l = len(beginWord)
-        steps = {beginWord:1}
-        queue = [beginWord]
+        m, n = len(mat), len(mat[0])
+        visited = [[0 for i in range(n)] for i in range(m)]
+        result = [[math.inf for i in range(n)] for i in range(m)]
+        queue = []
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    queue.append((i,j))
+                    visited[i][j] = 1
+         
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
         
-        while queue: 
-            wordList = wordList - set(queue)
+        while queue:
             size = len(queue)
             for _ in range(size):
-                word = queue.pop(0)
-                step = steps[word]
-                for i in range(l):
-                    ch = word[i]
-                    for t in string.ascii_lowercase:
-                        if t == ch: continue
-                        newword = word[:i] + t + word[i+1:]
-                        if endWord == newword: 
-                            return step + 1
-                        if (newword not in wordList):
-                            continue
-                        wordList.remove(newword)  #increase efficiency because no need to backtrack
-                        steps[newword] = step + 1
-                        queue.append(newword)
-                   
-        return 0
-
-
-## 26. Word Ladder II
-class Solution:
-    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-        
-        wordList = set(wordList)
-        if endWord not in wordList:
-            return []
-        
-        parents = defaultdict(set)
-        l = len(beginWord)
-        queue = [beginWord]
-        
-        while queue: 
-            wordList = wordList - set(queue)
-            size = len(queue)
-            for _ in range(size):
-                word = queue.pop(0)
-                for i in range(l):
-                    ch = word[i]
-                    for t in string.ascii_lowercase:
-                        if t == ch: continue
-                        newword = word[:i] + t + word[i+1:]
-                        if (newword not in wordList):
-                            continue
-                        parents[word].add(newword)
-                        queue.append(newword)
-       
-        def dfs(word, curr):  #dfs backtracking
-            if word == endWord:
-                result.append(list(curr))
-                return
-            for p in parents[word]:
-                curr.append(p)
-                dfs(p, curr)
-                curr.pop()
-        
-        result = [] 
-        
-        dfs(beginWord, [beginWord])
+                i, j = queue.pop(0)
+                result[i][j] = steps
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or visited[x][y]: continue
+                    visited[x][y] = 1
+                    queue.append((x, y))
+            
+            steps+=1
             
         return result
+
+
+## 1926. Nearest Exit from Entrance in Maze
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+                
+        m, n = len(maze), len(maze[0])
+        
+        queue = []
+        queue.append((entrance[0], entrance[1]))
+        maze[entrance[0]][entrance[1]] = '#'
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or maze[x][y] != '.': continue
+                    if (x == 0) or (x == m-1) or (y==0) or (y == n-1):
+                        return steps + 1
+                    maze[x][y] = '#'
+                    queue.append((x, y))
+            
+            steps+=1
+            
+        return -1
+
+## 490. The Maze
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        m, n = len(maze), len(maze[0])
+        e0, e1 = destination[0], destination[1]
+        
+        queue = []
+        queue.append((start[0], start[1]))
+        maze[start[0]][start[1]] = 2
+        dirs = [0, -1, 0, 1, 0]
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or maze[x][y] != 0: continue #visited or wall
+                    while 0 <= x < m and 0 <= y < n and maze[x][y] != 1: #not a wall continue to roll
+                        x += dirs[k]
+                        y += dirs[k+1]
+                    x -= dirs[k]
+                    y -= dirs[k+1]
+                    if maze[x][y] != 0: continue
+                    if (x == e0) and (y == e1): return True
+                    maze[x][y] = 2  #visited
+                    queue.append((x, y))
+            
+        return False
+
+
+## 505. The Maze II
+class Solution:
+    def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
+        m, n = len(maze), len(maze[0])
+        queue = []
+        queue.append((start[0], start[1]))
+        inf = 2**31-1
+        distance = [[inf for i in range(n)] for i in range(m)]
+        distance[start[0]][start[1]] = 0
+        dirs = [0, -1, 0, 1, 0]
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or maze[x][y] != 0: continue #visited or wall
+                        
+                    steps = 0
+                    while 0 <= x < m and 0 <= y < n and maze[x][y] != 1: #not a wall continue to roll
+                        x += dirs[k]
+                        y += dirs[k+1]
+                        steps+=1 #path length
+                    x -= dirs[k]
+                    y -= dirs[k+1]
+                    
+                    if distance[i][j] + steps < distance[x][y]:
+                        distance[x][y] = distance[i][j] + steps
+                        queue.append((x, y))
+            
+            
+        return distance[destination[0]][destination[1]] if distance[destination[0]][destination[1]] !=inf else -1
+
+
+## 1162. As Far from Land as Possible
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        queue = [(i,j) for i in range(n) for j in range(n) if grid[i][j] == 1]  #layer 0
+        if len(queue) == n * n or len(queue) == 0: #all 1 or all 0
+            return -1
+        
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=n or y<0 or y>=n or grid[x][y] != 0: continue
+                    grid[x][y] = 1
+                    queue.append((x, y))
+            steps+=1
+            
+        return steps-1
+
+
+## 286. Walls and Gates
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        
+        m, n = len(rooms), len(rooms[0])
+        
+        queue = [(i,j) for i in range(m) for j in range(n) if rooms[i][j] == 0]  #layer 0
+        inf = 2**31-1
+        
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or rooms[x][y] != inf: continue
+                    rooms[x][y] = steps + 1
+                    queue.append((x, y))
+            steps+=1
+
+
+## 994. Rotting Oranges
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        queue = []
+        rotten, fresh = 0, 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    queue.append((i,j))
+                    rotten+=1
+                elif grid[i][j] == 1:
+                    rotten +=1
+                    fresh+=1
+        if fresh == 0:
+            return 0
+        
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                rotten-=1
+                if rotten == 0:
+                    return steps
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=m or y<0 or y>=n or grid[x][y] != 1: continue
+                    grid[x][y] = 2
+                    queue.append((x, y))
+            steps+=1  #bfs layer marker
+            
+        return -1
+
+
+## 909. Snakes and Ladders
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        def label_to_position(label):
+            r, c = divmod(label-1, n)
+            if r % 2 == 0:
+                return n-1-r, c
+            else:
+                return n-1-r, n-1-c
+        
+        n = len(board)
+        visited = set()
+        queue = []
+        queue.append(1)
+        visited.add(1)
+        step = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                label = queue.pop(0)
+                r, c = label_to_position(label)
+                if board[r][c] != -1:
+                    label = board[r][c]
+                if label == n*n:
+                    return step
+                for x in range(1, 7): #[curr + 1, min(curr + 6, n**2)]
+                    new_label = label + x
+                    if new_label > n*n or new_label in visited: continue
+                    queue.append(new_label)
+                    visited.add(new_label)
+            step+=1
+            
+        return -1
+
+## 1091. Shortest Path in Binary Matrix
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        if n == 1 and grid[0][0] == 0: return 1
+        if grid[0][0] != 0 or grid[n-1][n-1] != 0: return -1
+        
+        queue = []
+        queue.append((0, 0))
+        grid[0][0] = 2
+        dirs = [(0, -1), (-1, 0), (1, 0), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        steps = 1
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for di, dj in dirs:
+                    x = i + di
+                    y = j + dj
+                    if x <0 or x>=n or y<0 or y>=n or grid[x][y] != 0: continue
+                    if (x == n-1) and (y == n-1):
+                        return steps + 1
+                    grid[x][y] = 2
+                    queue.append((x, y))
+            
+            steps+=1
+            
+        return -1
+
+
+##529. Minesweeper
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        def numBombsAdj(i, j):
+            count = 0 
+            for x, y in dirs: 
+                if 0 <= i + x < m and 0 <= j + y < n and board[i+x][y+j] == "M": count += 1 
+            return count 
+        
+        
+        m, n  = len(board), len(board[0])
+        s0, s1 = click
+        
+        if board[s0][s1] == "M":
+            board[s0][s1] = "X"
+        
+        dirs = [(0, -1), (-1, 0), (1, 0), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        queue = []
+        queue.append((s0, s1))
+        visited = set((s0, s1))
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                if board[i][j] == "E":
+                    bombsNextTo = numBombsAdj(i, j)
+                    board[i][j] = "B" if bombsNextTo == 0 else str(bombsNextTo)
+                    if bombsNextTo == 0:
+                        for di, dj in dirs:
+                            x = i + di
+                            y = j + dj
+                            if x <0 or x>=m or y<0 or y>=n or (x, y) in visited: continue
+                            queue.append((x, y))
+                            visited.add((x, y))
+        return board 
+
+
+## 675. Cut Off Trees for Golf Event
+class Solution:
+    def cutOffTree(self, forest: List[List[int]]) -> int:
+        def bfs(sx, sy, tx, ty):
+            visited = [[0 for i in range(n)] for i in range(m)]
+            queue = [(sx, sy)]
+            visited[sx][sy] = 1
+            
+            dirs = [0, -1, 0, 1, 0]
+            steps = 0
+
+            while queue:
+                size = len(queue)
+                for _ in range(size):
+                    i, j = queue.pop(0)
+                    if (i == tx) and (j == ty): return steps
+                    for k in range(4):
+                        x = i + dirs[k]
+                        y = j + dirs[k+1]
+                        if x <0 or x>=m or y<0 or y>=n or visited[x][y] or not forest[x][y]: continue
+                        visited[x][y] = 1
+                        queue.append((x, y))
+                steps+=1  #bfs layer marker
+            return -1
+        
+        m, n = len(forest), len(forest[0])
+        trees = []
+        for i in range(m):
+            for j in range(n):
+                if (forest[i][j] > 1):
+                    trees.append((forest[i][j], i, j))
+        
+        trees.sort(key = lambda k: k[0])
+        sx, sy = 0, 0
+        total_steps = 0
+        for _, tx, ty in trees:
+            steps = bfs(sx, sy, tx, ty)
+            if (steps == -1): return -1
+            forest[tx][ty] = 1
+            total_steps += steps
+            sx, sy = tx, ty
+            
+        return total_steps
+            
+
+## 934. Shortest Bridge
+class Solution:
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        def dfs(i, j):
+            if i < 0 or j < 0 or i >= n or j >= n or grid[i][j] != 1: return
+            print(i, j)
+            grid[i][j] = 2  #visited
+            queue.append((i, j))
+            dfs(i + 1, j)
+            dfs(i - 1, j)
+            dfs(i, j + 1)
+            dfs(i, j - 1)
+            
+        n = len(grid)
+        queue = []
+        for i in range(n):
+            for j in range(n):
+                if (grid[i][j] == 1):
+                    dfs(i, j)
+                    break
+            else: 
+                continue
+            break
+                             
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=n or y<0 or y>=n or grid[x][y] == 2: continue
+                    if grid[x][y] == 1: 
+                        return steps
+                    grid[x][y] = 2
+                    queue.append((x, y))
+            steps+=1  #bfs layer marker
+            
+        return -1
+
+
+
+
+

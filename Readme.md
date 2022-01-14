@@ -11,7 +11,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-## My tag: 
+## DFS/BFS: 
+
 
 ### 1. Binary(N-ary) Tree
 
@@ -131,7 +132,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 979. Distribute Coins in Binary Tree<br />
 
 
-
 ### 2. Backtracking/Search
 
 *Combination With Duplicates:*<br /> 
@@ -196,7 +196,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 752. Open the Lock<br />
 
 
-
 ### 3. Graph 
 
 *DFS*<br /> 
@@ -251,10 +250,21 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 *BFS Grid:*<br />
 542. 01 Matrix<br />
+1926. Nearest Exit from Entrance in Maze<br />
+490. The Maze<br />
+505. The Maze II<br />
+1162. As Far from Land as Possible<br />
+286. Walls and Gates<br />
+994. Rotting Oranges<br />
+909. Snakes and Ladders<br />
+1091. Shortest Path in Binary Matrix<br />
+529. Minesweeper<br />
 675. Cut Off Trees for Golf Event<br />
 934. Shortest Bridge<br />
 
 
+
+## Structure: 
 
 ### 4. Trie and Segment Tree
 
@@ -374,7 +384,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 316. Remove Duplicate Letters<br />
 
 
-
 ### 7. Heap 
 
 *Easy:*<br /> 
@@ -401,6 +410,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1642. Furthest Building You Can Reach<br />
 
 
+
+## Scan Technique: 
 
 ### 8. Binary Search 
 
@@ -461,7 +472,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1300. Sum of Mutated Array Closest to Target<br />
 658. Find K Closest Elements<br />
 911. Online Election<br />
-
 
 
 ### 9. Two Pointer/Sliding Window
@@ -540,7 +550,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1888. Minimum Number of Flips to Make the Binary String Alternating<br />
 
 
-
 ### 10. Dynamic Programming
 
 *Easy:*<br />
@@ -599,7 +608,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 894. All Possible Full Binary Trees<br />
 
 
-
 ### 11. Greedy
 
 *Easy:*<br />
@@ -636,6 +644,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
+## Math Technique: 
+
 ### 12. Bit
 
 *Easy:*<br />
@@ -660,7 +670,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 477. Total Hamming Distance<br />
 78. Subsets<br />
 89. Gray Code<br />
-
 
 
 ### 13. Matrix
@@ -688,7 +697,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1895. Largest Magic Square<br />
 
 
-
 ### 14. Math
 
 *Easy:*<br />
@@ -708,7 +716,6 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 963. Minimum Area Rectangle II<br />
 
 
-
 ### 15. Game Theory
 
 *Easy:*<br />
@@ -722,7 +729,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 
 
 
-### 16. Other
+## Other:
 
 
 
