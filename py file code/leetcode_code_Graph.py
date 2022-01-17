@@ -1653,6 +1653,110 @@ class Solution:
         return -1
 
 
+### BFS shortest path
+
+## 847. Shortest Path Visiting All Nodes
+class Solution:
+    def shortestPathLength(self, graph: List[List[int]]) -> int:
+        n = len(graph)
+        if n == 1:
+            return 0
+        
+        # used to check whether all nodes have been visited (11111...111)
+        allVisited = (1 << n) - 1   #sum of masks
+        queue = [(i, 1 << i) for i in range(n)]
+        
+        # encoded_visited in visited_states[node] iff
+        # (node, encoded_visited) has been pushed onto the queue
+        visited_states = [{1 << i} for i in range(n)]  #set in list
+        # states in visited_states will never be pushed onto queue again
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                currentNode, visited = queue.pop(0)
+                if visited == allVisited:
+                        return steps
+                for nb in graph[currentNode]:
+                    new_visited = visited | (1 << nb)  
+                    if new_visited in visited_states[nb]: continue
+                    visited_states[nb].add(new_visited)
+                    queue.append((nb, new_visited))
+
+            steps += 1
+        
+        return -1
 
 
+## 864. Shortest Path to Get All Keys
+class Solution:
+    def shortestPathAllKeys(self, grid: List[str]) -> int:
+        m, n = len(grid), len(grid[0])
+        allVisited = 0
+        visited_states = [[set() for _ in range(n)] for _ in range(m)]
+        queue = []
+        for i in range(m):
+            for j in range(n):
+                c = grid[i][j]
+                if c == '@':  #start
+                    queue.append((i, j, 0))
+                    visited_states[i][j].add(0)
+                elif c >= 'a' and c <= 'f':
+                    allVisited |= (1 << (ord(c) - ord('a')))
+        
+        dirs = [-1, 0, 1, 0, -1]
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j, state = queue.pop(0)
+                if state == allVisited: return steps
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    new_state = state  #important to reassign within for loop
+                    if x < 0 or x >= m or y < 0 or y >= n: continue
+                    c = grid[x][y]
+                    if c == '#': continue
+                        
+                    if c in string.ascii_uppercase: #lock 
+                        if state & (1 << (ord(c) - ord('A'))) == 0: #no key revealed
+                            continue
+                    if (c in string.ascii_lowercase): 
+                        new_state = state | (1 << (ord(c) - ord('a')))
+                    
+                    if new_state in visited_states[x][y]: continue
+                    queue.append((x, y, new_state))
+                    visited_states[x][y].add(new_state)
+            
+            steps += 1
+        
+        return -1
 
+
+## 298. Maximum Candies You Can Get from Boxes
+class Solution:
+    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+        
+        n = len(status)
+        found = [0 for i in range(n)]
+        queue = []
+        for b in initialBoxes:
+            found[b] = 1
+            if status[b] == 1:
+                queue.append(b)
+        
+        result = 0
+        while queue:
+            b = queue.pop(0)
+            result += candies[b]
+            for t in containedBoxes[b]:
+                found[t] = 1
+                if status[t] == 1:
+                    queue.append(t)
+            for t in keys[b]:
+                if status[t] == 0 and found[t] == 1:
+                    queue.append(t)
+                status[t] = 1
+                
+        return result
