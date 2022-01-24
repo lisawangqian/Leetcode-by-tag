@@ -1048,7 +1048,6 @@ class Solution:
         queue = [beginWord]
         
         while queue: 
-            steps +=1
             wordList = wordList - set(queue)
             size = len(queue)
             for _ in range(size):
@@ -1059,12 +1058,12 @@ class Solution:
                         if t == ch: continue
                         newword = word[:i] + t + word[i+1:]
                         if endWord == newword: 
-                            return steps
+                            return steps + 1
                         if (newword not in wordList):
                             continue
                         wordList.remove(newword)  #increase efficiency because no need to backtrack
-                        steps[newword] = step + 1
                         queue.append(newword)
+            steps +=1
                    
         return 0
 
@@ -1111,7 +1110,6 @@ class Solution:
             
         return result
     
-
 ## 752. Open the Lock 
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
@@ -1129,7 +1127,6 @@ class Solution:
         steps = 0
         
         while queue: 
-            steps +=1
             size = len(queue)
             for _ in range(size):
                 word = queue.pop(0)
@@ -1144,12 +1141,43 @@ class Solution:
                     for t in moves:
                         newword = word[:i] + t + word[i+1:]
                         if target == newword: 
-                            return steps
+                            return steps + 1
                         if (newword in wordList or newword in visited):
                             continue
                         queue.append(newword)
                         visited.add(newword)
+            steps +=1
                    
         return -1
 
-
+## 433. Minimum Genetic Mutation
+class Solution:
+    def minMutation(self, start: str, end: str, bank: List[str]) -> int:
+        wordList = set(bank)
+        if end not in wordList:
+            return -1
+        
+        l = len(start)
+        queue = [start]
+        visited = set([start])
+        steps = 0
+        
+        while queue: 
+            wordList = wordList - set(queue)
+            size = len(queue)
+            for _ in range(size):
+                word = queue.pop(0)
+                for i in range(l):
+                    ch = word[i]
+                    for t in ['A', 'C', 'G', 'T']:
+                        if t == ch: continue
+                        newword = word[:i] + t + word[i+1:]
+                        if end == newword: 
+                            return steps + 1
+                        if (newword not in wordList or newword in visited):
+                            continue
+                        queue.append(newword)
+                        wordList.remove(newword)
+            steps+=1
+                 
+        return -1

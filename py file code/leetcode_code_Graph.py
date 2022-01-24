@@ -1655,6 +1655,101 @@ class Solution:
 
 ### BFS shortest path
 
+## 298. Maximum Candies You Can Get from Boxes
+class Solution:
+    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+        
+        n = len(status)
+        found = [0 for i in range(n)]
+        queue = []
+        for b in initialBoxes:
+            found[b] = 1
+            if status[b] == 1:
+                queue.append(b)
+        
+        result = 0
+        while queue:
+            b = queue.pop(0)
+            result += candies[b]
+            for t in containedBoxes[b]:
+                found[t] = 1
+                if status[t] == 1:
+                    queue.append(t)
+            for t in keys[b]:
+                if status[t] == 0 and found[t] == 1:
+                    queue.append(t)
+                status[t] = 1
+                
+        return result
+
+
+## 815. Bus Routes
+class Solution:
+    def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
+        if source == target:
+            return 0
+        
+        m = defaultdict(list)
+        for i in range(len(routes)):
+            for stop in routes[i]:
+                m[stop].append(i)
+        
+        visited = [0 for i in range(len(routes))]
+        queue = [source]
+        steps = 0
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                curr = queue.pop(0)
+                for bus in m[curr]:
+                    if visited[bus]: continue
+                    visited[bus] = 1
+                    for stop in routes[bus]:
+                        if stop == target:
+                            return steps + 1
+                        queue.append(stop)
+            steps +=1
+            
+        return -1
+
+
+## 1129. Shortest Path with Alternating Colors
+class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -> List[int]:
+        
+        graph_r, graph_b = {i: set() for i in range(n)}, {i: set() for i in range(n)}
+        
+        for e1, e2 in red_edges:
+            graph_r[e1].add(e2)
+        
+        for e1, e2 in blue_edges:
+            graph_b[e1].add(e2)
+            
+        
+        result = [-1 for i in range(n)]
+        queue = []
+        queue.append((0, 0)) #0: red
+        queue.append((0, 1)) #1: blue
+        visited_r, visited_b = set([0]), set([0])
+        steps = 0
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                node, color = queue.pop(0)
+                result[node] = min(result[node], steps) if result[node] >=0 else steps
+                edges = graph_r if color == 1 else graph_b 
+                visited = visited_r if color == 1 else visited_b
+                for nxt in edges[node]:
+                    if nxt in visited: continue
+                    visited.add(nxt) #object
+                    queue.append((nxt, 1-color))
+            steps += 1
+            
+        return result
+
+
 ## 847. Shortest Path Visiting All Nodes
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:
@@ -1734,29 +1829,60 @@ class Solution:
         return -1
 
 
-## 298. Maximum Candies You Can Get from Boxes
+## 1263. Minimum Moves to Move a Box to Their Target Location
 class Solution:
-    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+    def minPushBox(self, grid: List[List[str]]) -> int:
         
-        n = len(status)
-        found = [0 for i in range(n)]
-        queue = []
-        for b in initialBoxes:
-            found[b] = 1
-            if status[b] == 1:
-                queue.append(b)
+        def dfs(i, j, px, py):
+            if i < 0 or j < 0 or i >= m or j >= n or grid[i][j] == '#': return False
+            
+            if i == px and j == py:
+                return True
+            key = i * n + j
+            if key in seen:
+                return False
+            seen.add(key)
+            return dfs(i + 1, j, px, py) or dfs(i - 1, j, px, py) or dfs(i, j + 1, px, py,) or dfs(i, j - 1, px, py)
         
-        result = 0
+        
+        m, n = len(grid), len(grid[0])
+        d, p = None, None
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 'B':
+                    b = i * n + j
+                elif grid[i][j] == 'S':
+                    p = i * n + j
+                    
+        dirs = [0, -1, 0, 1, 0]
+        queue = [(b, p)]
+        visited = set([(b, p)])
+        steps = 0
+        
         while queue:
-            b = queue.pop(0)
-            result += candies[b]
-            for t in containedBoxes[b]:
-                found[t] = 1
-                if status[t] == 1:
-                    queue.append(t)
-            for t in keys[b]:
-                if status[t] == 0 and found[t] == 1:
-                    queue.append(t)
-                status[t] = 1
-                
-        return result
+            size = len(queue)
+            for _ in range(size):
+                box, person = queue.pop(0)
+                bi, bj = box // n, box % n
+                pi, pj = person//n, person % n
+                if(grid[bi][bj] == 'T'):
+                    return steps
+                grid[bi][bj] = '#'  #block now, so person can not walk through
+                for k in range(4):
+                    bx, by = bi + dirs[k], bj + dirs[k + 1]
+                    px, py = bi - dirs[k], bj - dirs[k + 1]
+                    b = bx * n + by
+                    p = px * n + py
+                    if bx <0 or bx>=m or by<0 or by>=n or grid[bx][by] == '#' or (b, p) in visited: continue
+                    seen = set()
+                    if dfs(pi, pj, px, py): 
+                        queue.append((b, p))
+                        visited.add((b, p))
+                grid[bi][bj] = '.'  #backfill
+            steps +=1
+            
+        return -1
+        
+        
+        
+  

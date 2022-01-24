@@ -194,7 +194,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 127. Word Ladder<br />
 126. Word Ladder II<br />
 752. Open the Lock<br />
-
+433. Minimum Genetic Mutation<br />
 
 ### 3. Graph 
 
@@ -261,6 +261,11 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 529. Minesweeper<br />
 675. Cut Off Trees for Golf Event<br />
 934. Shortest Bridge<br />
+
+*BFS Shortest Path:*<br />
+847. Shortest Path Visiting All Nodes<br />
+864. Shortest Path to Get All Keys<br />
+1298. Maximum Candies You Can Get from Boxes<br />
 
 
 
