@@ -196,6 +196,8 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 752. Open the Lock<br />
 433. Minimum Genetic Mutation<br />
 
+
+
 ### 3. Graph 
 
 *DFS*<br /> 
@@ -260,12 +262,28 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1091. Shortest Path in Binary Matrix<br />
 529. Minesweeper<br />
 675. Cut Off Trees for Golf Event<br />
-934. Shortest Bridge<br />
 
 *BFS Shortest Path:*<br />
+1298. Maximum Candies You Can Get from Boxes<br />
+815. Bus Routes<br />
+1129. Shortest Path with Alternating Colors<br />
+
+*BFS Path/Grid with BIT:*<br />
 847. Shortest Path Visiting All Nodes<br />
 864. Shortest Path to Get All Keys<br />
-1298. Maximum Candies You Can Get from Boxes<br />
+
+*BFS ws DFS Grid:*<br />
+1263. Minimum Moves to Move a Box to Their Target Location<br />
+934. Shortest Bridge<br />
+
+*Weighted Shortest Path(Dijkstra/Bellman-Ford/Floyd-Warshall):*<br />
+743. Network Delay Time<br />
+787. Cheapest Flights Within K Stops<br />
+882. Reachable Nodes In Subdivided Graph<br />
+1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance<br />
+1368. Minimum Cost to Make at Least One Valid Path in a Grid<br />
+1514. Path with Maximum Probability<br />
+1976. Number of Ways to Arrive at Destination<br />
 
 
 

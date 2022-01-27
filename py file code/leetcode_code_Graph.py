@@ -1610,48 +1610,6 @@ class Solution:
         return total_steps
             
 
-## 934. Shortest Bridge
-class Solution:
-    def shortestBridge(self, grid: List[List[int]]) -> int:
-        def dfs(i, j):
-            if i < 0 or j < 0 or i >= n or j >= n or grid[i][j] != 1: return
-            print(i, j)
-            grid[i][j] = 2  #visited
-            queue.append((i, j))
-            dfs(i + 1, j)
-            dfs(i - 1, j)
-            dfs(i, j + 1)
-            dfs(i, j - 1)
-            
-        n = len(grid)
-        queue = []
-        for i in range(n):
-            for j in range(n):
-                if (grid[i][j] == 1):
-                    dfs(i, j)
-                    break
-            else: 
-                continue
-            break
-                             
-        dirs = [0, -1, 0, 1, 0]
-        steps = 0
-        while queue:
-            size = len(queue)
-            for _ in range(size):
-                i, j = queue.pop(0)
-                for k in range(4):
-                    x = i + dirs[k]
-                    y = j + dirs[k+1]
-                    if x <0 or x>=n or y<0 or y>=n or grid[x][y] == 2: continue
-                    if grid[x][y] == 1: 
-                        return steps
-                    grid[x][y] = 2
-                    queue.append((x, y))
-            steps+=1  #bfs layer marker
-            
-        return -1
-
 
 ### BFS shortest path
 
@@ -1750,6 +1708,8 @@ class Solution:
         return result
 
 
+### BFS shortest path with BIT
+
 ## 847. Shortest Path Visiting All Nodes
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:
@@ -1829,6 +1789,8 @@ class Solution:
         return -1
 
 
+### BFS ws DFS Grid 
+
 ## 1263. Minimum Moves to Move a Box to Their Target Location
 class Solution:
     def minPushBox(self, grid: List[List[str]]) -> int:
@@ -1883,6 +1845,349 @@ class Solution:
             
         return -1
         
+## 934. Shortest Bridge
+class Solution:
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        def dfs(i, j):
+            if i < 0 or j < 0 or i >= n or j >= n or grid[i][j] != 1: return
+            print(i, j)
+            grid[i][j] = 2  #visited
+            queue.append((i, j))
+            dfs(i + 1, j)
+            dfs(i - 1, j)
+            dfs(i, j + 1)
+            dfs(i, j - 1)
+            
+        n = len(grid)
+        queue = []
+        for i in range(n):
+            for j in range(n):
+                if (grid[i][j] == 1):
+                    dfs(i, j)
+                    break
+            else: 
+                continue
+            break
+                             
+        dirs = [0, -1, 0, 1, 0]
+        steps = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                i, j = queue.pop(0)
+                for k in range(4):
+                    x = i + dirs[k]
+                    y = j + dirs[k+1]
+                    if x <0 or x>=n or y<0 or y>=n or grid[x][y] == 2: continue
+                    if grid[x][y] == 1: 
+                        return steps
+                    grid[x][y] = 2
+                    queue.append((x, y))
+            steps+=1  #bfs layer marker
+            
+        return -1
+
+
+
+### weighted shortest path
+
+## 743. Network Delay Time
+class Solution: #Dijkstra
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        #Dijkstra
+        graph = defaultdict(list)
+        for u, v, w in times:
+            graph[u].append((v, w))
+
+        dist = {node: float('inf') for node in range(1, n+1)}
+        visited = [0] * n
+        dist[k] = 0
+
+        while True:
+            cand_node = -1
+            cand_dist = float('inf')
+            for i in range(1, n+1):
+                if visited[i-1] != 1 and dist[i] < cand_dist:
+                    cand_dist = dist[i]
+                    cand_node = i
+
+            if cand_node < 0: break
+            visited[cand_node-1] = 1
+            for v, w in graph[cand_node]:
+                dist[v] = min(dist[v], dist[cand_node] + w)
+        
+        result = max(dist.values())
+        return result if result < float('inf') else -1
+
+class Solution: #Dijkstra heapq
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        #Dijkstra heapq
+        graph = defaultdict(list)
+        for u, v, w in times:
+            graph[u].append((v, w))
+
+        dist = {}
+        pq = [(0, k)]
+
+        while pq:
+            distance, node = heapq.heappop(pq)
+            if node in dist: continue
+            dist[node] = distance
+            
+            for v, w in graph[node]:
+                if v not in dist:
+                    heapq.heappush(pq, (distance + w, v))
+                
+        return max(dist.values()) if len(dist) == n else -1
+
+class Solution: #Bellman-Ford
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        #Bellman-Ford
+        
+        dist = [float('inf') for node in range(n)]
+        dist[k-1] = 0
+        
+        for i in range(n):
+            for u, v, w in times:
+                dist[v-1] = min(dist[v-1], dist[u-1] + w)
         
         
-  
+        result = max(dist)
+        return result if result < float('inf') else -1
+                
+        
+class Solution:#Floyd-Warshall
+        
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        #Floyd-Warshall
+        
+        dist = [[float('inf') for _ in range(n)] for _ in range(n)]
+        
+        for i in range(n):
+            dist[i][i] = 0
+            
+        for u, v, w in times:
+            dist[u-1][v-1] = w
+    
+        for m in range(n):
+            for i in range(n):
+                for j in range(n): 
+                    if dist[i][j] > dist[i][m] + dist[m][j]:
+                        dist[i][j] = dist[i][m] + dist[m][j]
+        result = -1               
+        for i in range(n): 
+            if dist[k-1][i] == float('inf'): return -1
+            result = max(result, dist[k-1][i])
+        
+        return result
+                       
+## 787. Cheapest Flights Within K Stops  
+class Solution:#Dijkstra heapq
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        graph = defaultdict(list)
+        for u, v, w in flights:
+            graph[u].append((v, w))
+
+        dist = {}
+        stops = {}
+        pq = [(0, 0, src)]  #cost first, step second
+        
+        while pq:
+            distance, step, node = heapq.heappop(pq)
+            if node == dst: return distance
+            if step > k: continue #k stops = k+1 steps from src
+            
+            for v, w in graph[node]:
+                if v not in dist or distance + w < dist[v]: # Better cost
+                    dist[v] = distance + w
+                    heapq.heappush(pq, (distance + w, step + 1, v))
+                elif v not in stops or step < stops[v]: # Better steps
+                    heapq.heappush(pq, (distance + w, step + 1, v))
+                
+                stops[v] = step  #parent step
+                
+        return -1
+                
+class Solution:#Bellman-Ford
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        #Bellman-Ford
+        dist = [float('inf') for _ in range(n)]
+        dist[src] = 0
+        
+        for i in range(k + 1):
+            tmp = list(dist)
+            for u, v, w in flights:
+                tmp[v] = min(tmp[v], dist[u] + w)
+            dist = tmp
+
+        return -1 if dist[dst] == float('inf') else dist[dst]
+
+class Solution:#Bellman-Ford wiuthout tmp
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        #Bellman-Ford wiuthout tmp
+        dist = [[float('inf') for _ in range(n)] for _ in range(k+2)]
+        dist[0][src] = 0
+        
+        for i in range(1, k+2):
+            dist[i][src] = 0
+            for u, v, w in flights:
+                dist[i][v] = min(dist[i][v], dist[i-1][u] + w);    
+    
+        return -1 if dist[k+1][dst] == float('inf') else dist[k+1][dst]
+
+
+## 882. Reachable Nodes In Subdivided Graph
+class Solution:
+    def reachableNodes(self, edges: List[List[int]], maxMoves: int, n: int) -> int:
+        graph = defaultdict(list)
+        for u, v, w in edges:
+            graph[u].append((v, w))
+            graph[v].append((u, w))
+            
+        pq = [(0, 0)]  #distance, node
+        dist = {0:0}
+        node_visited = {}
+        result = 0
+        
+        while pq:
+            distance, node = heapq.heappop(pq)
+            if distance > dist[node]: continue
+            
+            result+=1 #node reachable
+            
+            for nei, w in graph[node]:
+                nn = min(w, maxMoves - distance)  #all nodes between or max can be taken
+                node_visited[(node, nei)] = nn  #how many nodes between two ori nodes can be taken
+                
+                total_dist = distance + (w + 1)  #steps is 1 more than nn
+                if total_dist < dist.get(nei, maxMoves+1): #if nei not in dist, use maxMoves+1->within maxMoves range
+                    heapq.heappush(pq, (total_dist, nei))
+                    dist[nei] = total_dist
+                    
+        for u, v, w in edges:
+            result += min(w, node_visited.get((u, v), 0) + node_visited.get((v, u), 0))
+            
+        return result
+            
+
+## 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance   
+class Solution:
+    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+        graph = defaultdict(list)
+        for u, v, w in edges:
+            graph[u].append((v, w))
+            graph[v].append((u, w))
+        
+        result = {}
+        for i in range(n):
+            pq = [(0, i)]  #distance, node
+            dist = {i:0}
+            cnt = -1
+
+            while pq:
+                distance, node = heapq.heappop(pq)
+                if distance > dist[node]: continue
+
+                cnt+=1 #node reachable
+
+                for nei, w in graph[node]:
+                    
+                    total_dist = distance + w
+                    if total_dist < dist.get(nei, distanceThreshold+1): 
+                        heapq.heappush(pq, (total_dist, nei))
+                        dist[nei] = total_dist
+                        
+            result[i] = cnt
+        
+        smallest = min(list(result.values()))
+        return max([i for i in result if result[i] == smallest])         
+
+
+## 1368. Minimum Cost to Make at Least One Valid Path in a Grid
+class Solution:
+    def minCost(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        
+        if m == 1 and n == 1: return 0
+        
+        pq = [(0, 0, 0)]
+        dist = {}
+        dist[(0, 0)] = 0
+        visited = set()
+        
+        while pq:
+            cost, i, j = heappop(pq)
+            if (i, j) in visited: continue
+            if i == m - 1 and j == n - 1:
+                return cost
+            visited.add((i, j))
+            
+            for x, y, direction in [(i + 1, j, 3), (i - 1, j, 4), (i, j + 1, 1), (i, j - 1, 2)]:
+                if x <0 or x>=m or y<0 or y>=n or ((x, y) in visited): continue
+                next_cost = cost if direction == grid[i][j] else cost + 1 #if need to change arrow in parent
+                if dist.get((x, y), next_cost+1) > next_cost:
+                    heappush(pq, (next_cost, x, y))
+                    dist[(x, y)] = next_cost
+        
+        return -1
+        
+
+## 1514. Path with Maximum Probability
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+        
+        graph = defaultdict(list)
+        for (u, v), p in zip(edges, succProb):
+            graph[u].append((v, log2(1/p)))
+            graph[v].append((u, log2(1/p)))
+            
+        pq = [(0, start)]  #distance, node
+        dist = {start:0}
+        visited = set()
+        
+        while pq:
+            distance, node = heapq.heappop(pq)
+            if node in visited: continue
+            visited.add(node)
+            for v, w in graph[node]:
+                if distance + w < dist.get(v, float(inf)):
+                    heapq.heappush(pq, (distance + w, v))
+                    dist[v] = distance + w
+                
+        return 0 if end not in dist else 1 / (2 ** dist[end])
+        
+
+## 1976. Number of Ways to Arrive at Destination
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        graph = defaultdict(list)
+        for (u, v, w) in roads:
+            graph[u].append((v, w))
+            graph[v].append((u, w))
+            
+        pq = [(0, 0)]  #distance, node
+        dist = {0:0}
+        cnt = defaultdict(int)
+        cnt[0] = 1
+        visited = set()
+        
+        while pq:
+            distance, node = heapq.heappop(pq)
+            if node == n-1: 
+                return cnt[node] % (10**9 + 7)
+            if node in visited: continue
+            visited.add(node)
+            for v, w in graph[node]:
+                new_distance = dist.get(v, float(inf))
+                if (distance + w) == new_distance :
+                    cnt[v] += cnt[node]
+                elif (distance + w) < new_distance:
+                    heapq.heappush(pq, (distance + w, v))
+                    dist[v] = distance + w
+                    cnt[v] = cnt[node]
+
+
+
+### Minimum Spanning Tree
+
+                
