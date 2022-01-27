@@ -1236,6 +1236,66 @@ class Solution:
                     break
         return colors
 
+### Other DFS
+
+## 332. Reconstruct Itinerary
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+       
+        def dfs(airport): #postorder
+            while tree_graph[airport]:
+                candidate = tree_graph[airport].pop()
+                dfs(candidate)
+            route.append(airport)
+        
+        
+        route = []
+        tree_graph = defaultdict(list)
+        for i,j in tickets:
+            tree_graph[i].append(j)
+        
+        for k in tree_graph: 
+            tree_graph[k] = sorted(tree_graph[k], reverse = True)
+            
+        dfs("JFK")
+        
+        return route[::-1]
+
+
+## 1192. Critical Connections in a Network 
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        '''
+        DFS through the graph and marked the order (i.e. rank or timestamp) it is in this DFS process.      
+        Bascially this records how far this vertex away from the first vertex since you started your DFS.
+        
+        While going along this DFS, you also need to mark the lowest order (or rank) of the node that can
+        reach this node (except from its previous node). If there is any other connection to this node other 
+        than its previous node (the one that help you enter DFS of this level), then you know you have more  
+        than 1 connection to this vertex, then it is NOT a critical connection.
+        '''
+        def dfs(rank, curr, prev):
+            lowest[curr] = rank
+            for neighbor in edges[curr]:
+                if neighbor == prev: continue
+                if not lowest[neighbor]:  #0, not visited
+                    dfs(rank + 1, neighbor, curr)
+                    
+                lowest[curr] = min(lowest[curr], lowest[neighbor])
+                if lowest[neighbor] == rank + 1: #important one
+                    result.append([curr, neighbor])
+            
+
+        lowest, edges = [0] * n, defaultdict(list)
+        for u, v in connections:
+            edges[u].append(v)
+            edges[v].append(u)
+        
+        result = []
+        dfs(1, 0, -1)
+        
+        return result
+
 
 
 ### BFS Grid
@@ -2190,4 +2250,197 @@ class Solution:
 
 ### Minimum Spanning Tree
 
+## 1135. Connecting Cities With Minimum Cost  
+class Solution: #Prim's Algorithm
+    def minimumCost(self, n: int, connections: List[List[int]]) -> int:
+        
+        '''
+        Prim's Algorithm:
+        1) Initialize a tree with a single vertex, chosen
+        arbitrarily from the graph.
+        2) Grow the tree by one edge: of the edges that
+        connect the tree to vertices not yet in the tree,
+        find the minimum-weight edge, and transfer it to the tree.
+        3) Repeat step 2 (until all vertices are in the tree).
+        '''
+        
+        graph = defaultdict(list)
+        for (u, v, w) in connections:
+            graph[u].append((v, w))
+            graph[v].append((u, w))
+            
+        pq = [(0, 1)]
+        visited = set()
+        total = 0
+        
+        while pq and len(visited) < n: 
+            # cost is always least cost connection in queue.
+            cost, node = heapq.heappop(pq)
+            if node in visited: continue
+            visited.add(node)
+            total += cost 
+            for v, w in graph[node]:
+                if v not in visited:
+                    heapq.heappush(pq, (w, v))
                 
+        return total if len(visited) == n else -1
+                      
+
+class Solution: #Kruskal's Algorithm
+    def minimumCost(self, n: int, connections: List[List[int]]) -> int:
+        
+        '''
+        Kruskal's Algorithm:
+        1). Sort all the edges in non-decreasing order of their weight. 
+        2). Pick the smallest edge. Check if it forms a cycle with the spanning 
+            tree formed so far. If cycle is not formed, include this edge. Else, discard it. 
+        3). Repeat step#2 until there are (V-1) edges in the spanning tree.
+
+        '''
+
+        def find(v):
+            if v not in p:
+                p[v] = v
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            root1, root2 = find(u), find(v)
+            if root1 == root2:
+                return False
+            p[root2] = root1
+            return True
+            
+        p = {}
+        # Sort connections so we are always picking minimum cost edge.
+        connections.sort(key=lambda x: x[2])
+        
+        total = 0
+        for u, v, cost in connections:   
+            if union(u, v):  # not cycle add this edge
+                total += cost
+        # Check that all cities are connected.
+        root = find(n)
+        return total if all(root == find(city) for city in range(1, n+1)) else -1
+
+
+## 1584. Min Cost to Connect All Points
+class Solution: #Prim's Algorithm
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        manhattan = lambda p1, p2: abs(p1[0]-p2[0]) + abs(p1[1]-p2[1])
+        n, graph = len(points), collections.defaultdict(list)
+        for i in range(n):
+            for j in range(i+1, n):
+                d = manhattan(points[i], points[j])
+                graph[i].append((j, d))
+                graph[j].append((i, d))
+        
+        
+            
+        pq = [(0, 0)]
+        visited = set()
+        total = 0
+        
+        while pq and len(visited) < n: 
+            # cost is always least cost connection in queue.
+            cost, node = heapq.heappop(pq)
+            if node in visited: continue
+            visited.add(node)
+            total += cost 
+            for v, w in graph[node]:
+                if v not in visited:
+                    heapq.heappush(pq, (w, v))
+                
+        return total 
+
+class Solution: #Kruskal's Algorithm
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        def find(v):
+            if v not in p:
+                p[v] = v
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+        
+        def union(u, v):
+            root1, root2 = find(u), find(v)
+            if root1 == root2:
+                return False
+            p[root2] = root1
+            return True
+            
+        manhattan = lambda p1, p2: abs(p1[0]-p2[0]) + abs(p1[1]-p2[1])
+        n, connections = len(points), []
+        for i in range(n):
+            for j in range(i+1, n):
+                d = manhattan(points[i], points[j])
+                connections.append([i, j, d])
+                
+                
+        p = {}
+        connections.sort(key=lambda x: x[2])
+        total = 0
+        for u, v, cost in connections:   
+            if union(u, v):  # not cycle add this edge
+                total += cost
+        
+        return total 
+
+
+### In and Out degree
+
+## 997. Find the Town Judge
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        if len(trust) < n-1:
+            return -1
+        
+        indegree = [0] * n
+        
+        outdegree = [0] * n
+        
+        for a, b in trust:  #1-index
+            outdegree[a-1] +=1
+            indegree[b-1] +=1
+            
+        for i in range(n):
+            if indegree[i] == n-1 and outdegree[i] == 0:
+                return i+1
+        return -1
+
+
+
+### Clone Graph
+
+## 133. Clone Graph
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+class Solution:
+    def __init__(self):
+        self.visited = {}
+        
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        
+        if not node:
+            return node
+        
+        if node in self.visited:
+            return self.visited[node]
+        
+        clone_node = Node(node.val, [])
+        
+        self.visited[node] = clone_node
+        
+        if node.neighbors:
+            clone_node.neighbors = [self.cloneGraph(vertex) for vertex in node.neighbors]
+            
+            
+        return clone_node
+        

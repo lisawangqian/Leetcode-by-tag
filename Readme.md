@@ -224,6 +224,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 417. Pacific Atlantic Water Flow<br />
 947. Most Stones Removed with Same Row or Column<br />
 547. Number of Provinces(Friend Circles)<br />
+329. Longest Increasing Path in a Matrix<br />
 
 *Union Find*<br />
 839. Similar String Groups<br />
@@ -250,7 +251,12 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 886. Possible Bipartition<br />
 1042. Flower Planting With No Adjacent<br />
 
-*BFS Grid:*<br />
+*Other DFS Special Algorithm*<br />
+332. Reconstruct Itinerary<br />
+1192. Critical Connections in a Network<br />
+
+*BFS/BFS Grid:*<br />
+582. Kill Process<br />
 542. 01 Matrix<br />
 1926. Nearest Exit from Entrance in Maze<br />
 490. The Maze<br />
@@ -284,6 +290,22 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1368. Minimum Cost to Make at Least One Valid Path in a Grid<br />
 1514. Path with Maximum Probability<br />
 1976. Number of Ways to Arrive at Destination<br />
+
+*Minimum Spanning Tree:*<br />
+1135. Connecting Cities With Minimum Cost<br />
+1584. Min Cost to Connect All Points<br />
+
+*In/Outdegree:*<br />
+997. Find the Town Judge<br />
+
+*Clone:*<br />
+133. Clone Graph<br />
+
+*DFS/BFS*<br />
+339. Nested List Weight Sum<br />
+364. Nested List Weight Sum II<br />
+1631. Path With Minimum Effort<br />
+1102. Path With Maximum Minimum Value<br />
 
 
 
