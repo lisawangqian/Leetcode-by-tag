@@ -129,6 +129,29 @@ class Solution:
 
         return ans
 
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        counter = collections.Counter(nums)
+        n = len(nums)
+        nums = list(counter.keys())
+        ans = []
+        def dfs(comb, start):
+            if len(comb) <= n:
+                ans.append(list(comb))
+                
+            for i in range(start, len(counter)):
+                val = nums[i]
+                cnt = counter[val]
+                if cnt <=0: continue
+                comb.append(val)
+                counter[val]= cnt-1
+                dfs(comb, i)
+                comb.pop()
+                counter[val]= cnt
+                
+        dfs([], 0)
+
+        return ans
 
 ## 254. Factor Combinations
 class Solution:
@@ -512,14 +535,14 @@ class Solution:
         
         def dfs(comb, start):
             nonlocal result
-            if result:
+            if result:  #return any valid n-bit gray code sequence
                 return
             if len(comb) == length:
                 result = list(comb)
                 return
             
             for i in range(n):
-                shift = start ^ (1<<i) #get shift bit value in position i
+                shift = start ^ (1<<i) #get shift 0/1 value in position i(from right to left)
                 if shift in seen: continue
                 seen.add(shift)
                 comb.append(shift)
@@ -655,8 +678,7 @@ class Solution:
                     if p not in ptable and word not in stable:
                         ptable[p], stable[word], added = word, p, True
                     
-                    if dfs(start_p+1, i+1, ptable, stable):
-                        return True
+                    if dfs(start_p+1, i+1, ptable, stable): return True #to escape final False if find True
                     if added:
                         del ptable[p]
                         del stable[word]
@@ -674,22 +696,23 @@ class Solution:
         else:
             targetSum = targetSum//k
         
-        nums = sorted(nums)
+        nums = sorted(nums) #work with for loop break to speed up
         used = [0 for i in range(0, len(nums))]
         
         def dfs(cur_sum, start, remaining_k):
-            if remaining_k == 1:
+            if remaining_k == 1: #find all partitions
                 return True
             
-            if cur_sum == targetSum:
+            if cur_sum == targetSum: #reach one partition
                 return dfs(0, 0, remaining_k - 1)
             
             for i in range(start, len(nums)):
                 if used[i]: continue
+                if (i > 0 and nums[i] == nums[i - 1] and not used[i - 1]): continue #permutation duplicate
                 if cur_sum + nums[i] > targetSum: break  
                 cur_sum = cur_sum + nums[i]
                 used[i] = 1
-                if dfs(cur_sum, i + 1, remaining_k): return True
+                if dfs(cur_sum, i + 1, remaining_k): return True #to escape final False if find True
                 cur_sum = cur_sum - nums[i] #restate
                 used[i] = 0  #restate
             
@@ -725,24 +748,28 @@ class Solution:
 ## 301. Remove Invalid Parentheses
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
-        
-        l, r = 0, 0
-        for char in s:  #total invalid r and l to remove
-            l += (char == '(')
-            if (l == 0):
-                r += (char == ')')
-            else:
-                l -= (char == ')')
-        result = []
-        
         def isvalid(s):
             count = 0
-            for char in s:
-                if char == '(': count += 1
-                if char == ')': count -= 1
-                if count < 0: return False
-            
+            for c in s:
+                if c == "(":
+                    count+=1
+                elif c == ")":
+                    count-=1
+                if count < 0:
+                    return False
+                
             return count == 0
+                
+        
+        l, r = 0, 0
+        for c in s:
+            l += (c == '(')
+            if l == 0:
+                r += (c == ')')
+            else:
+                l -= (c == ')')
+        result = []
+        
         
         def dfs(comb, start, left, right):
             curr_str = ''.join(comb)
@@ -751,16 +778,14 @@ class Solution:
                 return
             
             for i in range(start, len(s)):
-                if s[i] != '(' and  s[i] != ')':
-                    continue
-                if i != start and s[i] == s[i-1]: 
-                    continue
+                if s[i] != '(' and s[i] != ')': continue
+                if i!= start and s[i] == s[i-1]: continue
                     
-                if (r > 0 and s[i] == ')'):
+                if right > 0 and s[i] == ')':
                     comb[i] = ''
                     dfs(comb, i+1, left, right - 1)
                     comb[i] = s[i]
-                elif (l > 0 and s[i] == '('):
+                elif left > 0 and s[i] == '(':
                     comb[i] = ''
                     dfs(comb, i+1, left-1, right)
                     comb[i] = s[i]
@@ -768,6 +793,8 @@ class Solution:
         dfs(list(s), 0, l, r)
         
         return result
+    
+  
 
 
 ### DFS2 fill matrix backtracking
@@ -783,113 +810,121 @@ class Solution:
         cols_fill = [[0 for i in range(N)] for i in range(N)]
         boxes_fill = [[0 for i in range(N)] for i in range(N)]
         
-        for y in range(N):
-            for x in range(N):
-                c = board[y][x]               
+        for i in range(N):
+            for j in range(N):
+                c = board[i][j]               
                 if c != '.':
                     n = int(c)                   
-                    bx = x // 3
-                    by = y // 3
-                    rows_fill[y][n-1] = 1 #row i
-                    cols_fill[x][n-1] = 1 #column j
-                    boxes_fill[by * 3 + bx][n-1] = 1  
+                    bi = i // 3
+                    bj = j // 3
+                    box_key = bi * 3 + bj
+                    rows_fill[i][n-1] = 1 #row i with num n
+                    cols_fill[j][n-1] = 1 #column j with num n
+                    boxes_fill[box_key][n-1] = 1  #box [i,j] with num n top down then left right
                             
-        def dfs(y, x):
-            if (y == 9): return True
+        def dfs(i, j):
+            if (i == 9): return True  #reach the end of fill (8, 8)
         
-            nx = (x + 1) % 9  #pointer to next column
-            ny = y + 1 if nx == 0 else y #start a new if one row reach end
+            #pointer to the next cell regards of (i, j)
+            nj = (j + 1) % 9  #pointer to next column
+            ni = i + 1 if nj == 0 else i #start a new if one row reach end
         
-            if board[y][x] != '.': return dfs(ny, nx)  #if no fill need, check if solution found
+            if board[i][j] != '.': 
+                return dfs(ni, nj)  #if no fill need, check if solution found
         
-            for i in range(1, 10):
+            for n in range(1, 10):
                 
-                by = y // 3
-                bx = x // 3
-                box_key = by * 3 + bx
-                if rows_fill[y][i-1] or cols_fill[x][i-1] or boxes_fill[box_key][i-1]: continue
-                rows_fill[y][i-1] = 1
-                cols_fill[x][i-1] = 1
-                boxes_fill[box_key][i-1] = 1
-                board[y][x] = str(i)
-                if dfs(ny, nx): return True  #check if solution found
-                board[y][x] = '.'
-                boxes_fill[box_key][i-1] = 0
-                cols_fill[x][i-1] = 0
-                rows_fill[y][i-1] = 0
+                bi = i // 3
+                bj = j // 3
+                box_key = bi * 3 + bj
+                
+                if rows_fill[i][n-1] or cols_fill[j][n-1] or boxes_fill[box_key][n-1]: continue
+                    
+                board[i][j] = str(n)
+                rows_fill[i][n-1] = 1
+                cols_fill[j][n-1] = 1
+                boxes_fill[box_key][n-1] = 1
+                
+                if dfs(ni, nj): return True  #check if solution found
+                
+                board[i][j] = '.' #backtrack
+                rows_fill[i][n-1] = 0 #backtrack
+                cols_fill[j][n-1] = 0 #backtrack
+                boxes_fill[box_key][n-1] = 0 #backtrack
             
             return False
   
         dfs(0, 0)
-
+        
 
 ### 51. N-Queens
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         result = []
-        board = [['.' for i in range(n)] for i in range(n)]
-        cols = [0 for i in range(n)]
-        diag1 = [0 for i in range(2 * n - 1)]
-        diag2 = [0 for i in range(2 * n - 1)]
+        board = [['.' for _ in range(n)] for _ in range(n)]
+        cols = [0 for _ in range(n)]
+        diag1 = [0 for _ in range(2 * n - 1)]  
+        diag2 = [0 for _ in range(2 * n - 1)]
         
-        def available(y, x):
-            return not cols[x] and not diag1[x + y] and not diag2[x - y + n - 1]
+        def available(i, j):
+            return not cols[j] and not diag1[i + j] and not diag2[j - i + n - 1]
                  
-        def updateBoard(y, x, is_put):
-            cols[x] = is_put
-            diag1[x + y] = is_put
-            diag2[x - y + n - 1] = is_put
-            board[y][x] = 'Q' if is_put else '.'
+        def updateBoard(i, j, is_put):
+            cols[j] = is_put
+            diag1[i + j] = is_put
+            diag2[j - i + n - 1] = is_put
+            board[i][j] = 'Q' if is_put else '.'
                  
-        def dfs(y):       
-            if y == n:
+        def dfs(i):       
+            if i == n:
                 result.append([''.join(row) for row in board])
                 return
                  
-            for x in range(0, n):
-                if not available(y, x): continue
-                updateBoard(y, x, True)
-                dfs(y + 1)
-                updateBoard(y, x, False) #backtrack
+            for j in range(0, n):
+                if not available(i, j): continue
+                updateBoard(i, j, 1)
+                dfs(i + 1)
+                updateBoard(i, j, 0) #backtrack
                  
         dfs(0)
                  
         return result
                  
                  
+                 
  ## 52. N-Queens II
- # class Solution:
+class Solution:
     def totalNQueens(self, n: int) -> int:
         cnt = 0
-        board = [['.' for i in range(n)] for i in range(n)]
-        cols = [0 for i in range(n)]
-        diag1 = [0 for i in range(2 * n - 1)]
-        diag2 = [0 for i in range(2 * n - 1)]
         
-        def available(y, x):
-            return not cols[x] and not diag1[x + y] and not diag2[x - y + n - 1]
+        board = [['.' for _ in range(n)] for _ in range(n)]
+        cols = [0 for _ in range(n)]
+        diag1 = [0 for _ in range(2 * n - 1)]  
+        diag2 = [0 for _ in range(2 * n - 1)]
+        
+        def available(i, j):  #col and diag1 and diag2 are all 0 (not filled)
+            return not cols[j] and not diag1[i + j] and not diag2[j - i + n - 1]
                  
-        def updateBoard(y, x, is_put):
-            cols[x] = is_put
-            diag1[x + y] = is_put
-            diag2[x - y + n - 1] = is_put
-            board[y][x] = 'Q' if is_put else '.'
+        def updateBoard(i, j, is_put):
+            cols[j] = is_put
+            diag1[i + j] = is_put
+            diag2[j - i + n - 1] = is_put
+            board[i][j] = 'Q' if is_put else '.'
                  
-        def dfs(y):   
+        def dfs(i):   
             nonlocal cnt
-            if y == n:
+            if i == n: #reach 
                 cnt+=1
                 return
                  
-            for x in range(0, n):
-                if not available(y, x): continue
-                updateBoard(y, x, True)
-                dfs(y + 1)
-                updateBoard(y, x, False) #backtrack
+            for j in range(0, n):
+                if not available(i, j): continue
+                updateBoard(i, j, 1)
+                dfs(i + 1)
+                updateBoard(i, j, 0) #backtrack
                  
         dfs(0)
-                 
-        return cnt       
+        return cnt     
    
 
 
@@ -904,59 +939,58 @@ class Solution:
         :type word: str
         :rtype: bool
         """
-        ROWS = len(board)
-        COLS = len(board[0])
+        m = len(board)
+        n = len(board[0])
         
-        def dfs(start, y, x):
+        def dfs(start, i, j):
             if start == len(word):
                 return True
             
-            if y < 0 or y == ROWS or x < 0 or x == COLS or board[y][x] != word[start]:
+            if i < 0 or j < 0 or i >= m or j >= n or board[i][j] != word[start]:
                 return False
 
-            curr = board[y][x]
-            board[y][x] = '#'
-            found = dfs(start + 1, y + 1, x) or dfs(start + 1, y - 1, x) or dfs(start + 1, y, x + 1) or dfs(start + 1, y, x - 1)
-            board[y][x] = curr #backtracking
+            curr = board[i][j]
+            board[i][j] = '.'
+            found = dfs(start + 1, i + 1, j) or dfs(start + 1, i - 1, j) or dfs(start + 1, i, j + 1) or dfs(start + 1, i, j - 1)
+            board[i][j] = curr #backtracking
             
             return found
         
         
-        return any([dfs(0, y, x) for y in range(ROWS) for x in range(COLS)])
+        return any([dfs(0, i, j) for i in range(m) for j in range(n)])
 
 
-## 212. Word Search II
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         
-        ROWS = len(board)
-        COLS = len(board[0])
+        m = len(board)
+        n = len(board[0])
         
         def exist(word):
-            return any([dfs(0, y, x, word) for y in range(ROWS) for x in range(COLS)])
+            return any([dfs(0, i, j, word) for i in range(m) for j in range(n)])
         
-        def dfs(start, y, x, word):
+        def dfs(start, i, j, word):
             if start == len(word):
                 return True
             
-            if y < 0 or y == ROWS or x < 0 or x == COLS or board[y][x] != word[start]:
+            if i < 0 or j < 0 or i >= m or j >= n or board[i][j] != word[start]:
                 return False
 
-            curr = board[y][x]
-            board[y][x] = '#'
-            found = dfs(start + 1, y + 1, x, word) or dfs(start + 1, y - 1, x, word) or dfs(start + 1, y, x + 1, word) or dfs(start + 1, y, x - 1, word)
-            board[y][x] = curr #backtracking
+            curr = board[i][j]
+            board[i][j] = '.'
+            found = dfs(start + 1, i + 1, j, word) or dfs(start + 1, i - 1, j, word) or dfs(start + 1, i, j + 1, word) or dfs(start + 1, i, j - 1, word)
+            board[i][j] = curr #backtracking
             
             return found
         
         
         
-        letters = [board[i][j] for i in range(ROWS) for j in range(COLS)]
+        letters = [board[i][j] for i in range(m) for j in range(n)]
         letters = collections.Counter(letters)
         new_words = []           
                    
         for word_ori in words:
-            if len(word_ori) > ROWS * COLS: continue
+            if len(word_ori) > m * n: continue
             word = collections.Counter(word_ori)
             skip = False
             for each, v in word.items():
@@ -977,7 +1011,6 @@ class Solution:
         return result
         
 
-
 ### DFS4 search
 
 ## 241. Different Ways to Add Parentheses
@@ -996,10 +1029,9 @@ class Solution:
                     for l1 in l:
                         for r1 in r:
                             ans += [ops[s[i]](l1, r1)]
-                    #more advanced way
-                    #ans += [ops[s[i]](l, r) for l, r in itertools.product(dfs(s[0:i]), dfs(s[i+1:]))]
-            if not ans: 
-                ans.append(int(s))
+            
+            if not ans: #only digits
+                return [int(s)]
               
             return ans
         
@@ -1012,22 +1044,22 @@ class Solution:
         INT_MAX = 2**31 - 1
         result = []
         def dfs(expr, start, prev, curr):
-            if start == len(num):
+            if start == len(num): #reach
                 if curr == target:
                     result.append(expr)
                     return
                 
             for i in range(1, len(num) - start + 1):
                 t = num[start: start+i]
-                if t[0] == '0' and i>1: break
+                if t[0] == '0' and len(t) >=2: break #no leading zero
                 n = int(t)
                 if n > INT_MAX: break
-                if start == 0:
-                    dfs(t, i, n, n)
+                if start == 0: #the first element
+                    dfs(t, start + i, n, n)
                     continue
                 dfs(expr + '+' + t, start + i, n, curr + n)
                 dfs(expr + '-' +  t, start + i, -n, curr - n)
-                dfs(expr + '*'+ t, start + i, prev * n, curr - prev + prev * n)
+                dfs(expr + '*'+ t, start + i, prev * n, curr - prev + prev * n) #reorder the priority in *
                 
         dfs("", 0, 0, 0)
         return result

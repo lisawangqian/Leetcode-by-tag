@@ -151,6 +151,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 784. Letter Case Permutation<br />
 797. All Paths From Source to Target<br />
 967. Numbers With Same Consecutive Differences<br />
+494. Target Sum (DP not backtracking)<br />
 377. Combination Sum IV (DP not backtracking)<br />
 
 *Permutation With Duplicates:*<br /> 
@@ -162,7 +163,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 47. Permutations II<br />
 996. Number of Squareful Arrays<br />
 
-*Combination/Permutation:*<br />
+*Combination/Permutation with BIT:*<br />
 89. Gray Code<br />
 
 *Partition:*<br />
@@ -278,7 +279,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 847. Shortest Path Visiting All Nodes<br />
 864. Shortest Path to Get All Keys<br />
 
-*BFS ws DFS Grid:*<br />
+*BFS and DFS Grid:*<br />
 1263. Minimum Moves to Move a Box to Their Target Location<br />
 934. Shortest Bridge<br />
 
@@ -301,7 +302,7 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 *Clone:*<br />
 133. Clone Graph<br />
 
-*DFS/BFS*<br />
+*DFS or BFS:*<br />
 339. Nested List Weight Sum<br />
 364. Nested List Weight Sum II<br />
 1631. Path With Minimum Effort<br />
