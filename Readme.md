@@ -233,12 +233,12 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 990. Satisfiability of Equality Equations<br />
 721. Accounts Merge<br />
 737. Sentence Similarity II<br />
-959. Regions Cut By Slashes<br />
-399. Evaluate Division<br />
 128. Longest Consecutive Sequence<br />
+959. Regions Cut By Slashes<br />
+1559. Detect Cycles in 2D Grid<br />
 684. Redundant Connection<br />
 685. Redundant Connection II<br />
-1559. Detect Cycles in 2D Grid<br />
+399. Evaluate Division<br />
 
 *Topological Sort*<br />
 207. Course Schedule<br />
