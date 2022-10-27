@@ -2,12 +2,14 @@
 ## Good Resources: 
 
 https://zxi.mytechroad.com/blog/leetcode-problem-categories<br />
+https://neetcode.io/practice<br />
 https://www.youtube.com/c/HuaHuaLeetCode<br />
 https://www.youtube.com/c/BackToBackSWE<br />
 https://www.youtube.com/channel/UCE35PnPX7EZi8nHSegjMn6Q<br />
 https://github.com/resumejob/Leetcode-retag<br />
 https://www.1point3acres.com/bbs/thread-678970-1-1.html<br />
 https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
+
 
 
 
@@ -520,141 +522,120 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 911. Online Election<br />
 
 
-### 9. Two Pointer/Sliding Window
+### 9. Two Pointer
 
 *Easy:*<br />
-349. Intersection of Two Arrays<br />
-88. Merge Sorted Array<br />
 283. Move Zeroes<br />
 125. Valid Palindrome<br />
-344. Reverse String<br />
-27. Remove Element<br />
-977. Squares of a Sorted Array<br />
 680. Valid Palindrome II<br />
-696. Count Binary Substrings<br />
-167. Two Sum II - Input Array Is Sorted<br />
-408. Valid Word Abbreviation<br />
-844. Backspace String Compare<br />
-392. Is Subsequence<br />
 345. Reverse Vowels of a String<br />
-1099. Two Sum Less Than K<br />
 246. Strobogrammatic Number<br />
-28. Implement strStr()<br />
-387. First Unique Character in a String<br />
-219. Contains Duplicate II<br />
-643. Maximum Average Subarray I<br />
+27. Remove Element<br />
+392. Is Subsequence<br />
+408. Valid Word Abbreviation<br />
+88. Merge Sorted Array<br />
+344. Reverse String<br />
+977. Squares of a Sorted Array<br />
+
 
 *Medium:*<br />
 15. 3Sum<br />
 16. 3Sum Closest<br />
 259. 3Sum Smaller<br />
 18. 4Sum<br />
-454. 4Sum II<br />
-560. Subarray Sum Equals K<br />
 11. Container With Most Water<br />
-31. Next Permutation<br />
-75. Sort Colors<br />
-809. Expressive Words<br />
-443. String Compression<br />
-1570. Dot Product of Two Sparse Vectors<br />
-151. Reverse Words in a String<br />
 532. K-diff Pairs in an Array<br />
-556. Next Greater Element III<br />
-1861. Rotating the Box<br />
-723. Candy Crush<br />
 277. Find the Celebrity<br />
-611. Valid Triangle Number<br />
 165. Compare Version Numbers<br />
-1963. Minimum Number of Swaps to Make the String Balanced<br />
-986. Interval List Intersections<br />
-763. Partition Labels<br />
 1229. Meeting Scheduler<br />
-777. Swap Adjacent in LR String<br />
-1877. Minimize Maximum Pair Sum in Array<br />
-161. One Edit Distance<br />
+986. Interval List Intersections<br />
+277. Find the Celebrity<br />
+165. Compare Version Numbers<br />
+1229. Meeting Scheduler<br />
+986. Interval List Intersections<br />
+27. Remove Element<br />
+392. Is Subsequence<br />
+408. Valid Word Abbreviation<br />
+75. Sort Colors<br />
+88. Merge Sorted Array<br />
+344. Reverse String<br />
+977. Squares of a Sorted Array<br />
+31. Next Permutation<br />
 1658. Minimum Operations to Reduce X to Zero<br />
 849. Maximize Distance to Closest Person<br />
-713. Subarray Product Less Than K<br />
+
+
+### 10. Sliding Window
+
+*Easy:*<br />
+643. Maximum Average Subarray I<br />
+
+
+*Medium:*<br />
+438. Find All Anagrams in a String<br />
 567. Permutation in String<br />
-1423. Maximum Points You Can Obtain from Cards<br />
-209. Minimum Size Subarray Sum<br />
 3. Longest Substring Without Repeating Characters<br />
 424. Longest Repeating Character Replacement<br />
-340. Longest Substring with At Most K Distinct Characters<br />
 159. Longest Substring with At Most Two Distinct Characters<br />
-438. Find All Anagrams in a String<br />
-220. Contains Duplicate III<br />
+340. Longest Substring with At Most K Distinct Characters<br />
+1423. Maximum Points You Can Obtain from Cards<br />
+1838. Frequency of the Most Frequent Element<br />
+713. Subarray Product Less Than K<br />
 487. Max Consecutive Ones II<br />
 1004. Max Consecutive Ones III<br />
-1838. Frequency of the Most Frequent Element<br />
-1248. Count Number of Nice Subarrays<br />
-395. Longest Substring with At Least K Repeating Characters<br />
 904. Fruit Into Baskets<br />
-1151. Minimum Swaps to Group All 1's Together<br />
-1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit<br />
 1477. Find Two Non-overlapping Sub-arrays Each With Target Sum<br />
+1151. Minimum Swaps to Group All 1's Together<br />
 1888. Minimum Number of Flips to Make the Binary String Alternating<br />
+1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit<br />
 
 
-### 10. Dynamic Programming
+
+### 11. Dynamic Programming
 
 *Easy:*<br />
 121. Best Time to Buy and Sell Stock<br />
 70. Climbing Stairs<br />
-53. Maximum Subarray<br />
-746. Min Cost Climbing Stairs<br />
-509. Fibonacci Number<br />
-118. Pascal's Triangle<br />
-119. Pascal's Triangle II<br />
-392. Is Subsequence<br />
-338. Counting Bits<br />
-1025. Divisor Game<br />
+
 
 *Medium:*<br />
-337. House Robber III<br />
 322. Coin Change<br />
-300. Longest Increasing Subsequence<br />
-139. Word Break<br />
-152. Maximum Product Subarray<br />
-309. Best Time to Buy and Sell Stock with Cooldown<br />
-264. Ugly Number II<br />
-279. Perfect Squares<br />
 5. Longest Palindromic Substring<br />
-1143. Longest Common Subsequence<br />
-131. Palindrome Partitioning<br />
 62. Unique Paths<br />
-64. Minimum Path Sum<br />
-221. Maximal Square<br />
 416. Partition Equal Subset Sum<br />
-718. Maximum Length of Repeated Subarray<br />
-494. Target Sum<br />
-91. Decode Ways<br />
-55. Jump Game<br />
-740. Delete and Earn<br />
-1048. Longest String Chain<br />
-926. Flip String to Monotone Increasing<br />
-241. Different Ways to Add Parentheses<br />
-935. Knight Dialer<br />
-518. Coin Change 2<br />
-1277. Count Square Submatrices with All Ones<br />
-198. House Robber<br />
-678. Valid Parenthesis String<br />
-122. Best Time to Buy and Sell Stock II<br />
-983. Minimum Cost For Tickets<br />
-63. Unique Paths II<br />
-647. Palindromic Substrings<br />
-1043. Partition Array for Maximum Sum<br />
-1395. Count Number of Teams<br />
-516. Longest Palindromic Subsequence<br />
-1027. Longest Arithmetic Subsequence<br />
-877. Stone Game<br />
-542. 01 Matrix<br />
-1884. Egg Drop With 2 Eggs and N Floors<br />
-486. Predict the Winner<br />
-894. All Possible Full Binary Trees<br />
 
 
-### 11. Greedy
+
+
+
+## Special Technique: 
+
+### 12. Bit
+
+*Easy:*<br />
+67. Add Binary<br />
+191. Number of 1 Bits<br />
+461. Hamming Distance<br />
+190. Reverse Bits<br />
+231. Power of Two<br />
+389. Find the Difference<br />
+268. Missing Number<br />
+405. Convert a Number to Hexadecimal<br />
+136. Single Number<br />
+338. Counting Bits<br />
+696. Count Binary Substrings<br />
+
+
+*Medium:*<br />
+371. Sum of Two Integers<br />
+477. Total Hamming Distance<br />
+137. Single Number II<br />
+260. Single Number III<br />
+1318. Minimum Flips to Make a OR b Equal to c<br />
+201. Bitwise AND of Numbers Range<br />
+421. Maximum XOR of Two Numbers in an Array<br />
+
+### 13. Greedy
 
 *Easy:*<br />
 1710. Maximum Units on a Truck<br />
@@ -663,12 +644,12 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 1013. Partition Array Into Three Parts With Equal Sum<br />
 
 *Medium:*<br />
+621. Task Scheduler<br />
 334. Increasing Triplet Subsequence<br />
 134. Gas Station<br />
 45. Jump Game II<br />
 55. Jump Game<br />
 1647. Minimum Deletions to Make Character Frequencies Unique<br />
-621. Task Scheduler<br />
 1465. Maximum Area of a Piece of Cake After Horizontal and Vertical Cuts<br />
 678. Valid Parenthesis String<br />
 1509. Minimum Difference Between Largest and Smallest Value in Three Moves<br />
@@ -687,47 +668,17 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 714. Best Time to Buy and Sell Stock with Transaction Fee<br />
 1864. Minimum Number of Swaps to Make the Binary String Alternating<br />
 406. Queue Reconstruction by Height<br />
+763. Partition Labels<br />
 
 
 
-## Math Technique: 
-
-### 12. Bit
-
-*Easy:*<br />
-136. Single Number<br />
-191. Number of 1 Bits<br />
-190. Reverse Bits<br />
-231. Power of Two<br />
-389. Find the Difference<br />
-461. Hamming Distance<br />
-405. Convert a Number to Hexadecimal<br />
-268. Missing Number<br />
-67. Add Binary<br />
-338. Counting Bits<br />
-
-*Medium:*<br />
-1318. Minimum Flips to Make a OR b Equal to c<br />
-260. Single Number III<br />
-371. Sum of Two Integers<br />
-137. Single Number II<br />
-421. Maximum XOR of Two Numbers in an Array<br />
-201. Bitwise AND of Numbers Range<br />
-477. Total Hamming Distance<br />
-78. Subsets<br />
-89. Gray Code<br />
-
-
-### 13. Matrix
+### 14. Matrix
 
 *Easy:*<br />
-867. Transpose Matrix<br />
 832. Flipping an Image<br />
-1572. Matrix Diagonal Sum<br />
 1275. Find Winner on a Tic Tac Toe Game<br />
-1351. Count Negative Numbers in a Sorted Matrix<br />
 766. Toeplitz Matrix<br />
-661. Image Smoother<br />
+
 
 *Medium:*<br />
 54. Spiral Matrix<br />
@@ -739,43 +690,29 @@ https://www.1point3acres.com/bbs/thread-753046-1-1.html<br />
 498. Diagonal Traverse<br />
 348. Design Tic-Tac-Toe<br />
 353. Design Snake Game<br />
-1329. Sort the Matrix Diagonally<br />
-1895. Largest Magic Square<br />
+419. Battleships in a Board<br />
 
 
-### 14. Math
 
-*Easy:*<br />
-628. Maximum Product of Three Numbers<br />
-76. Largest Perimeter Triangle<br />
-202. Happy Number<br />
-1232. Check If It Is a Straight Line<br />
-1266. Minimum Time Visiting All Points<br />
-
-*Medium:*<br />
-892. Surface Area of 3D Shapes<br />
-29. Divide Two Integers<br />
-343. Integer Break<br />
-166. Fraction to Recurring Decimal<br />
-204. Count Primes<br />
-401. Circle and Rectangle Overlapping<br />
-963. Minimum Area Rectangle II<br />
-
-
-### 15. Game Theory
+### 15. Hash Table
 
 *Easy:*<br />
-292. Nim Game<br />
+TBD
 
 *Medium:*<br />
-375. Guess Number Higher or Lower II<br />
-464. Can I Win<br />
-877. Stone Game<br />
-486. Predict the Winner<br />
+TBD
+
+
+### 16. Others
+
+*Easy:*<br />
+TBD
+
+*Medium:*<br />
+TBD
 
 
 
-## Other:
 
 
 
